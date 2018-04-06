@@ -39,10 +39,35 @@ Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
 
 - Rollenverteilung für die zwei bevorstehenden Interviews:
 - 4 Leute interviewen am 5. April den Applikationsverantwortlichen der Privatklinik Wyss in Münchenbuchsee (2 Fragesteller + 2 Protokollführer)
-- 3 Leute interviewen am 6. April eine Psychologin der Privatklinik Wyss in Münchenbuchsee (2 Fragensteller + 1 Protokollführer)
-- Aufteilung in zwei Untergruppen zwecks Review der Interview-Fragen
+- 4 Leute interviewen am 6. April eine Psychologin der Privatklinik Wyss in Münchenbuchsee (2 Fragensteller + 1 Protokollführer)
 - Planung der Aktivitäten der kommenden Tage bis hin zur Präsentation
 - Stephan und Andreas melden sich freiwillig für die Durchführung des Referats
+
+Aufteilung in zwei Kleingruppen zwecks Review der Interview-Fragen:
+- Alle Interviewfragen werden durchgegangen (die eine Gruppe beginnt mit bei der ersten Frage die andere bei der letzten)
+- Formulierung, Zielperson und Verständlichkeit werden angepasst
+- Out of Scope Fragen werden ausgeschieden
 - Hausaufgabe für jedes Teammitglied bis am 5. April: Jeder zeichnet zwei Storyboards.
 
+--------------------------------------------------------------------------------
+
+5. April 2018
+Interview mit dem Applikatonsverantwortlichen der Privatklinik Wyss in Münchenbuchsee
+- Interview wird planmässig von der zum voraus bestimmten 4er Gruppe durchgeführt
+- Ton-Aufzeichnung wird zugelassen
+- Interview wird noch am selben Tag von einem Teammitglied transkribiert
+
+--------------------------------------------------------------------------------
+
+6. April 2018
+Interview mit eine Psychologin der Privatklinik Wyss in Münchenbuchsee
+- Interview wird planmässig von der zum voraus bestimmten 4er Gruppe durchgeführt
+- Ton-Aufzeichnung wird zugelassen
+- Interview wird noch am selben Tag von einem Teammitglied transkribiert
+
+Die verbleibenden Teammitglieder treffen sich zur Zeit des Interviews in der BFH, Wankdorf für folgende Aufgaben:
+- Review der Storyboards
+- Anfertigung der Prototypes
+
+Am späteren Nachmittag: Gemeinsames Feierabendbier
 --------------------------------------------------------------------------------
