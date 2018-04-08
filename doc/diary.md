@@ -11,7 +11,7 @@ Diskussion über Abgrenzung «in scope» vs. «out of scope»
 * Task an alle bis 23.3.18: Themenabgrenzung grafisch darstellen
 * Grundlage: Use cases gemäss Google-Drive-Dokument
 
-## Meeting vom 23. März 2018:
+## Meeting vom 23. März 2018
 Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
 
 Die Team-Mitglieder haben im Hinblick auf das Meeting verschiedene Vorschläge ausgearbeitet wie die Abgrenzung des Themenbereichs dargestellt werden könnte. Nach kurzer Diskussion wird die beste Variante auserkoren.
