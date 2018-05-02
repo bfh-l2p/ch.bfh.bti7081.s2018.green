@@ -16,8 +16,3 @@ Die Fertigstellung der einzelnen Kapitel erfolgt am Wochenende vom 14./ 15. Apri
 Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
 
 * Präsentation von Task 2 durch Martin, Andreas, Matthias und Raphael
-
-## Meeting vom 18. April 2018
-Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
-
-* Bewertung des Projekts von Gruppe Blau. Vergabe der Note 8 (auf einer Skala von 1 bis 10)
