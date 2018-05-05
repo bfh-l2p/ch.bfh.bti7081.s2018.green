@@ -1,17 +1,16 @@
 package ch.bfh.bti7081.s2018.green.presenters;
-
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.PageName;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.TherapyView;
 
-public class JournalPresenter implements PmsViewListener {
+public class TherapyPresenter implements PmsViewListener {
 
-	JournalView view;
+	TherapyView view;
 	DataContainer data;
 
-	public JournalPresenter(JournalView view, DataContainer data) {
+	public TherapyPresenter(TherapyView view, DataContainer data) {
 		this.view = view;
 		this.data = data;
 		this.view.addListener(this);
@@ -19,20 +18,22 @@ public class JournalPresenter implements PmsViewListener {
 
 	@Override
 	public void enteredView() {
-
+		
 		// set your data to the view components here
+		
+		// sets the name of the button
+		String patientName = data.getCurrentPatient().getName();
 		
 	}
 
 	@Override
-	public void buttonClick(String input) {
-
+	public void buttonClick(String input) {						
+		
 		 for (PageName p : PageName.values()) {
 		     if(p.getName().equals(input)) {
 		    	 NavigatorUI.navigator.navigateTo(p.getName());
 		     }
 		 }	
-
 	}
 
 	@Override
@@ -40,5 +41,5 @@ public class JournalPresenter implements PmsViewListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 }

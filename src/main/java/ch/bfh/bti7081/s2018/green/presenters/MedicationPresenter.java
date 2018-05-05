@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.NavigatorUI;
+import ch.bfh.bti7081.s2018.green.PageName;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 
@@ -17,15 +19,24 @@ public class MedicationPresenter implements PmsViewListener {
 
 	@Override
 	public void enteredView() {	
-
-		// after all information has been passed to the view: Display view
-		view.setDisplay();
+		
+		// set your data to the view components here
 		
 	}
 		
 	@Override
 	public void buttonClick(String input) {
-		// TODO Auto-generated method stub		
+
+		 for (PageName p : PageName.values()) {
+		     if(p.getName().equals(input)) {
+		    	 NavigatorUI.navigator.navigateTo(p.getName());
+		     }
+		 }	
 	}
-	
+
+	@Override
+	public void selectionChange(String input) {
+		// TODO Auto-generated method stub
+		
+	}	
 }

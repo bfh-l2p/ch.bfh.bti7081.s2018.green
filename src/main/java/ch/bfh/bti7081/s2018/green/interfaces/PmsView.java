@@ -4,6 +4,4 @@ public interface PmsView {
 		
 	public void addListener(PmsViewListener listener);
 	
-	public void setDisplay();
-	
 }

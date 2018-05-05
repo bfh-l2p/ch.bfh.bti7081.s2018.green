@@ -3,8 +3,9 @@ package ch.bfh.bti7081.s2018.green;
 public enum PageName {
 
 	JOURNAL("Journal"),
-	MEDICATION("Medication");
-		
+	MEDICATION("Medication"),
+	DIAGNOSIS("Diagnosis"),
+	THERAPY("Therapy");	
 	
     private final String name;       
 

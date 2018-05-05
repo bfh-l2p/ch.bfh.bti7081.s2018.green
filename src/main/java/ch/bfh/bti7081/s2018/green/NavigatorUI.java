@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green;
 
+
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
@@ -11,11 +12,18 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.PageName;
+import ch.bfh.bti7081.s2018.green.designs.TherapyDesign;
 import ch.bfh.bti7081.s2018.green.models.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.DiagnosisPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.TherapyPresenter;
+import ch.bfh.bti7081.s2018.green.views.DiagnosisView;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.TherapyView;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -30,7 +38,7 @@ import ch.bfh.bti7081.s2018.green.views.MedicationView;
 
 // The main-class of the application
 
-public class MasterNavigator extends UI {
+public class NavigatorUI extends UI {
 
 	
 	public static Navigator navigator;
@@ -54,7 +62,7 @@ public class MasterNavigator extends UI {
 		initializeClasses();
 		
 		// Navigates to the startpage
-		navigator.navigateTo(PageName.JOURNAL.getName());
+		navigator.navigateTo(PageName.DIAGNOSIS.getName());
 
 	}
 	
@@ -75,12 +83,21 @@ public class MasterNavigator extends UI {
 				
 		MedicationView mv = new MedicationView();
 		MedicationPresenter mp  = new MedicationPresenter(mv, data);
-		navigator.addView(PageName.MEDICATION.getName(), mv);		
+		navigator.addView(PageName.MEDICATION.getName(), mv);	
+
+		DiagnosisView dv = new DiagnosisView();
+		DiagnosisPresenter dp = new DiagnosisPresenter(dv, data);
+		navigator.addView(PageName.DIAGNOSIS.getName(), dv);	
+		
+		TherapyView tv = new TherapyView();
+		TherapyPresenter tp = new TherapyPresenter(tv, data);
+		navigator.addView(PageName.THERAPY.getName(), tv);	
+		
 	}
 			
 
 	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = MasterNavigator.class, productionMode = false)
+	@VaadinServletConfiguration(ui = NavigatorUI.class, productionMode = false)
 	public static class MyUIServlet extends VaadinServlet {
 		
 	}

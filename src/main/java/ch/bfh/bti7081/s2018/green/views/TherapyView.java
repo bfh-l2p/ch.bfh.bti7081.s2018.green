@@ -3,25 +3,25 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
-import ch.bfh.bti7081.s2018.green.designs.JournalDesign;
+import ch.bfh.bti7081.s2018.green.designs.TherapyDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
 
-public class JournalView extends NavigationView implements View, PmsView {
+public class TherapyView extends NavigationView implements View, PmsView {
 
-	JournalDesign journalDesign;
+	TherapyDesign therapyDesign;
 	
-	public JournalView() {		
+	public TherapyView() {		
 
-		journalDesign = new JournalDesign();
-		this.addComponent(journalDesign);
+		therapyDesign = new TherapyDesign();
+		this.addComponent(therapyDesign);
 				
 	}
 	
 	@Override
 	public void enter(ViewChangeEvent event) {
 		
-		Notification.show("Welcome to the Journal View");
+		Notification.show("Welcome to the Therapy View");
 		
 		// tells the presenter that the view was opened
 		listener.enteredView();

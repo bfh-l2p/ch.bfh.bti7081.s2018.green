@@ -1,17 +1,16 @@
 package ch.bfh.bti7081.s2018.green.presenters;
-
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.PageName;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.DiagnosisView;
 
-public class JournalPresenter implements PmsViewListener {
+public class DiagnosisPresenter implements PmsViewListener {
 
-	JournalView view;
+	DiagnosisView view;
 	DataContainer data;
 
-	public JournalPresenter(JournalView view, DataContainer data) {
+	public DiagnosisPresenter(DiagnosisView view, DataContainer data) {
 		this.view = view;
 		this.data = data;
 		this.view.addListener(this);
@@ -19,20 +18,33 @@ public class JournalPresenter implements PmsViewListener {
 
 	@Override
 	public void enteredView() {
-
+		
 		// set your data to the view components here
 		
 	}
 
 	@Override
 	public void buttonClick(String input) {
+			
+		
+		if(input.equals("Set Name")) {
+			view.setTextFieldContent();
+		} else {
+			
+			 for (PageName p : PageName.values()) {
+			     if(p.getName().equals(input)) {
+			    	 NavigatorUI.navigator.navigateTo(p.getName());
+			     }
+			 }					
+		}
+		
+		
 
-		 for (PageName p : PageName.values()) {
-		     if(p.getName().equals(input)) {
-		    	 NavigatorUI.navigator.navigateTo(p.getName());
-		     }
-		 }	
-
+		
+		
+//		Notification.show("Button was clicked");
+//		MasterNavigator.navigator.navigateTo(PageName.JOURNAL.getName());
+		
 	}
 
 	@Override
@@ -41,4 +53,7 @@ public class JournalPresenter implements PmsViewListener {
 		
 	}
 
+
+	
+	
 }
