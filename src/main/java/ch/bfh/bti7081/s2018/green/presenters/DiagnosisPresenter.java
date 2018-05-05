@@ -19,14 +19,21 @@ public class DiagnosisPresenter implements PmsViewListener {
 	@Override
 	public void enteredView() {
 		
-		// set your data to the view components here
+		// will be called when corresponding view is about to open
+		// use this method to populate the view-elements with data
+		
+		// Example
+		// get patient name and do something with it...
+		String patientName = data.getCurrentPatient().getName();
+		view.setTextFieldContent(patientName);
+		
 		
 	}
 
 	@Override
 	public void buttonClick(String input) {
 					
-		if(input.equals("Set Name")) {
+		if(input.equals("BtnSetName")) {
 			view.setTextFieldContent();
 		} 				
 	}

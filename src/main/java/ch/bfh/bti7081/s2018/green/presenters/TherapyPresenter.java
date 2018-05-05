@@ -19,10 +19,8 @@ public class TherapyPresenter implements PmsViewListener {
 	@Override
 	public void enteredView() {
 		
-		// set your data to the view components here
-		
-		// sets the name of the button
-		String patientName = data.getCurrentPatient().getName();
+		// will be called when corresponding view is about to open
+		// use this method to populate the view-elements with data
 		
 	}
 

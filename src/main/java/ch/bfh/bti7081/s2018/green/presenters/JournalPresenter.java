@@ -20,7 +20,8 @@ public class JournalPresenter implements PmsViewListener {
 	@Override
 	public void enteredView() {
 
-		// set your data to the view components here
+		// will be called when corresponding view is about to open
+		// use this method to populate the view-elements with data
 		
 	}
 

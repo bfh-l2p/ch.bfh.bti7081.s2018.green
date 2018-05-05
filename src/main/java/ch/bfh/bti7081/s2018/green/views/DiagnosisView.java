@@ -4,7 +4,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextArea;
 
 import ch.bfh.bti7081.s2018.green.designs.DiagnosisDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
@@ -20,7 +19,7 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 		this.addComponent(diagnosisDesign);
 
 		Button nameBtn = diagnosisDesign.getBtnSetName();
-		nameBtn.setId("Set Name");
+		nameBtn.setId("BtnSetName");
 		nameBtn.addClickListener(this);
 	}
 
@@ -43,9 +42,15 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 
 	public void setTextFieldContent() {
 
-		TextArea tArea = diagnosisDesign.getTextFieldResult();
-		String text = diagnosisDesign.getTextFieldName().getValue();
-		tArea.setValue(text);
+		String tAreaText = diagnosisDesign.getTextFieldResult().getValue();
+		String tFieldtext = diagnosisDesign.getTextFieldName().getValue();
+		diagnosisDesign.getTextFieldResult().setValue(tAreaText + "\n" + tFieldtext);
+	}
+
+	public void setTextFieldContent(String txt) {
+
+		diagnosisDesign.getTextFieldResult().setValue(txt);
+
 	}
 
 }

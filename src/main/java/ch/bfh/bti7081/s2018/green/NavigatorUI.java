@@ -70,12 +70,13 @@ public class NavigatorUI extends UI {
 	
 	private void initializeClasses() {		
 		
-		Patient matthias = new Patient("Matthias");		
+		Patient matthias = new Patient("Patrice Malade");		
 		DataContainer data = new DataContainer();
 		data.setCurrentPatient(matthias);
 
 
 		// Create and add one presenter per View
+		// Add each view to the navigator (which will switch between views)
 		
 		JournalView jv = new JournalView();
 		JournalPresenter jp = new JournalPresenter(jv, data);
