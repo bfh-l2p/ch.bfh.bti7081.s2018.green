@@ -25,26 +25,10 @@ public class DiagnosisPresenter implements PmsViewListener {
 
 	@Override
 	public void buttonClick(String input) {
-			
-		
+					
 		if(input.equals("Set Name")) {
 			view.setTextFieldContent();
-		} else {
-			
-			 for (PageName p : PageName.values()) {
-			     if(p.getName().equals(input)) {
-			    	 NavigatorUI.navigator.navigateTo(p.getName());
-			     }
-			 }					
-		}
-		
-		
-
-		
-		
-//		Notification.show("Button was clicked");
-//		MasterNavigator.navigator.navigateTo(PageName.JOURNAL.getName());
-		
+		} 				
 	}
 
 	@Override

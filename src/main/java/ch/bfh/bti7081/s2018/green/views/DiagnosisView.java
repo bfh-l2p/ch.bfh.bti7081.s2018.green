@@ -20,6 +20,7 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 		this.addComponent(diagnosisDesign);
 
 		Button nameBtn = diagnosisDesign.getBtnSetName();
+		nameBtn.setId("Set Name");
 		nameBtn.addClickListener(this);
 	}
 

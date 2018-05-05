@@ -28,12 +28,7 @@ public class TherapyPresenter implements PmsViewListener {
 
 	@Override
 	public void buttonClick(String input) {						
-		
-		 for (PageName p : PageName.values()) {
-		     if(p.getName().equals(input)) {
-		    	 NavigatorUI.navigator.navigateTo(p.getName());
-		     }
-		 }	
+		// TODO Auto-generated method stub
 	}
 
 	@Override
