@@ -14,18 +14,18 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 	DiagnosisDesign diagnosisDesign;
 
 	public DiagnosisView() {
-
-		diagnosisDesign = new DiagnosisDesign();
-		this.addComponent(diagnosisDesign);
-
-		Button nameBtn = diagnosisDesign.getBtnSetName();
-		nameBtn.setId("BtnSetName");
-		nameBtn.addClickListener(this);
 	}
 
 	@Override
 	public void enter(ViewChangeEvent event) {
 
+		// Mandatory method to set a new clean view-instance;
+		setDisplay();
+
+		Button nameBtn = diagnosisDesign.getBtnSetName();
+		nameBtn.setId("BtnSetName");
+		nameBtn.addClickListener(this);		
+		
 		Notification.show("Welcome to the Diagnosis View");
 
 		// tells the presenter that the view was opened
@@ -50,7 +50,15 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 	public void setTextFieldContent(String txt) {
 
 		diagnosisDesign.getTextFieldResult().setValue(txt);
-
 	}
 
+	@Override
+	public void setDisplay() {
+		
+		if(diagnosisDesign != null) {
+		this.removeComponent(diagnosisDesign);
+		}		
+		diagnosisDesign = new DiagnosisDesign();
+		this.addComponent(diagnosisDesign);		
+	}
 }

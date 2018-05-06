@@ -3,6 +3,8 @@ package ch.bfh.bti7081.s2018.green.views;
 import com.vaadin.event.selection.SelectionEvent;
 import com.vaadin.event.selection.SelectionListener;
 import com.vaadin.navigator.View;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
@@ -29,7 +31,8 @@ public class NavigationView extends NavigationDesign implements View, ClickListe
 		navBtnDiagnosis.addClickListener(this);
 		navBtnDiagnosis.setId("nav" + PageName.DIAGNOSIS.getName());
 	}
-
+	
+	
 	@Override
 	public void buttonClick(ClickEvent event) {
 
