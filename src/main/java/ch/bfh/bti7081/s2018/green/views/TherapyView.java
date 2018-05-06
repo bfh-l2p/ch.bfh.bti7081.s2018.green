@@ -6,6 +6,7 @@ import com.vaadin.ui.Notification;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
 import ch.bfh.bti7081.s2018.green.layouts.TherapyLayout;
+import ch.bfh.bti7081.s2018.green.navViews.NavigationView;
 
 public class TherapyView extends NavigationView implements View, PmsView {
 

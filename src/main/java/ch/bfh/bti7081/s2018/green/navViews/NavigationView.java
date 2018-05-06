@@ -1,19 +1,21 @@
-package ch.bfh.bti7081.s2018.green.views;
+package ch.bfh.bti7081.s2018.green.navViews;
 
 import com.vaadin.event.selection.SelectionEvent;
 import com.vaadin.event.selection.SelectionListener;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
+import com.vaadin.ui.Component;
 
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.PageName;
+import ch.bfh.bti7081.s2018.green.interfaces.NavView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
 import ch.bfh.bti7081.s2018.green.layouts.NavigationLayout;
 
-public class NavigationView extends NavigationLayout implements View, ClickListener, SelectionListener {
+public class NavigationView extends NavigationLayout implements View, NavView, ClickListener, SelectionListener {
 
-	PmsViewListener listener;
+	protected PmsViewListener listener;
 
 	public NavigationView() {
 
@@ -31,6 +33,14 @@ public class NavigationView extends NavigationLayout implements View, ClickListe
 
 		navBtnDiagnosis.addClickListener(this);
 		navBtnDiagnosis.setId("nav" + PageName.DIAGNOSIS.getName());
+	}
+	
+	@Override
+	public void addComponent(Component c){
+		
+		// TODO: Make sure the sub-layout is added at the right place in the super-layout
+		
+		super.addComponent(c);		
 	}
 	
 	
@@ -58,5 +68,7 @@ public class NavigationView extends NavigationLayout implements View, ClickListe
 
 		// TODO Auto-generated method stub
 	}
+	
+	
 
 }

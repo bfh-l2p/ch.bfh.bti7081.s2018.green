@@ -10,6 +10,7 @@ import com.vaadin.ui.TextField;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
 import ch.bfh.bti7081.s2018.green.layouts.JournalLayout;
+import ch.bfh.bti7081.s2018.green.navViews.NavigationView;
 import ch.bfh.bti7081.s2018.green.layouts.JournalEntryLayout;
 
 public class JournalView extends NavigationView implements View, PmsView {
