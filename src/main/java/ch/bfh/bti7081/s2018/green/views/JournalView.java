@@ -7,15 +7,15 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 
-import ch.bfh.bti7081.s2018.green.designs.JournalDesign;
-import ch.bfh.bti7081.s2018.green.designs.JournalEntryDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
+import ch.bfh.bti7081.s2018.green.layouts.JournalLayout;
+import ch.bfh.bti7081.s2018.green.layouts.JournalEntryLayout;
 
 public class JournalView extends NavigationView implements View, PmsView {
 
-	JournalDesign journalDesign;
-	List<JournalEntryDesign> journalEntryElements;
+	JournalLayout journalLayout;
+	List<JournalEntryLayout> journalEntryElements;
 	
 	int counter = 5;
 	
@@ -47,24 +47,24 @@ public class JournalView extends NavigationView implements View, PmsView {
 		// Remove only main-component here
 		// Attached components will automatically be removed as well
 		
-		if(journalDesign != null) {
-		this.removeComponent(journalDesign);
+		if(journalLayout != null) {
+		this.removeComponent(journalLayout);
 		}
 		
-		journalDesign = new JournalDesign();
-		this.addComponent(journalDesign);				
+		journalLayout = new JournalLayout();
+		this.addComponent(journalLayout);				
 	}
 	
 	public void setJournalEntries(List<String> journalEntries) {
 		
-		journalEntryElements = new ArrayList<JournalEntryDesign>();		
+		journalEntryElements = new ArrayList<JournalEntryLayout>();		
 		
 		for(int i=0; i< counter; i++) {
-			JournalEntryDesign jed = new JournalEntryDesign();
-			TextField tf = jed.getTextFieldJournalEntry();
+			JournalEntryLayout jel = new JournalEntryLayout();
+			TextField tf = jel.getTextFieldJournalEntry();
 			tf.setValue(journalEntries.get(i));
-			journalDesign.addComponent(jed);			
-			journalEntryElements.add(jed);
+			journalLayout.addComponent(jel);			
+			journalEntryElements.add(jel);
 		}
 		
 		counter --;

@@ -14,7 +14,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.PageName;
-import ch.bfh.bti7081.s2018.green.designs.TherapyDesign;
+import ch.bfh.bti7081.s2018.green.layouts.TherapyLayout;
 import ch.bfh.bti7081.s2018.green.models.Patient;
 import ch.bfh.bti7081.s2018.green.presenters.DiagnosisPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;

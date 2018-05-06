@@ -5,13 +5,13 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 
-import ch.bfh.bti7081.s2018.green.designs.DiagnosisDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
+import ch.bfh.bti7081.s2018.green.layouts.DiagnosisLayout;
 
 public class DiagnosisView extends NavigationView implements View, PmsView {
 
-	DiagnosisDesign diagnosisDesign;
+	DiagnosisLayout diagnosisLayout;
 
 	public DiagnosisView() {
 	}
@@ -22,7 +22,7 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 		// Mandatory method to set a new clean view-instance;
 		setDisplay();
 
-		Button nameBtn = diagnosisDesign.getBtnSetName();
+		Button nameBtn = diagnosisLayout.getBtnSetName();
 		nameBtn.addClickListener(this);		
 		
 		Notification.show("Welcome to the Diagnosis View");
@@ -41,23 +41,23 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 
 	public void setTextFieldContent() {
 
-		String tAreaText = diagnosisDesign.getTextFieldResult().getValue();
-		String tFieldtext = diagnosisDesign.getTextFieldName().getValue();
-		diagnosisDesign.getTextFieldResult().setValue(tAreaText + "\n" + tFieldtext);
+		String tAreaText = diagnosisLayout.getTextFieldResult().getValue();
+		String tFieldtext = diagnosisLayout.getTextFieldName().getValue();
+		diagnosisLayout.getTextFieldResult().setValue(tAreaText + "\n" + tFieldtext);
 	}
 
 	public void setTextFieldContent(String txt) {
 
-		diagnosisDesign.getTextFieldResult().setValue(txt);
+		diagnosisLayout.getTextFieldResult().setValue(txt);
 	}
 
 	@Override
 	public void setDisplay() {
 		
-		if(diagnosisDesign != null) {
-		this.removeComponent(diagnosisDesign);
+		if(diagnosisLayout != null) {
+		this.removeComponent(diagnosisLayout);
 		}		
-		diagnosisDesign = new DiagnosisDesign();
-		this.addComponent(diagnosisDesign);		
+		diagnosisLayout = new DiagnosisLayout();
+		this.addComponent(diagnosisLayout);		
 	}
 }

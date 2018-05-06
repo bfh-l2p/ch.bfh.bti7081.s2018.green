@@ -3,17 +3,15 @@ package ch.bfh.bti7081.s2018.green.views;
 import com.vaadin.event.selection.SelectionEvent;
 import com.vaadin.event.selection.SelectionListener;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.PageName;
-import ch.bfh.bti7081.s2018.green.designs.NavigationDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
+import ch.bfh.bti7081.s2018.green.layouts.NavigationLayout;
 
-public class NavigationView extends NavigationDesign implements View, ClickListener, SelectionListener {
+public class NavigationView extends NavigationLayout implements View, ClickListener, SelectionListener {
 
 	PmsViewListener listener;
 

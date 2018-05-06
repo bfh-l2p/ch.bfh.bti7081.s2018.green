@@ -3,14 +3,13 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
-import ch.bfh.bti7081.s2018.green.designs.MedicationDesign;
-import ch.bfh.bti7081.s2018.green.designs.TherapyDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
+import ch.bfh.bti7081.s2018.green.layouts.TherapyLayout;
 
 public class TherapyView extends NavigationView implements View, PmsView {
 
-	TherapyDesign therapyDesign;
+	TherapyLayout therapyLayout;
 	
 	public TherapyView() {		
 				
@@ -36,11 +35,11 @@ public class TherapyView extends NavigationView implements View, PmsView {
 
 	@Override
 	public void setDisplay() {
-		if(therapyDesign != null) {
-		this.removeComponent(therapyDesign);
+		if(therapyLayout != null) {
+		this.removeComponent(therapyLayout);
 		}		
-		therapyDesign = new TherapyDesign();
-		this.addComponent(therapyDesign);			
+		therapyLayout = new TherapyLayout();
+		this.addComponent(therapyLayout);			
 	}
 	
 }

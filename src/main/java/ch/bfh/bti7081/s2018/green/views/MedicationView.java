@@ -3,14 +3,13 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Notification;
 
-import ch.bfh.bti7081.s2018.green.designs.JournalDesign;
-import ch.bfh.bti7081.s2018.green.designs.MedicationDesign;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsView;
 import ch.bfh.bti7081.s2018.green.interfaces.PmsViewListener;
+import ch.bfh.bti7081.s2018.green.layouts.MedicationLayout;
 
 public class MedicationView extends NavigationView implements View, PmsView {
 
-	MedicationDesign medicationDesign;
+	MedicationLayout medicationLayout;
 	
 	public MedicationView() {		
 				
@@ -37,11 +36,11 @@ public class MedicationView extends NavigationView implements View, PmsView {
 	@Override
 	public void setDisplay() {
 		
-		if(medicationDesign != null) {
-		this.removeComponent(medicationDesign);
+		if(medicationLayout != null) {
+		this.removeComponent(medicationLayout);
 		}		
-		medicationDesign = new MedicationDesign();
-		this.addComponent(medicationDesign);	
+		medicationLayout = new MedicationLayout();
+		this.addComponent(medicationLayout);	
 		
 	}
 	
