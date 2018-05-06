@@ -33,6 +33,7 @@ public class DiagnosisPresenter implements PmsViewListener {
 	@Override
 	public void buttonClick(String input) {
 					
+		// Important: DomId was manually specified as "BtnSetName" in VaadinDesigner to make this work:
 		if(input.equals("BtnSetName")) {
 			view.setTextFieldContent();
 		} 				

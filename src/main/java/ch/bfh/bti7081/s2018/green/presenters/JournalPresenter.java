@@ -23,6 +23,8 @@ public class JournalPresenter implements PmsViewListener {
 		// will be called when corresponding view is about to open
 		// use this method to populate the view-elements with data
 		
+		view.setJournalEntries(data.getCurrentPatient().getJournalEntries());
+		
 	}
 
 	@Override

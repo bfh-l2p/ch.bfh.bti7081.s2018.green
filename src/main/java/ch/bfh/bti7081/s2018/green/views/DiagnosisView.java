@@ -23,7 +23,6 @@ public class DiagnosisView extends NavigationView implements View, PmsView {
 		setDisplay();
 
 		Button nameBtn = diagnosisDesign.getBtnSetName();
-		nameBtn.setId("BtnSetName");
 		nameBtn.addClickListener(this);		
 		
 		Notification.show("Welcome to the Diagnosis View");

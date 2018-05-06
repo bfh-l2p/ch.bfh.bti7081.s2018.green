@@ -73,6 +73,12 @@ public class NavigatorUI extends UI {
 		Patient matthias = new Patient("Patrice Malade");		
 		DataContainer data = new DataContainer();
 		data.setCurrentPatient(matthias);
+		
+		data.getCurrentPatient().addJournalEntry("12.05. Erbrechen");
+		data.getCurrentPatient().addJournalEntry("13.05. Durchfall");
+		data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
+		data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
+		data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
 
 
 		// Create and add one presenter per View

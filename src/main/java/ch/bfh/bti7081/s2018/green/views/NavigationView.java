@@ -19,6 +19,9 @@ public class NavigationView extends NavigationDesign implements View, ClickListe
 
 	public NavigationView() {
 
+		
+		// As an alternative to using "setId()" the DomIds can be specified manually in Vaadin Designer!
+		
 		navBtnMedication.addClickListener(this);
 		navBtnMedication.setId("nav" + PageName.MEDICATION.getName());
 
