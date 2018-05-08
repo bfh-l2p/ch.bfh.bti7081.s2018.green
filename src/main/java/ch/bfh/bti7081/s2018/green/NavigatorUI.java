@@ -1,29 +1,24 @@
 package ch.bfh.bti7081.s2018.green;
 
 
-import javax.servlet.annotation.WebServlet;
-
+import ch.bfh.bti7081.s2018.green.models.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.NavigationView;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.navigator.Navigator.ComponentContainerViewDisplay;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2018.green.DataContainer;
-import ch.bfh.bti7081.s2018.green.PageName;
-import ch.bfh.bti7081.s2018.green.layouts.TherapyLayout;
-import ch.bfh.bti7081.s2018.green.models.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.DiagnosisPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.TherapyPresenter;
-import ch.bfh.bti7081.s2018.green.views.DiagnosisView;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.views.TherapyView;
+import javax.servlet.annotation.WebServlet;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -40,72 +35,131 @@ import ch.bfh.bti7081.s2018.green.views.TherapyView;
 
 public class NavigatorUI extends UI {
 
-	
-	public static Navigator navigator;
-	
 
-	@Override
-	protected void init(VaadinRequest request) {
-		
-		// makes some general settings and sets the mainframe		
-		getPage().setTitle("Patient Management System");		
-		final VerticalLayout layout = new VerticalLayout();
-		layout.setMargin(true);
-		layout.setSpacing(true);
-		setContent(layout);		
-		ComponentContainerViewDisplay viewDisplay = new ComponentContainerViewDisplay(layout);
-		
-		// Initialization of the navigator
-		navigator = new Navigator(UI.getCurrent(), viewDisplay);
-		
-		// Assembles all presenters/views and adds them to the navigator
-		initializeClasses();
-		
-		// Navigates to the startpage
-		navigator.navigateTo(PageName.DIAGNOSIS.getName());
-
-	}
-	
-	// Initializes all the classes and adds them to the navigator
-	
-	private void initializeClasses() {		
-		
-		Patient matthias = new Patient("Patrice Malade");		
-		DataContainer data = new DataContainer();
-		data.setCurrentPatient(matthias);
-		
-		data.getCurrentPatient().addJournalEntry("12.05. Erbrechen");
-		data.getCurrentPatient().addJournalEntry("13.05. Durchfall");
-		data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
-		data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
-		data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
+    public static Navigator navigator;
 
 
-		// Create and add one presenter per View
-		// Add each view to the navigator (which will switch between views)
-		
-		JournalView jv = new JournalView();
-		JournalPresenter jp = new JournalPresenter(jv, data);
-		navigator.addView(PageName.JOURNAL.getName(), jv);
-				
-		MedicationView mv = new MedicationView();
-		MedicationPresenter mp  = new MedicationPresenter(mv, data);
-		navigator.addView(PageName.MEDICATION.getName(), mv);	
+    /**
+     * Entry point: Custom part of application starts here!
+     * <p>
+     * Sets the basic layout and instantiates the views and
+     * it's presenters, as well as the data access layer.
+     *
+     * @param request provided by vaadin
+     */
+    @Override
+    protected void init(VaadinRequest request) {
 
-		DiagnosisView dv = new DiagnosisView();
-		DiagnosisPresenter dp = new DiagnosisPresenter(dv, data);
-		navigator.addView(PageName.DIAGNOSIS.getName(), dv);	
-		
-		TherapyView tv = new TherapyView();
-		TherapyPresenter tp = new TherapyPresenter(tv, data);
-		navigator.addView(PageName.THERAPY.getName(), tv);	
-		
-	}
-			
+        // html <title> attribute
+        getPage().setTitle("Patient Management System");
 
-	@WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-	@VaadinServletConfiguration(ui = NavigatorUI.class, productionMode = false)
-	public static class MyUIServlet extends VaadinServlet {
-		
-	}
+        // instantiate a full screen layout and add it
+        VerticalLayout layout = new VerticalLayout();
+        layout.setSizeFull();
+        setContent(layout);
+
+        // header row
+        layout.addComponent(getHeader());
+
+        // main container
+        HorizontalLayout main = getMainContainer();
+        layout.addComponent(main);
+        layout.setExpandRatio(main, 1.0f); // make main container use all available space
+        main.addComponent(getNavigation());
+        VerticalLayout canvas = getCanvas();
+        main.addComponent(canvas);
+
+        // tell the navigation to use
+        navigator = new Navigator(this, canvas);
+
+        // Assembles all presenters/views and adds them to the navigator
+        initializeClasses();
+
+        // Navigates to the startpage
+        navigator.navigateTo(PageName.JOURNAL.getName());
+
+    }
+
+    /**
+     * Creates and configures the main container that holds the navigation and the canvas
+     *
+     * @return main container
+     */
+    private HorizontalLayout getMainContainer() {
+        HorizontalLayout main = new HorizontalLayout();
+        main.setWidth("100%");
+        main.setHeight("100%");
+
+        return main;
+    }
+
+    /**
+     * Create the canvas for the specific views (medication, journal etc)
+     *
+     * @return canvas
+     */
+    private VerticalLayout getCanvas() {
+        return new VerticalLayout();
+    }
+
+    private VerticalLayout getNavigation() {
+        VerticalLayout nav = new VerticalLayout();
+
+        NavigationView navigationView = new NavigationView();
+        new NavigationPresenter(navigationView);
+        nav.addComponent(navigationView);
+
+        return nav;
+    }
+
+    /**
+     * Create an configure the layouts header
+     *
+     * @return header
+     */
+    private HorizontalLayout getHeader() {
+        HorizontalLayout header = new HorizontalLayout();
+        header.setWidth("100%");
+        header.setHeight("100px");
+        // TODO move this into a separate HeaderView class
+        header.addComponent(new Label("Patient Management System Team Green"));
+        return header;
+    }
+
+    /**
+     * Initialise data access layer, views and presenters and add the to the navigator
+     */
+    private void initializeClasses() {
+
+        // TODO: remove demo data
+        Patient matthias = new Patient("Patrice Malade");
+        DataContainer data = new DataContainer();
+        data.setCurrentPatient(matthias);
+
+        data.getCurrentPatient().addJournalEntry("12.05. Erbrechen");
+        data.getCurrentPatient().addJournalEntry("13.05. Durchfall");
+        data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
+        data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
+        data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
+
+
+        // Create and add one presenter per View
+        // Add each view to the navigator (which will switch between views)
+
+        JournalView jv = new JournalView();
+        JournalPresenter jp = new JournalPresenter(jv, data);
+        navigator.addView(PageName.JOURNAL.getName(), jv);
+
+        MedicationView mv = new MedicationView();
+        MedicationPresenter mp = new MedicationPresenter(mv, data);
+        navigator.addView(PageName.MEDICATION.getName(), mv);
+
+    }
+
+
+    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = NavigatorUI.class, productionMode = false)
+    public static class MyUIServlet extends VaadinServlet {
+
+    }
 }
