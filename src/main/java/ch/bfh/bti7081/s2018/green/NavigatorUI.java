@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
@@ -76,7 +74,7 @@ public class NavigatorUI extends UI {
         initializeClasses();
 
         // Navigates to the startpage
-        navigator.navigateTo(PageName.JOURNAL.getName());
+        navigator.navigateTo(JournalView.NAME);
 
     }
 
@@ -102,6 +100,11 @@ public class NavigatorUI extends UI {
         return new VerticalLayout();
     }
 
+    /**
+     * Create navigation view and presenter and return in i a vertical layout
+     *
+     * @return navigation
+     */
     private VerticalLayout getNavigation() {
         VerticalLayout nav = new VerticalLayout();
 
@@ -133,26 +136,15 @@ public class NavigatorUI extends UI {
 
         // TODO: remove demo data
         Patient matthias = new Patient("Patrice Malade");
-        DataContainer data = new DataContainer();
+        DataContainer data = DataContainer.getInstance();
         data.setCurrentPatient(matthias);
 
-        data.getCurrentPatient().addJournalEntry("12.05. Erbrechen");
-        data.getCurrentPatient().addJournalEntry("13.05. Durchfall");
         data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
         data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
         data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
 
-
-        // Create and add one presenter per View
-        // Add each view to the navigator (which will switch between views)
-
-        JournalView jv = new JournalView();
-        JournalPresenter jp = new JournalPresenter(jv, data);
-        navigator.addView(PageName.JOURNAL.getName(), jv);
-
-        MedicationView mv = new MedicationView();
-        MedicationPresenter mp = new MedicationPresenter(mv, data);
-        navigator.addView(PageName.MEDICATION.getName(), mv);
+        navigator.addView(JournalView.NAME, JournalView.class);
+        navigator.addView(MedicationView.NAME, MedicationView.class);
 
     }
 

@@ -1,7 +1,8 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
-import ch.bfh.bti7081.s2018.green.PageName;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.views.NavigationView;
 import com.vaadin.ui.Notification;
 
@@ -16,11 +17,11 @@ public class NavigationPresenter {
 
     private void registerNavigationEventListeners() {
         this.view.getBtnMedication().addClickListener((clickEvent) ->
-                NavigatorUI.navigator.navigateTo(PageName.MEDICATION.getName())
+                NavigatorUI.navigator.navigateTo(MedicationView.NAME)
         );
 
         this.view.getBtnJournal().addClickListener((clickEvent) ->
-                NavigatorUI.navigator.navigateTo(PageName.JOURNAL.getName())
+                NavigatorUI.navigator.navigateTo(JournalView.NAME)
         );
 
         this.view.getBtnTherapy().addClickListener((clickEvent) ->
@@ -35,4 +36,6 @@ public class NavigationPresenter {
                         Notification.Type.WARNING_MESSAGE)
         );
     }
+
+
 }

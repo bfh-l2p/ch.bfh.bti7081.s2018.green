@@ -7,6 +7,8 @@ import com.vaadin.ui.Notification;
 
 public class MedicationView extends MedicationLayout implements View {
 
+    public static final String NAME = "medication";
+
 	@Override
 	public void enter(ViewChangeEvent event) {
 		Notification.show("Welcome to the Medication View");

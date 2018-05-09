@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Patient {
 
-	String name;
-	List<String> journalEntries;
-	
+	private String name;
+	private List<String> journalEntries;
+
 	public Patient(String name) {
 		this.name = name;		
 	}
@@ -23,11 +23,10 @@ public class Patient {
 	
 	public void addJournalEntry(String jEntry) {
 		if(journalEntries == null) {
-			journalEntries = new ArrayList<String>();
+			journalEntries = new ArrayList<>();
 		}
 		journalEntries.add(jEntry);
 	}
-
 
 	public List<String> getJournalEntries() {
 		return journalEntries;
