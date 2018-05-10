@@ -20,7 +20,6 @@ public class JournalView extends JournalLayout implements View {
     public void enter(ViewChangeEvent event) {
         Notification.show("Welcome to the Journal View");
         new JournalPresenter(this);
-        this.addComponent(btnChange); // only for demonstration purposes
     }
 
     public void setJournalEntries(List<String> journalEntries) {
@@ -32,7 +31,8 @@ public class JournalView extends JournalLayout implements View {
             tf.setValue(journalEntry);
             this.addComponent(jel);
         }
-
+        
+        this.addComponent(btnChange); // only for demonstration purposes
     }
 
     public Button getBtnChange() {

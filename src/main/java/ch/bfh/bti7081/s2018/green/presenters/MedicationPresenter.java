@@ -8,8 +8,8 @@ public class MedicationPresenter {
 	private MedicationView view;
 	private DataContainer data;
 	
-	public MedicationPresenter(MedicationView view, DataContainer data) {		
+	public MedicationPresenter(MedicationView view) {		
 		this.view = view;
-		this.data = data;
+		this.data = DataContainer.getInstance();
 	}
 }
