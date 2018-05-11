@@ -103,7 +103,7 @@ Veranstaltungsort: Korridor, BFH Standort Wankdorf
 * Erstellung von zwei Sequenzdiagrammen und einem Class Model
 
 * Präsentation der Diagramme durch Cyrill und Raphael
-* Ausgesprochen positives Feedback durch die Dozenten
+* Positives Feedback durch die Dozenten
 
 ## Meeting vom 30. April 2018
 Veranstaltungsort: Korridor, BFH Standort Wankdorf
@@ -118,10 +118,10 @@ Veranstaltungsort: Korridor, BFH Standort Wankdorf
 Veranstaltungsort: Freier Raum, BFH Standort Wankdorf
 
 * Plenumsdiskussion darüber wie wir unsere Applikation als MVP Pattern abbilden wollen
--> Pro Domäne ein Presenter, der als Bindeglied zwischen mehreren Views und mehreren Models dient
--> Business-Logic wird in den Models implementiert (Fat Models)
--> Dashboard erhält nicht nur eine eigene View sondern auch einen eigenen Presenter und ein eigenes Model
--> Team Lorenz/Matthias programmiert zu Beginn des ersten Sprints ein Beispiel bzgl. Viewer-Presenter-Model
+  * Pro Domäne ein Presenter, der als Bindeglied zwischen mehreren Views und mehreren Models dient
+  * Business-Logic wird in den Models implementiert (Fat Models)
+  * Dashboard erhält nicht nur eine eigene View sondern auch einen eigenen Presenter und ein eigenes Model
+  * Team Lorenz/Matthias programmiert zu Beginn des ersten Sprints ein Beispiel bzgl. Viewer-Presenter-Model
 
 * Wahl des Scrum-Masters: Martin (besitzt praktische Erfahrung als Projektleiter)
 * Wahl des Stv. Scrum-Masters und DB-Verantwortlichen: Cyrill (besitzt praktische Erfahrung als Entwickler)
