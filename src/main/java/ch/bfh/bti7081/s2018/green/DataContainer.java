@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2018.green;
 
-import ch.bfh.bti7081.s2018.green.models.Doctor;
-import ch.bfh.bti7081.s2018.green.models.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Doctor;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import com.vaadin.server.VaadinSession;
 
 import java.util.HashMap;
