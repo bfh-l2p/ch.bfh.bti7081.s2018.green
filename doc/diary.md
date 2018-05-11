@@ -1,7 +1,7 @@
-﻿# Diary
+# Diary
 
 ## Meeting vom 21. März 2018
-Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
 
 Festlegung der Tools für Zusammenarbeit:
 * Github
@@ -12,7 +12,7 @@ Diskussion über Abgrenzung «in scope» vs. «out of scope»
 * Grundlage: Use cases gemäss Google-Drive-Dokument
 
 ## Meeting vom 23. März 2018
-Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
 
 Die Team-Mitglieder haben im Hinblick auf das Meeting verschiedene Vorschläge ausgearbeitet wie die Abgrenzung des Themenbereichs dargestellt werden könnte. Nach kurzer Diskussion wird die beste Variante auserkoren.
 
@@ -36,7 +36,7 @@ Aufteilung der Tasks bis und mit der Präsentation vom 9. April + Dokumentation 
 Gemeinsames Tischtennis-Spiel («Rundlauf») zwecks Teambildung (ebenfalls in den Räumlichkeiten der Isolutions)
 
 ## Meeting vom 4. April 2018
-Veranstaltungsort: Unterrichtsraum, BHF Standort Wankdorf
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
 
 * Rollenverteilung für die zwei bevorstehenden Interviews:
 * 4 Leute interviewen am 5. April den Applikationsverantwortlichen der Privatklinik Wyss in Münchenbuchsee (2 Fragesteller + 2 Protokollführer)
@@ -67,3 +67,79 @@ Die verbleibenden Teammitglieder treffen sich zur Zeit des Interviews in der BFH
 * Anfertigung der Prototypes
 
 Am späteren Nachmittag: Gemeinsames Feierabendbier
+
+## Meeting vom 9. April 2018
+
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
+* Präsentation von Task 1 durch Stephan und Andreas
+
+## Meeting vom 11. April 2018
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
+
+* Aufteilung des Tasks 2: Für jedes Kapitel ist eine Kleingruppe von bis zu 3 Personen zuständig
+* Anschliessendes Arbeiten an den zugewiesenen Kapiteln
+* Betreffend der nächsten Präsentation wird beschlossen, dass jedes Kapitel von den jeweiligen Autoren auch gleich vorgestellt wird
+Die Fertigstellung der einzelnen Kapitel erfolgt am Wochenende vom 14./ 15. April im Rahmen der Kleingruppen (u.a. via Skype)
+
+## Meeting vom 16. April 2018
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
+
+* Präsentation von Task 2 durch Martin, Andreas, Matthias und Raphael
+
+## Meeting vom 18. April 2018
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
+
+* Bewertung des Projekts von Gruppe Blau. Vergabe der Note 8 (auf einer Skala von 1 bis 10)
+
+## Meeting vom 25. April 2018
+Veranstaltungsort: Unterrichtsraum, BFH Standort Wankdorf
+
+* Gemeinschaftliches Erstellen des Domainmodels inkl. Aufzeichnen am Whiteboard
+
+## Meeting vom 27. April 2018
+Veranstaltungsort: Korridor, BFH Standort Wankdorf
+
+* Aufteilen des verbleibenden Task 4 auf Untergruppen:
+* Erstellung von zwei Sequenzdiagrammen und einem Class Model
+
+* Präsentation der Diagramme durch Cyrill und Raphael
+* Ausgesprochen positives Feedback durch die Dozenten
+
+## Meeting vom 30. April 2018
+Veranstaltungsort: Korridor, BFH Standort Wankdorf
+
+* Kurze Besprechung der Taskverteilung im Hinblick auf die Präsentation am darauffolgenden Mittwoch
+* Andreas meldet sich freiwillig den product backlog und den sprint backlog vorzubereiten
+* Cyrill wird einen Entwurf des Main View Class Models erstellen
+* Lorenz wird das Vaadin-Projekt aufsetzen und auf Github pushen
+
+
+## Meeting vom 2. Mai 2018
+Veranstaltungsort: Freier Raum, BFH Standort Wankdorf
+
+* Plenumsdiskussion darüber wie wir unsere Applikation als MVP Pattern abbilden wollen
+-> Pro Domäne ein Presenter, der als Bindeglied zwischen mehreren Views und mehreren Models dient
+-> Business-Logic wird in den Models implementiert (Fat Models)
+-> Dashboard erhält nicht nur eine eigene View sondern auch einen eigenen Presenter und ein eigenes Model
+-> Team Lorenz/Matthias programmiert zu Beginn des ersten Sprints ein Beispiel bzgl. Viewer-Presenter-Model
+
+* Wahl des Scrum-Masters: Martin (besitzt praktische Erfahrung als Projektleiter)
+* Wahl des Stv. Scrum-Masters und DB-Verantwortlichen: Cyrill (besitzt praktische Erfahrung als Entwickler)
+* Gemeinsame Besprechung von Andreas's Entwürfen des product backlog und des sprint backlog inkl. Zeitschätzung pro Task
+* Bildung von Zweierteams die jeweils an einem Task innerhalb des sprint backlogs arbeiten werden
+* Zuteilung der Zweierteams zu den Tasks von Sprint 1 plus Bestimmung es jeweiligen Reviewers
+
+* Aufteilung in Kleingruppen: Zwei Gruppen arbeiten an den Diagrammen, eine Gruppe an der Verfeinerung der backlogs
+* Präsentation von Task 5 durch Martin, Cyrill und Raphael
+
+
+## Übersicht über die Verteilung der Scrum-Rollen:
+
+Scrum-Master:
+Martin
+
+Stv. Scrum-Master (und DB-Verantwortlicher)
+Cyrill
+
+Developer
+Alle
