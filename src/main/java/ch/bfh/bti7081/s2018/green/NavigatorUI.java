@@ -1,7 +1,7 @@
 package ch.bfh.bti7081.s2018.green;
 
 
-import ch.bfh.bti7081.s2018.green.models.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;

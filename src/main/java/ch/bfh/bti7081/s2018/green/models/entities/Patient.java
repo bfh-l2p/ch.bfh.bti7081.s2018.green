@@ -1,4 +1,4 @@
-package ch.bfh.bti7081.s2018.green.models;
+package ch.bfh.bti7081.s2018.green.models.entities;
 
 import java.util.ArrayList;
 import java.util.List;
