@@ -8,6 +8,7 @@
         <class>ch.bfh.bti7081.s2018.green.models.entities.Person</class>
         <class>ch.bfh.bti7081.s2018.green.models.entities.Patient</class>
         <class>ch.bfh.bti7081.s2018.green.models.entities.Staff</class>
+        <class>ch.bfh.bti7081.s2018.green.models.entities.JournalEntry</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>

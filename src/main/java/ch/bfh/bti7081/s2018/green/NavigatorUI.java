@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green;
 
 
+import ch.bfh.bti7081.s2018.green.models.entities.Doctor;
+import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
@@ -133,6 +135,21 @@ public class NavigatorUI extends UI {
      * Initialise data access layer, views and presenters and add the to the navigator
      */
     private void initializeClasses() {
+
+        // TODO: remove demo data
+        Patient matthias = new Patient("Patrice Malade");
+        Doctor exampleDoctor = new Doctor();
+        DataContainer data = DataContainer.getInstance();
+        data.setCurrentPatient(matthias);
+
+        JournalEntry entry1 = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
+        JournalEntry entry2 = new JournalEntry("Wahnvorstellungen", matthias, exampleDoctor);
+        JournalEntry entry3 = new JournalEntry("Präpsychose", matthias, exampleDoctor);
+
+        data.getCurrentPatient().addJournalEntry(entry1);
+        data.getCurrentPatient().addJournalEntry(entry2);
+        data.getCurrentPatient().addJournalEntry(entry3);
+
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
 

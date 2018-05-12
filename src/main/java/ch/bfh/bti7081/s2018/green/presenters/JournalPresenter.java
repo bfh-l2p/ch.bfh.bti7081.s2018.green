@@ -1,6 +1,9 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
+import com.vaadin.ui.TextField;
+
 import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 
 public class JournalPresenter {
@@ -14,13 +17,16 @@ public class JournalPresenter {
 
         enteredView();
 
-        this.view.getBtnChange().addClickListener(clickEvent -> {
-            // TODO: Implement method
-            //data.getCurrentPatient().addJournalEntry("17.05 Suizidversuch");
-            //this.view.setJournalEntries(data.getCurrentPatient().getJournalEntries());
-        });
+        this.view.getBtnSave().addClickListener(clickEvent -> addEntry());
     }
 
+    private void addEntry() {
+    	TextField txtEntry = view.getTxtEntry();
+    	JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentPatient(), data.getCurrentDoctor());
+        data.getCurrentPatient().addJournalEntry(journalEntry);
+        txtEntry.clear();
+        this.view.addJournalEntry(journalEntry);
+    }
     private void enteredView() {
 
         // will be called when corresponding view is about to open

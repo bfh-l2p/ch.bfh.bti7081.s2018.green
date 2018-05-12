@@ -19,6 +19,8 @@ public class Patient extends Person {
     @Column(nullable = false)
     private DangerLevel dangerToOthers;
 
+	private List<JournalEntry> journalEntries;
+
     public Patient() {
 		// required by JPA
 	}
@@ -52,5 +54,15 @@ public class Patient extends Person {
 
 	public void setDangerToOthers(DangerLevel dangerToOthers) {
 		this.dangerToOthers = dangerToOthers;
+
+	public void addJournalEntry(JournalEntry journalEntry) {
+		if(journalEntries == null) {
+			journalEntries = new ArrayList<>();
+		}
+		journalEntries.add(journalEntry);
+	}
+
+	public List<JournalEntry> getJournalEntries() {
+		return journalEntries;
 	}
 }
