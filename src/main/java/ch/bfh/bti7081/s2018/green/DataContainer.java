@@ -1,6 +1,6 @@
 package ch.bfh.bti7081.s2018.green;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Doctor;
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import com.vaadin.server.VaadinSession;
 
@@ -14,7 +14,7 @@ public class DataContainer {
 
     private static Map<String, DataContainer> instance = new HashMap<>();
     private Patient currentPatient;
-    private Doctor currentDoctor;
+    private Staff currentStaff;
 
     private DataContainer() {
     }
@@ -43,12 +43,12 @@ public class DataContainer {
         this.currentPatient = currentPatient;
     }
 
-    public Doctor getCurrentDoctor() {
-        return currentDoctor;
+    public Staff getCurrentStaff() {
+        return currentStaff;
     }
 
-    public void setCurrentDoctor(Doctor currentDoctor) {
-        this.currentDoctor = currentDoctor;
+    public void setCurrentStaff(Staff currentStaff) {
+        this.currentStaff = currentStaff;
     }
 
 

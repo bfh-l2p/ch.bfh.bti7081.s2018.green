@@ -135,13 +135,13 @@ public class NavigatorUI extends UI {
     private void initializeClasses() {
 
         // TODO: remove demo data
-        Patient matthias = new Patient("Patrice Malade");
-        DataContainer data = DataContainer.getInstance();
-        data.setCurrentPatient(matthias);
-
-        data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
-        data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
-        data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
+//        Patient matthias = new Patient("Patrice Malade");
+//        DataContainer data = DataContainer.getInstance();
+//        data.setCurrentPatient(matthias);
+//
+//        data.getCurrentPatient().addJournalEntry("14.05. Halluzinationen");
+//        data.getCurrentPatient().addJournalEntry("15.05. Wahnvorstellungen");
+//        data.getCurrentPatient().addJournalEntry("16.05. Präpsychose");
 
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);

@@ -1,35 +1,47 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-
+import java.util.Date;
 import javax.persistence.*;
-import java.sql.Date;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Person")
 public class Person {
 
-    @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Id @GeneratedValue
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
-    @Column(nullable = false)
+    @Column(name = "firstName")
     private String firstName;
 
-    @Column(nullable = false)
+    @Column(name = "lastName")
     private String lastName;
 
+    @Column(name = "dob")
     private Date dob;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "zip")
     private String zip;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "phone")
     private String phone;
 
     public Person() {
         // required by JPA
     }
 
-    public Person(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone) {
+    public Person(int id, String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -38,6 +50,10 @@ public class Person {
         this.city = city;
         this.email = email;
         this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -58,10 +74,6 @@ public class Person {
 
     public Date getDob() {
         return dob;
-    }
-
-    public void setDob(Date dob) {
-        this.dob = dob;
     }
 
     public String getAddress() {
@@ -103,9 +115,4 @@ public class Person {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Integer getId() {
-        return id;
-    }
 }
-
