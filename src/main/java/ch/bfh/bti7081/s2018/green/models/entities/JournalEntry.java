@@ -27,17 +27,17 @@ public class JournalEntry {
     @Column(nullable = false)
     @OrderBy("created asc")
     private Date created;
-    
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "authorId")
     private Doctor author;
-    
+
     @OneToOne
     @MapsId
     @JoinColumn(name = "patientId")
     private Patient patient;
-    
+
     @PrePersist
     protected void onCreate() {
     	created = new Date();
@@ -51,7 +51,11 @@ public class JournalEntry {
 		this.author = author;
 		this.patient = patient;
 	}
-		
+
+	public Integer getId() {
+		return id;
+	}
+
 	public String getContent() {
 		return content;
 	}
@@ -59,13 +63,13 @@ public class JournalEntry {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	public Doctor getAuthor() {
 		return author;
 	}
-	
+
 	public Patient getPatient() {
 		return patient;
 	}
-	
+
 }
