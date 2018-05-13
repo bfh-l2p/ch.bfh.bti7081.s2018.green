@@ -6,13 +6,14 @@
     <persistence-unit name="pmsDB" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>ch.bfh.bti7081.s2018.green.models.entities.Person</class>
+        <class>ch.bfh.bti7081.s2018.green.models.entities.Patient</class>
+        <class>ch.bfh.bti7081.s2018.green.models.entities.Staff</class>
 
         <properties>
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLiteDialect"/>
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC"/>
-            <property name="hibernate.connection.url"
-                      value="jdbc:sqlite:pmsDB.sqlite"/>
+            <property name="hibernate.connection.url" value="jdbc:sqlite:pmsDB.sqlite"/>
             <property name="hibernate.connection.username" value=""/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.connection.user" value=""/>

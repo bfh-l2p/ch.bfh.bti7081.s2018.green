@@ -1,47 +1,46 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import java.util.Date;
+import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "Person")
 public class Person {
 
-    @Id @GeneratedValue
-    @Column(name = "id", updatable = false, nullable = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false, nullable = false)
     private int id;
 
-    @Column(name = "firstName")
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(nullable = false)
     private String lastName;
 
-    @Column(name = "dob")
+    @Column
     private Date dob;
 
-    @Column(name = "address")
+    @Column
     private String address;
 
-    @Column(name = "zip")
+    @Column
     private String zip;
 
-    @Column(name = "city")
+    @Column
     private String city;
 
-    @Column(name = "email")
+    @Column
     private String email;
 
-    @Column(name = "phone")
+    @Column
     private String phone;
 
     public Person() {
         // required by JPA
     }
 
-    public Person(int id, String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone) {
-        this.id = id;
+    public Person(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
