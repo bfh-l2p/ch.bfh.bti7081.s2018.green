@@ -1,7 +1,6 @@
-package test.ch.bfh.bti7081.s2018.green.models.entities;
+package ch.bfh.bti7081.s2018.green.models.entities;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
+import ch.bfh.bti7081.s2018.green.models.entities.Person;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,13 +12,13 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-public class StaffTest {
+public class PersonTest {
 
     @Test
-    public void testStaff() throws ClassNotFoundException, ParseException {
+    public void testPerson() throws ClassNotFoundException, ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         Date dob = new Date(format.parse("20.01.1989").getTime());
-        Staff staff = new Staff(
+        Person person = new Person(
                 "testestCyrill",
                 "testestBolliger",
                 dob,
@@ -27,8 +26,7 @@ public class StaffTest {
                 "3013",
                 "Bern",
                 "bolliger@gmx.ch",
-                "0788079297",
-                StaffType.PSYCHIATRIST
+                "0788079297"
         );
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
@@ -37,26 +35,25 @@ public class StaffTest {
 
         // insert test record
         tx.begin();
-        em.persist(staff);
+        em.persist(person);
         tx.commit();
 
         // read test record
         tx.begin();
-        Staff testStaff = em.find(Staff.class, staff.getId());
+        Person testPerson = em.find(Person.class, person.getId());
         tx.commit();
 
         // delete test record
         tx.begin();
-        em.remove(staff);
+        em.remove(person);
         tx.commit();
         em.close();
 
-        // test if persisted and read staff are identical
-        Assert.assertEquals(testStaff.getId(), staff.getId());
-        Assert.assertEquals(testStaff.getFirstName(), staff.getFirstName());
-        Assert.assertEquals(testStaff.getStaffType(), staff.getStaffType());
+        // test if persisted and read person are identical
+        Assert.assertEquals(testPerson.getId(), person.getId());
+        Assert.assertEquals(testPerson.getFirstName(), person.getFirstName());
 
         // test date persistence
-        Assert.assertEquals(testStaff.getDob().toString(), "1989-01-20");
+        Assert.assertEquals(testPerson.getDob().toString(), "1989-01-20");
     }
 }
