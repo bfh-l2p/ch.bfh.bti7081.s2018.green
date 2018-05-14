@@ -24,9 +24,6 @@ public class JournalEntry {
     private String content;
 
     @Column(nullable = false)
-    private String lastName;
-
-    @Column(nullable = false)
     @OrderBy("created asc")
     private Date created;
 

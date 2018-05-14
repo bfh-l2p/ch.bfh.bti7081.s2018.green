@@ -10,13 +10,15 @@ import javax.persistence.Persistence;
 import org.junit.Assert;
 import org.junit.Test;
 
+import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
+
 public class JournalEntryTest {
 
     @Test
     public void testJournalEntry() throws ClassNotFoundException, ParseException {
     	Person emergencyContact = new Person();
-    	Patient matthias = new Patient("Patrice Malade", null, null, null, null, null, null, null, emergencyContact);
-        Staff exampleDoctor = new Staff();
+    	Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
+        Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
         JournalEntry entry = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
      
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
