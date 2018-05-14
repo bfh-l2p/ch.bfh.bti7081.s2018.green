@@ -1,35 +1,56 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
 
-public class Patient {
+import java.sql.Date;
+import javax.persistence.*;
 
-	private String name;
-	private List<String> journalEntries;
 
-	public Patient(String name) {
-		this.name = name;		
-	}
-		
+@Entity
+public class Patient extends Person {
 
-	public String getName() {
-		return name;
-	}
+    @ManyToOne
+    @JoinColumn(name = "contactId", nullable = false)
+	private Person emergencyContact;
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public void addJournalEntry(String jEntry) {
-		if(journalEntries == null) {
-			journalEntries = new ArrayList<>();
-		}
-		journalEntries.add(jEntry);
+	@Column(nullable = false)
+	private DangerLevel selfEndangerment;
+
+    @Column(nullable = false)
+    private DangerLevel dangerToOthers;
+
+    public Patient() {
+		// required by JPA
 	}
 
-	public List<String> getJournalEntries() {
-		return journalEntries;
+	public Patient(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone, Person emergencyContact) {
+		super(firstName, lastName, dob, address, zip, city, email, phone);
+		this.emergencyContact = emergencyContact;
+		this.selfEndangerment = DangerLevel.LOW;
+		this.dangerToOthers = DangerLevel.LOW;
 	}
-	
+
+	public Person getEmergencyContact() {
+		return emergencyContact;
+	}
+
+	public void setEmergencyContact(Person emergencyContact) {
+		this.emergencyContact = emergencyContact;
+	}
+
+	public DangerLevel getSelfEndangerment() {
+		return selfEndangerment;
+	}
+
+	public void setSelfEndangerment(DangerLevel selfEndangement) {
+		this.selfEndangerment = selfEndangement;
+	}
+
+	public DangerLevel getDangerToOthers() {
+		return dangerToOthers;
+	}
+
+	public void setDangerToOthers(DangerLevel dangerToOthers) {
+		this.dangerToOthers = dangerToOthers;
+	}
 }

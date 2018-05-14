@@ -1,16 +1,16 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-
-import javax.persistence.*;
 import java.sql.Date;
+import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Person {
 
     @Id
-    @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    @Column(updatable = false, nullable = false)
+    private int id;
 
     @Column(nullable = false)
     private String firstName;
@@ -18,11 +18,22 @@ public class Person {
     @Column(nullable = false)
     private String lastName;
 
+    @Column
     private Date dob;
+
+    @Column
     private String address;
+
+    @Column
     private String zip;
+
+    @Column
     private String city;
+
+    @Column
     private String email;
+
+    @Column
     private String phone;
 
     public Person() {
@@ -38,6 +49,10 @@ public class Person {
         this.city = city;
         this.email = email;
         this.phone = phone;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -103,9 +118,4 @@ public class Person {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public Integer getId() {
-        return id;
-    }
 }
-

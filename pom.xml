@@ -74,7 +74,6 @@
 			<version>5.2.12.Final</version>
 		</dependency>
 
-
 		<!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
 		<dependency>
 			<groupId>org.xerial</groupId>
@@ -97,7 +96,6 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 
 	<build>
