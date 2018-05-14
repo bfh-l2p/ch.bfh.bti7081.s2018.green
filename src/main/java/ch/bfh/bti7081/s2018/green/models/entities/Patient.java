@@ -23,8 +23,8 @@ public class Patient extends Person {
 		// required by JPA
 	}
 
-	public Patient(String firstName, String lastName, Date birthDate, String address, String zip, String city, String email, String phone, Person emergencyContact) {
-		super(firstName, lastName, birthDate, address, zip, city, email, phone);
+	public Patient(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone, Person emergencyContact) {
+		super(firstName, lastName, dob, address, zip, city, email, phone);
 		this.emergencyContact = emergencyContact;
 		this.selfEndangerment = DangerLevel.LOW;
 		this.dangerToOthers = DangerLevel.LOW;

@@ -8,23 +8,23 @@ import java.sql.Date;
 @Entity
 public class Staff extends Person {
 
-    @Column(name = "type", nullable = false)
-    private StaffType staffType;
+    @Column(nullable = false)
+    private StaffType type;
 
     public Staff(){
         // required by JPA
     }
 
-    public Staff(String firstName, String lastName, Date birthDate, String address, String zip, String city, String email, String phone, StaffType staffType) {
+    public Staff(String firstName, String lastName, Date birthDate, String address, String zip, String city, String email, String phone, StaffType type) {
         super(firstName, lastName, birthDate, address, zip, city, email, phone);
-        this.staffType = staffType;
+        this.type = type;
     }
 
-    public StaffType getStaffType() {
-        return staffType;
+    public StaffType getType() {
+        return type;
     }
 
-    public void setStaffType(StaffType staffType) {
-        this.staffType = staffType;
+    public void setType(StaffType type) {
+        this.type = type;
     }
 }

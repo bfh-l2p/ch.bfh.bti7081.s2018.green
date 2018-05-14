@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Person;
 import org.junit.Assert;
 import org.junit.Test;
 

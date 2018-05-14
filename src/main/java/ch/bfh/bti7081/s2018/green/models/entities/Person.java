@@ -75,6 +75,10 @@ public class Person {
         return dob;
     }
 
+    public void setDob(Date dob) {
+        this.dob = dob;
+    }
+
     public String getAddress() {
         return address;
     }

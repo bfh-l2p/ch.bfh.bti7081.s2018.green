@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
 import org.junit.Assert;
 import org.junit.Test;
@@ -54,7 +53,7 @@ public class StaffTest {
         // test if persisted and read staff are identical
         Assert.assertEquals(testStaff.getId(), staff.getId());
         Assert.assertEquals(testStaff.getFirstName(), staff.getFirstName());
-        Assert.assertEquals(testStaff.getStaffType(), staff.getStaffType());
+        Assert.assertEquals(testStaff.getType(), staff.getType());
 
         // test date persistence
         Assert.assertEquals(testStaff.getDob().toString(), "1989-01-20");
