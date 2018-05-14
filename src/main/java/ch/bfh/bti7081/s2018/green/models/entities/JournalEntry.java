@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2018.green.models.entities;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 
+@Entity
 public class JournalEntry {
     @Id
     @Column(nullable = false)
