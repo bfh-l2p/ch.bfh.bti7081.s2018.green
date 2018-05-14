@@ -3,6 +3,9 @@ package ch.bfh.bti7081.s2018.green.models.entities;
 import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -54,7 +57,8 @@ public class Patient extends Person {
 
 	public void setDangerToOthers(DangerLevel dangerToOthers) {
 		this.dangerToOthers = dangerToOthers;
-
+	}
+	
 	public void addJournalEntry(JournalEntry journalEntry) {
 		if(journalEntries == null) {
 			journalEntries = new ArrayList<>();

@@ -33,7 +33,7 @@ public class JournalEntry {
     @OneToOne
     @MapsId
     @JoinColumn(name = "authorId")
-    private Doctor author;
+    private Staff staff;
 
     @OneToOne
     @MapsId
@@ -48,9 +48,9 @@ public class JournalEntry {
         // required by JPA
     }
 
-	public JournalEntry(String content, Patient patient, Doctor author) {
+	public JournalEntry(String content, Patient patient, Staff staff) {
 		this.content = content;
-		this.author = author;
+		this.staff = staff;
 		this.patient = patient;
 	}
 
@@ -66,8 +66,8 @@ public class JournalEntry {
 		this.content = content;
 	}
 
-	public Doctor getAuthor() {
-		return author;
+	public Staff getStaff() {
+		return staff;
 	}
 
 	public Patient getPatient() {

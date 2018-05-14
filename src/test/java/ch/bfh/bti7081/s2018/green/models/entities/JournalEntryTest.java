@@ -14,8 +14,9 @@ public class JournalEntryTest {
 
     @Test
     public void testJournalEntry() throws ClassNotFoundException, ParseException {
-    	Patient matthias = new Patient("Patrice Malade");
-        Doctor exampleDoctor = new Doctor();
+    	Person emergencyContact = new Person();
+    	Patient matthias = new Patient("Patrice Malade", null, null, null, null, null, null, null, emergencyContact);
+        Staff exampleDoctor = new Staff();
         JournalEntry entry = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
      
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");

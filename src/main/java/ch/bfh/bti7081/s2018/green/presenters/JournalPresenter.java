@@ -22,7 +22,7 @@ public class JournalPresenter {
 
     private void addEntry() {
     	TextField txtEntry = view.getTxtEntry();
-    	JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentPatient(), data.getCurrentDoctor());
+    	JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentPatient(), data.getCurrentStaff());
         data.getCurrentPatient().addJournalEntry(journalEntry);
         txtEntry.clear();
         this.view.addJournalEntry(journalEntry);
