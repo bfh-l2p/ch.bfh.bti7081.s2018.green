@@ -1,24 +1,26 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.JournalEntryLayout;
-import ch.bfh.bti7081.s2018.green.layouts.JournalLayout;
 import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomLayout;
+import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.VerticalLayout;
 
 import java.util.List;
 
-public class JournalView extends JournalLayout implements View {
+public class JournalView extends FormLayout implements View {
 
     public static final String NAME = "journal";
 
     private Button btnSave = new Button("Save");
-    private TextField txtEntry = new TextField("NewEntry");
-    
+    private TextField txtEntry = new TextField();
+    private VerticalLayout journalEntryList;
+
     @Override
     public void enter(ViewChangeEvent event) {
         Notification.show("Welcome to the Journal View");
@@ -26,29 +28,34 @@ public class JournalView extends JournalLayout implements View {
     }
 
     public void setJournalEntries(List<JournalEntry> journalEntries) {
-        this.removeAllComponents();
-        this.addComponent(txtEntry);
-        this.addComponent(btnSave); // only for demonstration purposes
+        CustomLayout journalLayout = new CustomLayout("journal");
+        journalLayout.addComponent(txtEntry, "textentry");
+        journalLayout.addComponent(btnSave, "savebutton");
 
+        journalEntryList = new VerticalLayout();
         for (JournalEntry journalEntry : journalEntries) {
-            JournalEntryLayout jel = new JournalEntryLayout();
-            TextField tf = jel.getTextFieldJournalEntry();
+            CustomLayout journalEntryLayout = new CustomLayout("journalentry");
+            TextField tf = new TextField();
             tf.setValue(journalEntry.getContent());
-            this.addComponent(jel);
+            journalEntryLayout.addComponent(tf, "content");
+            journalEntryList.addComponentAsFirst(journalEntryLayout);
         }
+        journalLayout.addComponent(journalEntryList, "journal");
+        this.addComponent(journalLayout);
     }
 
     public void addJournalEntry(JournalEntry journalEntry) {
-    	JournalEntryLayout jel = new JournalEntryLayout();
-    	TextField tf = jel.getTextFieldJournalEntry();
+        CustomLayout journalEntryLayout = new CustomLayout("journalentry");
+        TextField tf = new TextField();
         tf.setValue(journalEntry.getContent());
-    	this.addComponent(jel);
+        journalEntryLayout.addComponent(tf, "content");
+        journalEntryList.addComponentAsFirst(journalEntryLayout);
     }
-    
+
     public TextField getTxtEntry() {
-    	return txtEntry;
+        return txtEntry;
     }
-    
+
     public Button getBtnSave() {
         return btnSave;
     }

@@ -22,10 +22,13 @@ public class JournalPresenter {
 
     private void addEntry() {
     	TextField txtEntry = view.getTxtEntry();
-        JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentStaff());
-        data.getCurrentPatient().addJournalEntry(journalEntry);
+        String content = txtEntry.getValue().trim();
         txtEntry.clear();
-        this.view.addJournalEntry(journalEntry);
+        if (content != null && !content.isEmpty()) {
+            JournalEntry journalEntry = new JournalEntry(content, data.getCurrentStaff());
+            data.getCurrentPatient().addJournalEntry(journalEntry);
+            this.view.addJournalEntry(journalEntry);
+        }
     }
     private void enteredView() {
         // will be called when corresponding view is about to open
