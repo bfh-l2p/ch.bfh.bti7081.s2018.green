@@ -6,7 +6,6 @@ import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
@@ -14,7 +13,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import java.util.List;
 
-public class JournalView extends FormLayout implements View {
+public class JournalView extends CustomLayout implements View {
 
     public static final String NAME = "journal";
 
@@ -25,20 +24,19 @@ public class JournalView extends FormLayout implements View {
     @Override
     public void enter(ViewChangeEvent event) {
         Notification.show("Welcome to the Journal View");
+        this.setTemplateName("journal");
+        this.addComponent(txtEntry, "textentry");
+        this.addComponent(btnSave, "savebutton");
+
         new JournalPresenter(this);
     }
 
     public void setJournalEntries(List<JournalEntry> journalEntries) {
-        CustomLayout journalLayout = new CustomLayout("journal");
-        journalLayout.addComponent(txtEntry, "textentry");
-        journalLayout.addComponent(btnSave, "savebutton");
-
         journalEntryList = new VerticalLayout();
         for (JournalEntry journalEntry : journalEntries) {
             addJournalEntry(journalEntry);
         }
-        journalLayout.addComponent(journalEntryList, "journal");
-        this.addComponent(journalLayout);
+        this.addComponent(journalEntryList, "journal");
     }
 
     public void addJournalEntry(JournalEntry journalEntry) {
