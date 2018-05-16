@@ -60,4 +60,7 @@ public class JournalEntry {
 		return staff;
 	}
 
+	public Date getCreated() {
+	    return created;
+	}
 }

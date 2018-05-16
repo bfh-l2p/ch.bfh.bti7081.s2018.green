@@ -7,6 +7,7 @@ import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
@@ -34,11 +35,7 @@ public class JournalView extends FormLayout implements View {
 
         journalEntryList = new VerticalLayout();
         for (JournalEntry journalEntry : journalEntries) {
-            CustomLayout journalEntryLayout = new CustomLayout("journalentry");
-            TextField tf = new TextField();
-            tf.setValue(journalEntry.getContent());
-            journalEntryLayout.addComponent(tf, "content");
-            journalEntryList.addComponentAsFirst(journalEntryLayout);
+            addJournalEntry(journalEntry);
         }
         journalLayout.addComponent(journalEntryList, "journal");
         this.addComponent(journalLayout);
@@ -46,10 +43,26 @@ public class JournalView extends FormLayout implements View {
 
     public void addJournalEntry(JournalEntry journalEntry) {
         CustomLayout journalEntryLayout = new CustomLayout("journalentry");
-        TextField tf = new TextField();
-        tf.setValue(journalEntry.getContent());
-        journalEntryLayout.addComponent(tf, "content");
+
+        // set content
+        Label content = new Label();
+        content.setValue(journalEntry.getContent());
+        journalEntryLayout.addComponent(content, "content");
+
+        // set author
+        Label author = new Label();
+        author.setValue(journalEntry.getStaff().getFullName());
+        journalEntryLayout.addComponent(author, "author");
         journalEntryList.addComponentAsFirst(journalEntryLayout);
+
+        // set created
+        /*
+         * TODO: needs working persistence, because created is written when saved Label
+         * created = new Label();
+         * created.setValue(journalEntry.getCreated().toString());
+         * journalEntryLayout.addComponent(created, "created");
+         * journalEntryList.addComponentAsFirst(journalEntryLayout);
+         */
     }
 
     public TextField getTxtEntry() {

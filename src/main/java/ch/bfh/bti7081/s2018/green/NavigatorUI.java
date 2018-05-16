@@ -145,6 +145,7 @@ public class NavigatorUI extends UI {
 
         DataContainer data = DataContainer.getInstance();
         data.setCurrentPatient(matthias);
+        data.setCurrentStaff(exampleDoctor);
 
         JournalEntry entry1 = new JournalEntry("Halluzinationen", exampleDoctor);
         JournalEntry entry2 = new JournalEntry("Wahnvorstellungen", exampleDoctor);

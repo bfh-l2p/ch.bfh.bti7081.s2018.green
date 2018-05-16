@@ -27,7 +27,7 @@ public class JournalPresenter {
         if (content != null && !content.isEmpty()) {
             JournalEntry journalEntry = new JournalEntry(content, data.getCurrentStaff());
             data.getCurrentPatient().addJournalEntry(journalEntry);
-            this.view.addJournalEntry(journalEntry);
+            view.addJournalEntry(journalEntry);
         }
     }
     private void enteredView() {
