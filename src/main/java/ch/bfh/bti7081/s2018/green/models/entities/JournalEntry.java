@@ -28,13 +28,11 @@ public class JournalEntry {
     private Date created;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "authorId")
+    @JoinColumn(name = "authorId", nullable = false)
     private Staff staff;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "patientId")
+    @JoinColumn(name = "patientId", nullable = false)
     private Patient patient;
 
     @PrePersist

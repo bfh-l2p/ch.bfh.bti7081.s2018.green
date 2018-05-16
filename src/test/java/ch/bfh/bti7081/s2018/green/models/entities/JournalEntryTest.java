@@ -16,17 +16,20 @@ public class JournalEntryTest {
 
     @Test
     public void testJournalEntry() throws ClassNotFoundException, ParseException {
-    	Person emergencyContact = new Person();
-    	Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
+        Person emergencyContact = new Person("Emergency", "Contact", null, null, null, null, null, null);
+        Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
         Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
         JournalEntry entry = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
-     
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
 
         // insert test record
         tx.begin();
+        em.persist(emergencyContact);
+        em.persist(matthias);
+        em.persist(exampleDoctor);
         em.persist(entry);
         tx.commit();
 
