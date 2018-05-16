@@ -22,17 +22,14 @@ public class JournalPresenter {
 
     private void addEntry() {
     	TextField txtEntry = view.getTxtEntry();
-    	JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentPatient(), data.getCurrentStaff());
-        //data.getCurrentPatient().addJournalEntry(journalEntry);
+        JournalEntry journalEntry = new JournalEntry(txtEntry.getValue(), data.getCurrentStaff());
+        data.getCurrentPatient().addJournalEntry(journalEntry);
         txtEntry.clear();
         this.view.addJournalEntry(journalEntry);
     }
     private void enteredView() {
-
         // will be called when corresponding view is about to open
         // use this method to populate the view-elements with data
-
-        // TODO: Implement method
-        //view.setJournalEntries(data.getCurrentPatient().getJournalEntries());
+        view.setJournalEntries(data.getCurrentPatient().getJournalEntries());
     }
 }

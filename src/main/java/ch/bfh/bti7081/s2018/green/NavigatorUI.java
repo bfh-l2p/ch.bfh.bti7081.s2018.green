@@ -2,8 +2,10 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
+import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
 import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Person;
 import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
@@ -137,18 +139,20 @@ public class NavigatorUI extends UI {
     private void initializeClasses() {
 
         // TODO: remove demo data
-        /*Patient matthias = new Patient("Patrice Malade");
-        Doctor exampleDoctor = new Doctor();
+        Person emergencyContact = new Person("Emergency", "Contact", null, null, null, null, null, null);
+        Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
+        Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
+
         DataContainer data = DataContainer.getInstance();
         data.setCurrentPatient(matthias);
 
-        JournalEntry entry1 = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
-        JournalEntry entry2 = new JournalEntry("Wahnvorstellungen", matthias, exampleDoctor);
-        JournalEntry entry3 = new JournalEntry("Präpsychose", matthias, exampleDoctor);
+        JournalEntry entry1 = new JournalEntry("Halluzinationen", exampleDoctor);
+        JournalEntry entry2 = new JournalEntry("Wahnvorstellungen", exampleDoctor);
+        JournalEntry entry3 = new JournalEntry("Präpsychose", exampleDoctor);
 
         data.getCurrentPatient().addJournalEntry(entry1);
         data.getCurrentPatient().addJournalEntry(entry2);
-        data.getCurrentPatient().addJournalEntry(entry3);*/
+        data.getCurrentPatient().addJournalEntry(entry3);
 
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);

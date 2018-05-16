@@ -15,6 +15,7 @@ import java.util.List;
 public class JournalView extends JournalLayout implements View {
 
     public static final String NAME = "journal";
+
     private Button btnSave = new Button("Save");
     private TextField txtEntry = new TextField("NewEntry");
     
@@ -51,5 +52,4 @@ public class JournalView extends JournalLayout implements View {
     public Button getBtnSave() {
         return btnSave;
     }
-
 }

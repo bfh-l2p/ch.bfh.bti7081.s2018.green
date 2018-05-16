@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
@@ -31,22 +30,18 @@ public class JournalEntry {
     @JoinColumn(name = "authorId", nullable = false)
     private Staff staff;
 
-    @OneToOne
-    @JoinColumn(name = "patientId", nullable = false)
-    private Patient patient;
-
     @PrePersist
     protected void onCreate() {
     	created = new Date();
     }
+
     public JournalEntry() {
         // required by JPA
     }
 
-	public JournalEntry(String content, Patient patient, Staff staff) {
+	public JournalEntry(String content, Staff staff) {
 		this.content = content;
 		this.staff = staff;
-		this.patient = patient;
 	}
 
 	public Integer getId() {
@@ -63,10 +58,6 @@ public class JournalEntry {
 
 	public Staff getStaff() {
 		return staff;
-	}
-
-	public Patient getPatient() {
-		return patient;
 	}
 
 }
