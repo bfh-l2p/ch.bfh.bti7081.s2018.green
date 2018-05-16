@@ -57,7 +57,8 @@ public class NavigatorUI extends UI {
 
         // instantiate a full screen layout and add it
         VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
+        // The following snippet disable scrolling
+        //layout.setSizeFull();
         setContent(layout);
 
         // header row

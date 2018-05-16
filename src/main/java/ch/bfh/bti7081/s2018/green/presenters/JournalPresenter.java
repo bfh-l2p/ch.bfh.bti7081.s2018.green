@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
+import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
@@ -21,7 +22,7 @@ public class JournalPresenter {
     }
 
     private void addEntry() {
-    	TextField txtEntry = view.getTxtEntry();
+        TextArea txtEntry = view.getTxtEntry();
         String content = txtEntry.getValue().trim();
         txtEntry.clear();
         if (content != null && !content.isEmpty()) {
