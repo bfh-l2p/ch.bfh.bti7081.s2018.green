@@ -5,11 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Person;
 
 public class PersonManagerTest {
 	
+	@Test
 	public void personManagerTest() throws ClassNotFoundException, ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         Date dob = new Date(format.parse("14.10.1991").getTime());
@@ -32,8 +34,6 @@ public class PersonManagerTest {
         //test if persisted and retrieved person is identical
         Assert.assertEquals(persistedtestperson1.getId(), retrievedtestperson1.getId());
         Assert.assertEquals(persistedtestperson1.getFirstName(), retrievedtestperson1.getFirstName());
-        Assert.assertEquals(persistedtestperson1.getEmail(), retrievedtestperson1.getEmail());
-        
-        
+        Assert.assertEquals(persistedtestperson1.getEmail(), retrievedtestperson1.getEmail());    
 	}
 }
