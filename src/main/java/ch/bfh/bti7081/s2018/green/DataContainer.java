@@ -31,15 +31,15 @@ public class DataContainer {
      */
     public static DataContainer getInstance() {
         String currentSessionId = VaadinSession.getCurrent().getSession().getId();
-        if (!instance.containsKey(currentSessionId)) {
-            instance.put(currentSessionId, new DataContainer());
-        }
 
-        return instance.get(currentSessionId);
+
+        return DataContainer.getInstance(currentSessionId);
     }
     
     public static DataContainer getInstance(String artificialSessionId) {
-    	instance.put(artificialSessionId, new DataContainer());
+        if (!instance.containsKey(artificialSessionId)) {
+            instance.put(artificialSessionId, new DataContainer());
+        }
     	
     	return instance.get(artificialSessionId);
     }
