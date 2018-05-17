@@ -32,10 +32,15 @@ public class DataContainer {
     public static DataContainer getInstance() {
         String currentSessionId = VaadinSession.getCurrent().getSession().getId();
 
-
         return DataContainer.getInstance(currentSessionId);
     }
-    
+
+    /**
+     * Get instance by providing a session id manually.
+     *
+     * @param artificialSessionId the session id
+     * @return
+     */
     public static DataContainer getInstance(String artificialSessionId) {
         if (!instance.containsKey(artificialSessionId)) {
             instance.put(artificialSessionId, new DataContainer());
