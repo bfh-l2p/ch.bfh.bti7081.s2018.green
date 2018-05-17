@@ -37,6 +37,12 @@ public class DataContainer {
 
         return instance.get(currentSessionId);
     }
+    
+    public static DataContainer getInstance(String artificialSessionId) {
+    	instance.put(artificialSessionId, new DataContainer());
+    	
+    	return instance.get(artificialSessionId);
+    }
 
     public Patient getCurrentPatient() {
         return currentPatient;
