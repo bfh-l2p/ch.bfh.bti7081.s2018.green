@@ -54,7 +54,7 @@ public class PersonManager implements IManager<Person> {
         tx.commit();
         em.close();
 
-        return em.find(Person.class, item.getId());
+        return item;
     }
 
     public Person update(Person item) {
@@ -67,6 +67,19 @@ public class PersonManager implements IManager<Person> {
         tx.commit();
         em.close();
 
+        return item;
+    }
+    
+    public Person remove(Person item) {
+        DataContainer dc = DataContainer.getInstance();
+        EntityManager em = dc.createPmsEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        
+        tx.begin();
+        em.remove(em.contains(item) ? item : em.merge(item));
+        tx.commit();
+        em.close();
+        
         return item;
     }
 }

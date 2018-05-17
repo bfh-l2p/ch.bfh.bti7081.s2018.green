@@ -85,4 +85,17 @@ public class StaffManager implements IManager<Staff> {
 
         return staffs;
     }
+    
+    public Staff remove(Staff item) {
+        DataContainer dc = DataContainer.getInstance();
+        EntityManager em = dc.createPmsEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        
+        tx.begin();
+        em.remove(em.contains(item) ? item : em.merge(item));
+        tx.commit();
+        em.close();
+        
+        return item;
+    }
 }

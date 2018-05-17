@@ -2,7 +2,6 @@ package ch.bfh.bti7081.s2018.green.models.managers;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -67,6 +66,19 @@ public class PatientManager implements IManager<Patient> {
         tx.commit();
         em.close();
 
+        return item;
+    }
+    
+    public Patient remove(Patient item) {
+        DataContainer dc = DataContainer.getInstance();
+        EntityManager em = dc.createPmsEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        
+        tx.begin();
+        em.remove(em.contains(item) ? item : em.merge(item));
+        tx.commit();
+        em.close();
+        
         return item;
     }
 }

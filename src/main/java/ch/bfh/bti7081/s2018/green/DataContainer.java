@@ -30,25 +30,20 @@ public class DataContainer {
      * @return instance
      */
     public static DataContainer getInstance() {
-        String currentSessionId = VaadinSession.getCurrent().getSession().getId();
+    	VaadinSession currentSession = VaadinSession.getCurrent();
+        String currentSessionId = "";
+    	
+        if (currentSession == null) {
+        	currentSessionId = "test1234";
+        } else {
+        	currentSessionId = VaadinSession.getCurrent().getSession().getId();
+        }
         
-        if (currentSessionId.isEmpty()) return DataContainer.getInstance("test1234");
-        
-        return DataContainer.getInstance(currentSessionId);
-    }
-
-    /**
-     * Get instance by providing a session id manually.
-     *
-     * @param artificialSessionId the session id
-     * @return
-     */
-    public static DataContainer getInstance(String artificialSessionId) {
-        if (!instance.containsKey(artificialSessionId)) {
-            instance.put(artificialSessionId, new DataContainer());
+        if (!instance.containsKey(currentSessionId)) {
+            instance.put(currentSessionId, new DataContainer());
         }
     	
-    	return instance.get(artificialSessionId);
+    	return instance.get(currentSessionId);
     }
 
     public Patient getCurrentPatient() {
