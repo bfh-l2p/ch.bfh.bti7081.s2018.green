@@ -4,9 +4,13 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import org.junit.Assert;
 import org.junit.Test;
 
+import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.Person;
 
 public class PersonManagerTest {
@@ -27,6 +31,12 @@ public class PersonManagerTest {
         );
         
         PersonManager testmanager = new PersonManager();
+        EntityManager em = DataContainer.getInstance("test1234").createPmsEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        
+        //persist test person
+        testmanager.add(persistedtestperson1);
+        
         
         //retrieval of persisted test person
         Person retrievedtestperson1 = testmanager.get(persistedtestperson1.getId());
