@@ -14,7 +14,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 
 @Entity
-@NamedQuery(name="JournalEntry.findByPatient", query="SELECT j FROM JournalEntry j where patientId = :patientId")
+@NamedQuery(name="JournalEntry.findByPatient", query="SELECT j FROM JournalEntry j where patientId = :patientId order by created asc")
 public class JournalEntry {
     @Id
     @Column(nullable = false)

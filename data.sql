@@ -28,4 +28,4 @@ INSERT INTO Staff
 INSERT INTO JournalEntry
         (id, content, created, patientId, authorId)
     values
-        (99, "Journaleintrag aus der DB", 1526583340, 2, 3)
+        (99, "Journaleintrag aus der DB", 1526585549180, 2, 3)
