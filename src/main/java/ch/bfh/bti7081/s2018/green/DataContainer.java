@@ -31,7 +31,9 @@ public class DataContainer {
      */
     public static DataContainer getInstance() {
         String currentSessionId = VaadinSession.getCurrent().getSession().getId();
-
+        
+        if (currentSessionId.isEmpty()) return DataContainer.getInstance("test1234");
+        
         return DataContainer.getInstance(currentSessionId);
     }
 
