@@ -19,8 +19,8 @@ public class JournalEntryTest {
         Person emergencyContact = new Person("Emergency", "Contact", null, null, null, null, null, null);
         Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
         Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        JournalEntry entry = new JournalEntry("Halluzinationen", exampleDoctor);
-        matthias.addJournalEntry(entry);
+        JournalEntry entry = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -30,6 +30,7 @@ public class JournalEntryTest {
         em.persist(emergencyContact);
         em.persist(matthias);
         em.persist(exampleDoctor);
+
         em.persist(entry);
         tx.commit();
 

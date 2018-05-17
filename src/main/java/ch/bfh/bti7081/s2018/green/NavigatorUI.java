@@ -20,6 +20,10 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -138,27 +142,20 @@ public class NavigatorUI extends UI {
      * Initialise data access layer, views and presenters and add the to the navigator
      */
     private void initializeClasses() {
-
-        // TODO: remove demo data
-        Person emergencyContact = new Person("Emergency", "Contact", null, null, null, null, null, null);
-        Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
-        Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-
         DataContainer data = DataContainer.getInstance();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+
+        // TODO: add patient list instead of hardcoding the id
+        Patient matthias = em.find(Patient.class, 2);
+        Staff exampleDoctor = em.find(Staff.class, 3);
+        System.out.println(matthias.getFirstName());
         data.setCurrentPatient(matthias);
         data.setCurrentStaff(exampleDoctor);
 
-        JournalEntry entry1 = new JournalEntry("Halluzinationen", exampleDoctor);
-        JournalEntry entry2 = new JournalEntry("Wahnvorstellungen", exampleDoctor);
-        JournalEntry entry3 = new JournalEntry("Präpsychose", exampleDoctor);
-
-        data.getCurrentPatient().addJournalEntry(entry1);
-        data.getCurrentPatient().addJournalEntry(entry2);
-        data.getCurrentPatient().addJournalEntry(entry3);
-
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-
     }
 
 

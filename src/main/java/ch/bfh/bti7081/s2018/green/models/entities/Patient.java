@@ -22,8 +22,8 @@ public class Patient extends Person {
     @Column(nullable = false)
     private DangerLevel dangerToOthers;
 
-    @OneToMany
-	private List<JournalEntry> journalEntries = new ArrayList<>();
+    //@OneToMany
+	//private List<JournalEntry> journalEntries = new ArrayList<>();
 
     public Patient() {
 		// required by JPA
@@ -59,15 +59,13 @@ public class Patient extends Person {
 	public void setDangerToOthers(DangerLevel dangerToOthers) {
 		this.dangerToOthers = dangerToOthers;
 	}
-	
-	public void addJournalEntry(JournalEntry journalEntry) {
-		if(journalEntries == null) {
-			journalEntries = new ArrayList<>();
-		}
-		journalEntries.add(journalEntry);
-	}
 
 	public List<JournalEntry> getJournalEntries() {
-		return journalEntries;
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<JournalEntry> query = em.createNamedQuery("JournalEntry.findByPatient", JournalEntry.class);
+        System.out.println(this.getId());
+        query.setParameter("patientId", this.getId());
+        return query.getResultList();
 	}
 }

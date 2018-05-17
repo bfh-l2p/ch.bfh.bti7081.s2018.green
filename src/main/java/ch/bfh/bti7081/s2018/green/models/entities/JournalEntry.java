@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 
 @Entity
+@NamedQuery(name="JournalEntry.findByPatient", query="SELECT j FROM JournalEntry j where patientId = :patientId")
 public class JournalEntry {
     @Id
     @Column(nullable = false)
@@ -27,11 +29,16 @@ public class JournalEntry {
     private Date created;
 
     @OneToOne
+    @JoinColumn(name = "patientId", nullable = false)
+    private Patient patient;
+
+    @OneToOne
     @JoinColumn(name = "authorId", nullable = false)
     private Staff staff;
 
     @PrePersist
     protected void onCreate() {
+        System.out.println("created");
     	created = new Date();
     }
 
@@ -39,9 +46,10 @@ public class JournalEntry {
         // required by JPA
     }
 
-	public JournalEntry(String content, Staff staff) {
+	public JournalEntry(String content, Patient patient, Staff staff) {
 		this.content = content;
 		this.staff = staff;
+		this.patient = patient;
 	}
 
 	public Integer getId() {
@@ -58,6 +66,10 @@ public class JournalEntry {
 
 	public Staff getStaff() {
 		return staff;
+	}
+
+	public Patient getPatient() {
+	    return patient;
 	}
 
 	public Date getCreated() {

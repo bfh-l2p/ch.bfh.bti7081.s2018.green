@@ -57,14 +57,11 @@ public class JournalView extends CustomLayout implements View {
         journalEntryLayout.addComponent(author, "author");
         journalEntryList.addComponentAsFirst(journalEntryLayout);
 
-        // set created
-        /*
-         * TODO: needs working persistence, because created is written when saved Label
-         * created = new Label();
-         * created.setValue(journalEntry.getCreated().toString());
-         * journalEntryLayout.addComponent(created, "created");
-         * journalEntryList.addComponentAsFirst(journalEntryLayout);
-         */
+
+        Label created = new Label();
+        created.setValue(journalEntry.getCreated().toString());
+        journalEntryLayout.addComponent(created, "created");
+        journalEntryList.addComponentAsFirst(journalEntryLayout);
     }
 
     public TextArea getTxtEntry() {
