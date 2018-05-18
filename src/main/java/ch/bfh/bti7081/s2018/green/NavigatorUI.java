@@ -1,6 +1,15 @@
 package ch.bfh.bti7081.s2018.green;
 
 
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
+import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
+import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Person;
+import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.NavigationView;
 import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
@@ -14,6 +23,10 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -48,10 +61,10 @@ public class NavigatorUI extends UI {
 
         // html <title> attribute
         getPage().setTitle("Patient Management System");
+
         // Get the base layout
         BaseLayoutFabric layout = new BaseLayoutFabric();
-        // make it a full screen layout
-        layout.setSizeFull();
+
         setContent(layout);
 
         // header row
@@ -165,13 +178,23 @@ public class NavigatorUI extends UI {
      */
     private void initializeClasses() {
 
+        DataContainer data = DataContainer.getInstance();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+
+        // TODO: add patient list instead of hardcoding the id
+        Patient matthias = em.find(Patient.class, 2);
+        Staff exampleDoctor = em.find(Staff.class, 3);
+        System.out.println(matthias.getFirstName());
+        data.setCurrentPatient(matthias);
+        data.setCurrentStaff(exampleDoctor);
 
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(DiagnosisAppView.NAME, DiagnosisAppView.class);
         navigator.addView(MedicationAppView.NAME, MedicationAppView.class);
-
     }
 
 
