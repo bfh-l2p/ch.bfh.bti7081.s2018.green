@@ -15053,7 +15053,6 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-
 .mytheme .card {
 	background: #fff;
 	border-radius: 2px;
@@ -15067,6 +15066,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .card.journal {
 	padding: 1rem;
+}
 
 .mytheme #mainPageContainer {
 	width: 100%;
@@ -15186,5 +15186,4 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .appMenuTab div {
 	background-color: #edeff2;
-
 }
