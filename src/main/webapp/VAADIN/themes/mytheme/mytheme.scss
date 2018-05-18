@@ -35,4 +35,122 @@
   @include valo;
 
   // Insert your own theme rules here
+
+  #mainPageContainer {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background: url("img/app_mainBG1.jpg");
+  }
+  //rules for base layout containers
+  #headSection {
+    padding-bottom: 20px;
+  }
+
+  #footerSection {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: lightsalmon;
+    color: #1156a8;
+    font-size: 1.2rem;
+  }
+
+  #navSection {
+    float: left;
+    min-width: 150px;
+  }
+  #appSection {
+    float: left;
+    min-width: 600px;
+  }
+  .clearFloat:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  #mainSection {
+    min-height: 20px;
+  }
+  //container views based rules
+  #headerLeft {
+    width:50%;
+    float:left;
+  }
+  #headerRight {
+    width:50%;
+    float:right;
+    text-align: right;
+  }
+
+  #siteLogo div {
+    font-size: 1.2rem;
+    color: #1e6b15;
+    font-weight: bold;
+  }
+
+  #headerContainer {
+    background-color: #edeff2;
+    border-bottom: #7d7d7d 2px solid;
+    padding-bottom: 10px;
+    box-shadow: 2px 7px 5px #888888;
+  }
+
+  .menuBarButton {
+    font-weight: bold;
+    border: solid 2px black;
+    padding: 5px 5px 5px 5px;
+    margin-top:2px;
+    margin-bottom: 2px;
+    width: 100%;
+    background-color: #edeff2;
+  }
+  .menuBarButton:hover {
+    background-color: olivedrab;
+    color: snow;
+  }
+
+  #navMenuWrapper .v-button {
+    font-weight: bold;
+    border: none;
+  }
+
+  .NavVisited {
+    background-color: olivedrab;
+    color: snow;
+  }
+
+  // medicationApp Styles
+  #mainTab {
+    width:200px;
+    float:left;
+    border: 1px solid black;
+    background-color: #edeff2;
+  }
+  #addMedicationTab {
+    width:200px;
+    float:left;
+    border: 1px solid black;
+    background-color: #edeff2;
+  }
+  #dataGrid {
+    width: auto;
+    //border: 1px solid red;
+  }
+
+  #medicationAppGrid {
+    min-width:900px;
+    //border: 1px solid red;
+  }
+
+  .medicationAppTabNav {
+    box-sizing: border-box;
+  }
+
+  .appMenuTab div {
+    background-color: #edeff2;
+    //width: 100%;
+  }
+
 }
