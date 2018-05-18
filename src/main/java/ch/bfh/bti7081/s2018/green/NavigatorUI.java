@@ -169,7 +169,7 @@ public class NavigatorUI extends UI {
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-        navigator.addView(SampleAppView.NAME, SampleAppView.class);
+        navigator.addView(DiagnosisAppView.NAME, DiagnosisAppView.class);
         navigator.addView(MedicationAppView.NAME, MedicationAppView.class);
 
     }

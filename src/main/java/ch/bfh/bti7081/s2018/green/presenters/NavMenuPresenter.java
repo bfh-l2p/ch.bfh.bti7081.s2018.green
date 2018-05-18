@@ -27,21 +27,18 @@ public class NavMenuPresenter {
 
         HorizontalLayout lyb = (HorizontalLayout) this.view.getLblJournal().getParent();
         lyb.addLayoutClickListener((clickEvent) ->
-                //NavigatorUI.navigator.navigateTo(JournalView.NAME)
                 setActive(lyb, JournalView.NAME)
         );
 
         HorizontalLayout lyb4 = (HorizontalLayout) this.view.getLblMedication().getParent();
         lyb4.addLayoutClickListener((clickEvent) ->
-                //NavigatorUI.navigator.navigateTo(MedicationView.NAME)
                 setActive(lyb4, MedicationAppView.NAME)
         );
 
 
         HorizontalLayout lyb2 = (HorizontalLayout) this.view.getLblDiagnosis().getParent();
         lyb2.addLayoutClickListener((clickEvent) ->
-                //NavigatorUI.navigator.navigateTo(SampleAppView.NAME)
-                setActive(lyb2, SampleAppView.NAME)
+                setActive(lyb2, DiagnosisAppView.NAME)
         );
 
         HorizontalLayout lyb3 = (HorizontalLayout) this.view.getLblPatFile().getParent();

@@ -5,10 +5,10 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.TextField;
 
-public class SampleAppLayout extends CustomLayout {
+public class DiagnosisAppLayout extends CustomLayout {
 
-    public SampleAppLayout () {
-        this.setTemplateName("sampleapp");
+    public DiagnosisAppLayout() {
+        this.setTemplateName("diagnosisApp");
         this.addComponents();
     }
 

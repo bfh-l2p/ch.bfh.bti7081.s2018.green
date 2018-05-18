@@ -13,6 +13,20 @@ public class Medication {
     private int ID;
     private boolean canEdit = true;
 
+    private boolean isActive = true;
+    private String mediName;
+    private String chemAgent;
+    private Date startDate;
+    private Date endDate;
+    private int frequency;
+    private String dosis;
+
+    @ManyToOne
+    private Staff prescriber;
+    private Date lasModifed;
+    @ManyToOne
+    private Staff modifiedBy;
+
     public int getID() {
         return ID;
     }
@@ -113,19 +127,7 @@ public class Medication {
         this.modifiedBy = modifiedBy;
     }
 
-    private boolean isActive = true;
-    private String mediName;
-    private String chemAgent;
-    private Date startDate;
-    private Date endDate;
-    private int frequency;
-    private String dosis;
 
-    @ManyToOne
-    private Staff prescriber;
-    private Date lasModifed;
-    @ManyToOne
-    private Staff modifiedBy;
 
     public Medication (int ID, String mediName, String chemAgent, Date startDate, Date endDate, int frequency, String dosis, Staff doctorPrescribed, Date lasModifed, Staff modifiedBy) {
 
