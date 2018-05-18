@@ -4,6 +4,9 @@ import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import com.vaadin.server.VaadinSession;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,12 +30,20 @@ public class DataContainer {
      * @return instance
      */
     public static DataContainer getInstance() {
-        String currentSessionId = VaadinSession.getCurrent().getSession().getId();
+    	VaadinSession currentSession = VaadinSession.getCurrent();
+        String currentSessionId = "";
+    	
+        if (currentSession == null) {
+        	currentSessionId = "test1234";
+        } else {
+        	currentSessionId = VaadinSession.getCurrent().getSession().getId();
+        }
+        
         if (!instance.containsKey(currentSessionId)) {
             instance.put(currentSessionId, new DataContainer());
         }
-
-        return instance.get(currentSessionId);
+    	
+    	return instance.get(currentSessionId);
     }
 
     public Patient getCurrentPatient() {
@@ -51,5 +62,8 @@ public class DataContainer {
         this.currentStaff = currentStaff;
     }
 
-
+    public EntityManager createPmsEntityManager() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        return emf.createEntityManager();
+    }
 }

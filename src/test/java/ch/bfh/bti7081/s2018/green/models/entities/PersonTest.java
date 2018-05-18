@@ -27,7 +27,7 @@ public class PersonTest {
                 "bolliger@gmx.ch",
                 "0788079297"
         );
-
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
