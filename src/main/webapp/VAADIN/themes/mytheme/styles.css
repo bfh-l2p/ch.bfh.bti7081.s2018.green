@@ -15053,6 +15053,7 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
+
 .mytheme .card {
 	background: #fff;
 	border-radius: 2px;
@@ -15066,4 +15067,124 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .card.journal {
 	padding: 1rem;
+
+.mytheme #mainPageContainer {
+	width: 100%;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	background: url("img/app_mainBG1.jpg");
+}
+
+.mytheme #headSection {
+	padding-bottom: 20px;
+}
+
+.mytheme #footerSection {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: lightsalmon;
+	color: #1156a8;
+	font-size: 1.2rem;
+}
+
+.mytheme #navSection {
+	float: left;
+	min-width: 150px;
+}
+
+.mytheme #appSection {
+	float: left;
+	min-width: 600px;
+}
+
+.mytheme .clearFloat:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.mytheme #mainSection {
+	min-height: 20px;
+}
+
+.mytheme #headerLeft {
+	width: 50%;
+	float: left;
+}
+
+.mytheme #headerRight {
+	width: 50%;
+	float: right;
+	text-align: right;
+}
+
+.mytheme #siteLogo div {
+	font-size: 1.2rem;
+	color: #1e6b15;
+	font-weight: bold;
+}
+
+.mytheme #headerContainer {
+	background-color: #edeff2;
+	border-bottom: #7d7d7d 2px solid;
+	padding-bottom: 10px;
+	box-shadow: 2px 7px 5px #888888;
+}
+
+.mytheme .menuBarButton {
+	font-weight: bold;
+	border: solid 2px black;
+	padding: 5px 5px 5px 5px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	width: 100%;
+	background-color: #edeff2;
+}
+
+.mytheme .menuBarButton:hover {
+	background-color: olivedrab;
+	color: snow;
+}
+
+.mytheme #navMenuWrapper .v-button {
+	font-weight: bold;
+	border: none;
+}
+
+.mytheme .NavVisited {
+	background-color: olivedrab;
+	color: snow;
+}
+
+.mytheme #mainTab {
+	width: 200px;
+	float: left;
+	border: 1px solid black;
+	background-color: #edeff2;
+}
+
+.mytheme #addMedicationTab {
+	width: 200px;
+	float: left;
+	border: 1px solid black;
+	background-color: #edeff2;
+}
+
+.mytheme #dataGrid {
+	width: auto;
+}
+
+.mytheme #medicationAppGrid {
+	min-width: 900px;
+}
+
+.mytheme .medicationAppTabNav {
+	box-sizing: border-box;
+}
+
+.mytheme .appMenuTab div {
+	background-color: #edeff2;
+
 }
