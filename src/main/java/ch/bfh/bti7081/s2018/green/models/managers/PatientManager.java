@@ -47,7 +47,7 @@ public class PatientManager implements IManager<Patient> {
         DataContainer dc = DataContainer.getInstance();
         EntityManager em = dc.createPmsEntityManager();
         EntityTransaction tx = em.getTransaction();
-
+        
         tx.begin();
         em.persist(item);
         tx.commit();
