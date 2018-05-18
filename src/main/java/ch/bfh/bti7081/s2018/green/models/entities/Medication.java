@@ -3,29 +3,25 @@ package ch.bfh.bti7081.s2018.green.models.entities;
 import java.sql.Date;
 import javax.persistence.*;
 
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Medication {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
     private int ID;
-    private boolean canEdit = true;
+    //private boolean canEdit = true;
 
-    private boolean isActive = true;
-    private String mediName;
-    private String chemAgent;
-    private Date startDate;
-    private Date endDate;
-    private int frequency;
-    private String dosis;
+    private String name;
+    //private String chemAgent;
+    private Date start;
+    private Date stop;
+    private int periode;
+    private float dose;
 
     @ManyToOne
     private Staff prescriber;
-    private Date lasModifed;
-    @ManyToOne
-    private Staff modifiedBy;
+    private Date updated;
+
 
     public int getID() {
         return ID;
@@ -35,68 +31,44 @@ public class Medication {
         this.ID = ID;
     }
 
-    public boolean isCanEdit() {
-        return canEdit;
+    public String getname() {
+        return name;
     }
 
-    public void setCanEdit(boolean canEdit) {
-        this.canEdit = canEdit;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public String getMediName() {
-        return mediName;
-    }
-
-    public void setMediName(String mediName) {
-        this.mediName = mediName;
-    }
-
-    public String getChemAgent() {
-        return chemAgent;
-    }
-
-    public void setChemAgent(String chemAgent) {
-        this.chemAgent = chemAgent;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return start;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.start = startDate;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return stop;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.stop = endDate;
     }
 
     public int getFrequency() {
-        return frequency;
+        return periode;
     }
 
     public void setFrequency(int frequency) {
-        this.frequency = frequency;
+        this.periode = frequency;
     }
 
-    public String getDosis() {
-        return dosis;
+    public float getDose() {
+        return dose;
     }
 
-    public void setDosis(String dosis) {
-        this.dosis = dosis;
+    public void setdose(float dose) {
+        this.dose = dose;
     }
 
     public Staff getPrescriber() {
@@ -112,46 +84,33 @@ public class Medication {
     }
 
     public Date getLasModifed() {
-        return lasModifed;
+        return updated;
     }
 
     public void setLasModifed(Date lasModifed) {
-        this.lasModifed = lasModifed;
+        this.updated = lasModifed;
     }
 
-    public Staff getModifiedBy() {
-        return modifiedBy;
-    }
-
-    public void setModifiedBy(Staff modifiedBy) {
-        this.modifiedBy = modifiedBy;
-    }
-
-
-
-    public Medication (int ID, String mediName, String chemAgent, Date startDate, Date endDate, int frequency, String dosis, Staff doctorPrescribed, Date lasModifed, Staff modifiedBy) {
+    public Medication (int ID, String name, String chemAgent, Date startDate, Date endDate, int frequency, float dose, Staff doctorPrescribed, Date updated) {
 
         this.ID = ID;
-        this.mediName = mediName;
-        this.chemAgent = chemAgent;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.frequency = frequency;
-        this.dosis = dosis;
+        this.name = name;
+        this.start = startDate;
+        this.stop = endDate;
+        this.periode = frequency;
+        this.dose = dose;
         this.prescriber = doctorPrescribed;
-        this.lasModifed = lasModifed;
-        this.modifiedBy = modifiedBy;
+        this.updated = updated;
     }
 
-    public Medication (int ID, String mediName, String chemAgent, Date startDate, Date endDate, int frequency, String dosis, Staff doctorPrescribed) {
+    public Medication (int ID, String name, String chemAgent, Date startDate, Date endDate, int frequency, float dose, Staff doctorPrescribed) {
 
         this.ID = ID;
-        this.mediName = mediName;
-        this.chemAgent = chemAgent;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.frequency = frequency;
-        this.dosis = dosis;
+        this.name = name;
+        this.start = startDate;
+        this.stop = endDate;
+        this.periode = frequency;
+        this.dose = dose;
         this.prescriber = doctorPrescribed;
     }
 

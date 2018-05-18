@@ -26,15 +26,15 @@ public class MedicationAppView extends MedicationAppLayout implements View {
     public MedicationAppView () {
 
         // ToDo: remove the dummy values!
-        Staff perscriber = new Staff("Ali", "Baba", new java.sql.Date(75,5,16), "Bachweg 123", "1234", "Example City", "a.baba@test.ch", "+41 12 345 67 89", StaffType.PSYCHIATRIST);
+       /* Staff perscriber = new Staff("Ali", "Baba", new java.sql.Date(75,5,16), "Bachweg 123", "1234", "Example City", "a.baba@test.ch", "+41 12 345 67 89", StaffType.PSYCHIATRIST);
         Date start = new Date(118,2,15);
         Date end = new Date(118,6,12);
         Medication med = new Medication(1,"Ponstan", "Mefamine Acid", start, end, 4, "125mg", perscriber);
 
         ArrayList<Medication> medDummyList = new ArrayList();
-        medDummyList.add(med);
+        medDummyList.add(med);*/
 
-        buildView(medDummyList);
+      //  buildView();
     }
 
     public MedicationAppView (List<Medication> medDataList) {
@@ -68,7 +68,7 @@ public class MedicationAppView extends MedicationAppLayout implements View {
             Notification.show(getMedicationChoosed(selectionModel.getSelectedItem());
         });*/
 
-        grdMedicamentGridView.addColumn(Medication::getID).setCaption("ID");
+       /* grdMedicamentGridView.addColumn(Medication::getID).setCaption("ID");
         grdMedicamentGridView.addColumn(Medication::getMediName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::getChemAgent).setCaption("Chemical Agent");
         grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
@@ -78,7 +78,7 @@ public class MedicationAppView extends MedicationAppLayout implements View {
         grdMedicamentGridView.addColumn(Medication::getPrescriberName).setCaption("Prescriber");
 
         grdMedicamentGridView.setId("medicationAppGrid");
-        this.addComponent(grdMedicamentGridView, "dataGrid");
+        this.addComponent(grdMedicamentGridView, "dataGrid");*/
 
 
     }
