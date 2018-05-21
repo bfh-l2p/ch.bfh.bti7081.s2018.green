@@ -1,93 +1,115 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Person;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class PersonManagerTest {
 
-    @Test
-    public void personManagerTest() throws ClassNotFoundException, ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dob1 = new Date(format.parse("14.10.1991").getTime());
-        Person testperson1 = new Person(
-                "Martin",
-                "Scheck",
-                dob1,
-                "Chutzenstrasse 27",
-                "3007",
-                "Bern",
-                "martinscheck91@gmail.com",
-                "0798340599"
-        );
+	private List<Person> insertedPeople = new ArrayList<>();
 
-        Date dob2 = new Date(format.parse("15.10.1992").getTime());
-        Person testperson2 = new Person(
-                "Tobias",
-                "Scheck",
-                dob2,
-                "Chutzenstrasse 28",
-                "3007",
-                "Bern",
-                "martinscheck92@gmail.com",
-                "0798340598"
-        );
+	@Before
+	public void setUp() throws Exception {
+		addTestData();
+	}
 
-        Date dob3 = new Date(format.parse("15.10.1993").getTime());
-        Person testperson3 = new Person(
-                "Lukas",
-                "Scheck",
-                dob3,
-                "Chutzenstrasse 29",
-                "3007",
-                "Bern",
-                "martinscheck93@gmail.com",
-                "0798340597"
-        );
+	@After
+	public void tearDown() throws Exception {
+		removeTestData();
+	}
 
-        PersonManager testmanager = new PersonManager();
+	@Test
+	public void get() throws Exception {
+		int testPersonId = getTestPersonId();
+		PersonManager personManager = new PersonManager();
+		Person person = personManager.get(testPersonId);
+		Assert.assertEquals(testPersonId, person.getId());
+	}
 
-        //persist test person
-        testmanager.add(testperson1);
+	@Test
+	public void findAll() throws Exception {
+		PersonManager personManager = new PersonManager();
+		List<Person> personList = personManager.findAll();
 
-        //retrieval of persisted test person
-        Person retrievedtestperson1 = testmanager.get(testperson1.getId());
+		insertedPeople.forEach(p1 -> {
+			Assert.assertTrue(personList.stream().anyMatch(p2 -> p1.getId() == p2.getId()));
+		});
+	}
 
-        //test if persisted and retrieved person is identical
-        Assert.assertEquals(testperson1.getId(), retrievedtestperson1.getId());
+	@Test
+	public void add() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+		Person person = new Person("Martin", "Scheck", dobPerson, "Chutzenstrasse 27", "3007", "Bern",
+				"martinscheck91@gmail.com", "0798340599");
+		PersonManager personManager = new PersonManager();
+		personManager.add(person);
+		insertedPeople.add(person);
 
-        //update test person
-        testperson1.setFirstName("Jakob");
-        testmanager.update(testperson1);
-        retrievedtestperson1 = testmanager.get(testperson1.getId());
-        Assert.assertEquals(testperson1.getFirstName(), retrievedtestperson1.getFirstName());
+		Assert.assertEquals(person.getFirstName(), personManager.get(person.getId()).getFirstName());
+	}
 
-        //remove person
-        testmanager.remove(testperson1);
+	@Test
+	public void update() throws Exception {
+		int testPersonId = getTestPersonId();
+		String s = "Testing is fun";
 
-        //persist all test persons
-        List<Person> listoftestpersons = Arrays.asList(testperson2, testperson3);
-        listoftestpersons.stream().forEach(tp -> testmanager.add(tp));
+		PersonManager personManager = new PersonManager();
+		Person person = personManager.get(testPersonId);
 
-        //retrieval of all test persons
-        List<Person> listofretrievedtestpersons = testmanager.findAll();
+		person.setFirstName(s);
+		personManager.update(person);
 
-        //remove all test persons
-        listoftestpersons.stream().forEach(tp -> testmanager.remove(tp));
+		Person updatedPerson = personManager.get(testPersonId);
+		Assert.assertEquals(s, updatedPerson.getFirstName());
+	}
 
-        //test if ids of persisted and retrieved persons are identical
-        int[] arrayoftestpersonsids = listoftestpersons.stream().mapToInt(tp -> tp.getId()).toArray();
-        int[] arrayofretrievedtestpersonsids = listofretrievedtestpersons.stream().mapToInt(tp -> tp.getId()).toArray();
+	@Test
+	public void remove() throws Exception {
+		PersonManager personManager = new PersonManager();
+		Integer i = insertedPeople.size() - 1;
+		Person person = insertedPeople.get(i);
+		personManager.remove(person);
+		List<Person> personList = personManager.findAll();
+		Assert.assertTrue(personList.stream().noneMatch(p -> p.getId() == person.getId()));
+		insertedPeople.remove(person);
+	}
 
-        Arrays.stream(arrayoftestpersonsids).forEach(tp -> {
-            Assert.assertTrue(Arrays.stream(arrayofretrievedtestpersonsids).anyMatch(r -> r == tp));
-        });
-    }
+	/**
+	 * Insert some test data
+	 */
+	private void addTestData() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+		Person person = new Person("Tobias", "Scheck", dobPerson, "Chutzenstrasse 28", "3007", "Bern",
+				"martinscheck91@gmail.com", "0798340599");
+		PersonManager personManager = new PersonManager();
+		personManager.add(person);
+		insertedPeople.add(person);
+	}
+
+	/**
+	 * Remove all persons and people inserted during the test
+	 */
+	private void removeTestData() {
+		PersonManager personManager = new PersonManager();
+		insertedPeople.forEach(personManager::remove);
+		insertedPeople = new ArrayList<>();
+	}
+
+	/**
+	 * Get the id of the last person inserted
+	 *
+	 * @return id
+	 */
+	private int getTestPersonId() {
+		return insertedPeople.get(insertedPeople.size() - 1).getId();
+	}
 }
