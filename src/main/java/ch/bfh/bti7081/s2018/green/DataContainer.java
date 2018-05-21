@@ -4,9 +4,6 @@ import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import com.vaadin.server.VaadinSession;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,10 +57,5 @@ public class DataContainer {
 
     public void setCurrentStaff(Staff currentStaff) {
         this.currentStaff = currentStaff;
-    }
-
-    public EntityManager createPmsEntityManager() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-        return emf.createEntityManager();
     }
 }

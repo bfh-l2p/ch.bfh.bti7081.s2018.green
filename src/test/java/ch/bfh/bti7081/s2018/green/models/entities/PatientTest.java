@@ -68,7 +68,7 @@ public class PatientTest {
         tx.begin();
         em.remove(emergencyContact);
         tx.commit();
-
+        
         tx.begin();
         em.remove(patient);
         tx.commit();

@@ -2,16 +2,10 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
-import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.models.entities.Person;
-import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.views.NavigationView;
 import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
@@ -25,7 +19,6 @@ import com.vaadin.ui.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 

@@ -30,14 +30,14 @@ public class PatientManagerTest {
     @Test
     public void get() throws Exception {
         int testPatientId = getTestPatientId();
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         Patient patient = patientManager.get(testPatientId);
         Assert.assertEquals(testPatientId, patient.getId());
     }
 
     @Test
     public void findAll() throws Exception {
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         List<Patient> patientList = patientManager.findAll();
 
         insertedPatients.forEach(p1 -> {
@@ -61,7 +61,7 @@ public class PatientManagerTest {
                 "martinscheck91@gmail.com",
                 "0798340599"
         );
-        PersonManager personManager = new PersonManager();
+        PersonManager personManager = new PersonManager(Person.class);
         personManager.add(person);
         insertedPeople.add(person);
 
@@ -77,7 +77,7 @@ public class PatientManagerTest {
                 "0777777777",
                 person
         );
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         patientManager.add(patient);
         insertedPatients.add(patient);
 
@@ -92,7 +92,7 @@ public class PatientManagerTest {
         int testPatientId = getTestPatientId();
         String s = "Testing is fun";
 
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         Patient patient = patientManager.get(testPatientId);
 
         patient.setFirstName(s);
@@ -104,7 +104,7 @@ public class PatientManagerTest {
 
     @Test
     public void remove() throws Exception {
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         Integer i = insertedPatients.size() - 1;
         Patient patient = insertedPatients.get(i);
         patientManager.remove(patient);
@@ -145,7 +145,7 @@ public class PatientManagerTest {
                 "0777777777",
                 person
         );
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         patientManager.add(patient);
         insertedPatients.add(patient);
     }
@@ -154,7 +154,7 @@ public class PatientManagerTest {
      * Remove all patients and people inserted during the test
      */
     private void removeTestData() {
-        PatientManager patientManager = new PatientManager();
+        PatientManager patientManager = new PatientManager(Patient.class);
         insertedPatients.forEach(patientManager::remove);
         insertedPatients = new ArrayList<>();
 
