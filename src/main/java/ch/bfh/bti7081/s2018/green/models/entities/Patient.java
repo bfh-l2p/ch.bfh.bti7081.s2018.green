@@ -3,6 +3,9 @@ package ch.bfh.bti7081.s2018.green.models.entities;
 import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -18,6 +21,9 @@ public class Patient extends Person {
 
     @Column(nullable = false)
     private DangerLevel dangerToOthers;
+
+    //@OneToMany
+	//private List<JournalEntry> journalEntries = new ArrayList<>();
 
     public Patient() {
 		// required by JPA
@@ -52,5 +58,14 @@ public class Patient extends Person {
 
 	public void setDangerToOthers(DangerLevel dangerToOthers) {
 		this.dangerToOthers = dangerToOthers;
+	}
+
+	public List<JournalEntry> getJournalEntries() {
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+        TypedQuery<JournalEntry> query = em.createNamedQuery("JournalEntry.findByPatient", JournalEntry.class);
+        System.out.println(this.getId());
+        query.setParameter("patientId", this.getId());
+        return query.getResultList();
 	}
 }

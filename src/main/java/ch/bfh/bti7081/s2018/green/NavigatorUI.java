@@ -1,21 +1,32 @@
 package ch.bfh.bti7081.s2018.green;
 
 
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
+import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
+import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Person;
 import ch.bfh.bti7081.s2018.green.presenters.NavigationPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.views.NavigationView;
+import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
+import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -51,24 +62,26 @@ public class NavigatorUI extends UI {
         // html <title> attribute
         getPage().setTitle("Patient Management System");
 
-        // instantiate a full screen layout and add it
-        VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
+        // Get the base layout
+        BaseLayoutFabric layout = new BaseLayoutFabric();
+
         setContent(layout);
 
         // header row
-        layout.addComponent(getHeader());
+        layout.setContainer(getHeader(), BaseLayoutFabric.SECTIONS.headSection);
 
-        // main container
-        HorizontalLayout main = getMainContainer();
-        layout.addComponent(main);
-        layout.setExpandRatio(main, 1.0f); // make main container use all available space
-        main.addComponent(getNavigation());
+        // add navigation menu
+        layout.setContainer(getNavigation(), BaseLayoutFabric.SECTIONS.navSection);
+
+        // add footer bar
+        layout.setContainer(getFooterBar(), BaseLayoutFabric.SECTIONS.footerSection);
+
+        // the app container itself which displays the current views of the application
         VerticalLayout canvas = getCanvas();
-        main.addComponent(canvas);
+        layout.setContainer(canvas, BaseLayoutFabric.SECTIONS.appSection);
 
         // tell the navigation to use
-        navigator = new Navigator(this, canvas);
+        navigator = new Navigator(this,canvas);
 
         // Assembles all presenters/views and adds them to the navigator
         initializeClasses();
@@ -97,7 +110,11 @@ public class NavigatorUI extends UI {
      * @return canvas
      */
     private VerticalLayout getCanvas() {
-        return new VerticalLayout();
+
+        VerticalLayout main = new VerticalLayout();
+        main.setWidth("100%");
+        main.setHeight("100%");
+        return main;
     }
 
     /**
@@ -105,7 +122,7 @@ public class NavigatorUI extends UI {
      *
      * @return navigation
      */
-    private VerticalLayout getNavigation() {
+    /*private VerticalLayout getNavigation() {
         VerticalLayout nav = new VerticalLayout();
 
         NavigationView navigationView = new NavigationView();
@@ -113,6 +130,13 @@ public class NavigatorUI extends UI {
         nav.addComponent(navigationView);
 
         return nav;
+    }*/
+
+    private CustomLayout getNavigation() {
+        NavMenuView navMen = new NavMenuView();
+        // add the click listeners now
+        new NavMenuPresenter(navMen);
+        return navMen;
     }
 
     /**
@@ -120,12 +144,32 @@ public class NavigatorUI extends UI {
      *
      * @return header
      */
-    private HorizontalLayout getHeader() {
+   /* private HorizontalLayout getHeader() {
         HorizontalLayout header = new HorizontalLayout();
         header.setWidth("100%");
         header.setHeight("100px");
         // TODO move this into a separate HeaderView class
-        header.addComponent(new Label("Patient Management System Team Green"));
+        HeaderView headerView = new HeaderView();
+        header.addComponent(headerView);
+
+
+
+        //header.addComponent(new Label("Patient Management System Team Green"));
+        return header;
+    }
+*/
+    private CustomLayout getFooterBar() {
+        FooterView footer = new FooterView();
+        FooterPresenter fp = new FooterPresenter(footer);
+        fp.setFooterText("Programm under construction. You are not viewing a final or representative version");
+        return footer;
+    }
+    private CustomLayout getHeader() {
+        //HeaderView header = new HeaderView();
+        HeaderView header = new HeaderView();
+        HeaderPresenter hp = new HeaderPresenter(header);
+        hp.addUserName("User: " + System.getProperty("user.name"));
+
         return header;
     }
 
@@ -133,9 +177,24 @@ public class NavigatorUI extends UI {
      * Initialise data access layer, views and presenters and add the to the navigator
      */
     private void initializeClasses() {
+
+        DataContainer data = DataContainer.getInstance();
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+
+        // TODO: add patient list instead of hardcoding the id
+        Patient matthias = em.find(Patient.class, 2);
+        Staff exampleDoctor = em.find(Staff.class, 3);
+        System.out.println(matthias.getFirstName());
+        data.setCurrentPatient(matthias);
+        data.setCurrentStaff(exampleDoctor);
+
+        // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-
+        navigator.addView(DiagnosisAppView.NAME, DiagnosisAppView.class);
+        navigator.addView(MedicationAppView.NAME, MedicationAppView.class);
     }
 
 
