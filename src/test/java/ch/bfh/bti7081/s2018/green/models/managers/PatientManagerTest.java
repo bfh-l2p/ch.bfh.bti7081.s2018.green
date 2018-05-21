@@ -101,12 +101,12 @@ public class PatientManagerTest {
         //remove all test patients
         listoftestpatients.stream().forEach(tp -> testmanager.remove(tp));
 
-        //remove contact
-        persontestmanager.remove(testcontact);
-
         //test if ids of persisted and retrieved persons are identical
         int[] arrayoftestpatientsids = listoftestpatients.stream().mapToInt(tp -> tp.getId()).toArray();
         int[] arrayofretrievedtestpatientsids = listofretrievedtestpatients.stream().mapToInt(tp -> tp.getId()).toArray();
-        Assert.assertArrayEquals(arrayoftestpatientsids, arrayofretrievedtestpatientsids);
+
+        Arrays.stream(arrayoftestpatientsids).forEach(tp -> {
+            Assert.assertTrue(Arrays.stream(arrayofretrievedtestpatientsids).anyMatch(r -> r == tp));
+        });
     }
 }
