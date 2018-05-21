@@ -129,7 +129,7 @@ public class PatientManagerTest {
                 "martinscheck91@gmail.com",
                 "0798340599"
         );
-        PersonManager personManager = new PersonManager();
+        PersonManager personManager = new PersonManager(Person.class);
         personManager.add(person);
         insertedPeople.add(person);
 
@@ -158,7 +158,7 @@ public class PatientManagerTest {
         insertedPatients.forEach(patientManager::remove);
         insertedPatients = new ArrayList<>();
 
-        PersonManager personManager = new PersonManager();
+        PersonManager personManager = new PersonManager(Person.class);
         insertedPeople.forEach(personManager::remove);
         insertedPeople = new ArrayList<>();
     }
