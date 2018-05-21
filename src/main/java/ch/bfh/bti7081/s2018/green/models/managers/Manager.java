@@ -3,7 +3,6 @@ package ch.bfh.bti7081.s2018.green.models.managers;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
@@ -13,11 +12,9 @@ import javax.persistence.criteria.Root;
 
 public abstract class Manager<T> {
 	protected EntityManager manager;
-	private final Class<T> entityclass;
-
-	public Manager(Class<T> entityclass) {
-		this.entityclass = entityclass;
-	}
+	protected Class<T> entityclass;
+	
+	public Manager() {}
 
 	public T get(int id) {
 		EntityTransaction transaction = beginTransaction();
@@ -47,14 +44,14 @@ public abstract class Manager<T> {
 		return items;
 	}
 
-	public EntityTransaction beginTransaction() {
+	protected EntityTransaction beginTransaction() {
 		setNewEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		return transaction;
 	}
 
-	public EntityTransaction closeTransaction(EntityTransaction transaction) {
+	protected EntityTransaction closeTransaction(EntityTransaction transaction) {
 		transaction.commit();
 		manager.close();
 		return transaction;

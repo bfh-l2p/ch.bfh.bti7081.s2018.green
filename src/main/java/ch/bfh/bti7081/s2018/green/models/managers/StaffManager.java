@@ -12,8 +12,8 @@ import java.util.List;
 
 public class StaffManager extends Manager<Staff> {
 
-    public StaffManager(Class<Staff> entityclass) {
-		super(entityclass);
+    public StaffManager() {
+    	this.entityclass = Staff.class;
 	}
 
 	public Staff update(Staff item) {

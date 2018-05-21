@@ -4,8 +4,8 @@ import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import javax.persistence.EntityTransaction;
 
 public class PatientManager extends Manager<Patient> {
-    public PatientManager(Class<Patient> entityclass) {
-		super(entityclass);
+    public PatientManager() {
+    	this.entityclass = Patient.class;
 	}
 
     public Patient update(Patient item) {
