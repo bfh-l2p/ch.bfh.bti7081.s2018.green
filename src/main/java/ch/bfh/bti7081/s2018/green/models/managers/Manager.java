@@ -60,12 +60,7 @@ public abstract class Manager<T> {
 		return transaction;
 	}
 
-	public EntityManager createPmsEntityManager() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-		return emf.createEntityManager();
-	}
-
-	public void setNewEntityManager() {
-		this.manager = createPmsEntityManager();
+	protected void setNewEntityManager() {
+		this.manager = Persistence.createEntityManagerFactory("pmsDB").createEntityManager();
 	}
 }
