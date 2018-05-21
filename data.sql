@@ -1,4 +1,4 @@
-INSERT INTO hibernate_sequence (next_val) VALUES (1);
+INSERT INTO hibernate_sequence (next_val) VALUES (1000);
 
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)

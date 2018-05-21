@@ -2,111 +2,173 @@ package ch.bfh.bti7081.s2018.green.models.managers;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.entities.Person;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PatientManagerTest {
 
+    private List<Patient> insertedPatients = new ArrayList<>();
+    private List<Person> insertedPeople = new ArrayList<>();
+
+    @Before
+    public void setUp() throws Exception {
+        addTestData();
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        removeTestData();
+    }
+
     @Test
-    public void patientManagerTest() throws ClassNotFoundException, ParseException {
+    public void get() throws Exception {
+        int testPatientId = getTestPatientId();
+        PatientManager patientManager = new PatientManager();
+        Patient patient = patientManager.get(testPatientId);
+        Assert.assertEquals(testPatientId, patient.getId());
+    }
+
+    @Test
+    public void findAll() throws Exception {
+        PatientManager patientManager = new PatientManager();
+        List<Patient> patientList = patientManager.findAll();
+
+        insertedPatients.forEach(p1 -> {
+            Assert.assertTrue(
+                    patientList.stream().anyMatch(p2 -> p1.getId() == p2.getId())
+            );
+        });
+    }
+
+    @Test
+    public void add() throws Exception {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dob1 = new Date(format.parse("14.10.1991").getTime());
-        Person testcontact = new Person(
+        Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+        Person person = new Person(
                 "Martin",
                 "Scheck",
-                dob1,
+                dobPerson,
                 "Chutzenstrasse 27",
                 "3007",
                 "Bern",
                 "martinscheck91@gmail.com",
                 "0798340599"
         );
+        PersonManager personManager = new PersonManager();
+        personManager.add(person);
+        insertedPeople.add(person);
 
-        Date dob2 = new Date(format.parse("15.10.1992").getTime());
-        Patient testpatient1 = new Patient(
-                "Tobias",
+        Date dobPatient = new Date(format.parse("14.10.1991").getTime());
+        Patient patient = new Patient(
+                "So much fun testing",
+                "Last",
+                dobPatient,
+                "Street 1",
+                "4455",
+                "City",
+                "info@example.com",
+                "0777777777",
+                person
+        );
+        PatientManager patientManager = new PatientManager();
+        patientManager.add(patient);
+        insertedPatients.add(patient);
+
+        Assert.assertEquals(
+                patient.getFirstName(),
+                patientManager.get(patient.getId()).getFirstName()
+        );
+    }
+
+    @Test
+    public void update() throws Exception {
+        int testPatientId = getTestPatientId();
+        String s = "Testing is fun";
+
+        PatientManager patientManager = new PatientManager();
+        Patient patient = patientManager.get(testPatientId);
+
+        patient.setFirstName(s);
+        patientManager.update(patient);
+
+        Patient updatedPatient = patientManager.get(testPatientId);
+        Assert.assertEquals(s, updatedPatient.getFirstName());
+    }
+
+    @Test
+    public void remove() throws Exception {
+        PatientManager patientManager = new PatientManager();
+        Integer i = insertedPatients.size() - 1;
+        Patient patient = insertedPatients.get(i);
+        patientManager.remove(patient);
+        List<Patient> patientList = patientManager.findAll();
+        Assert.assertTrue(patientList.stream().noneMatch(p -> p.getId() == patient.getId()));
+        insertedPatients.remove(patient);
+    }
+
+    /**
+     * Insert some test data
+     */
+    private void addTestData() throws Exception {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+        Person person = new Person(
+                "Martin",
                 "Scheck",
-                dob2,
-                "Chutzenstrasse 28",
+                dobPerson,
+                "Chutzenstrasse 27",
                 "3007",
                 "Bern",
-                "martinscheck92@gmail.com",
-                "0798340598",
-                testcontact
+                "martinscheck91@gmail.com",
+                "0798340599"
         );
+        PersonManager personManager = new PersonManager();
+        personManager.add(person);
+        insertedPeople.add(person);
 
-        Date dob3 = new Date(format.parse("15.10.1993").getTime());
-        Patient testpatient2 = new Patient(
-                "Lukas",
-                "Scheck",
-                dob3,
-                "Chutzenstrasse 29",
-                "3007",
-                "Bern",
-                "martinscheck93@gmail.com",
-                "0798340597",
-                testcontact
+        Date dobPatient = new Date(format.parse("14.10.1991").getTime());
+        Patient patient = new Patient(
+                "First",
+                "Last",
+                dobPatient,
+                "Street 1",
+                "4455",
+                "City",
+                "info@example.com",
+                "0777777777",
+                person
         );
+        PatientManager patientManager = new PatientManager();
+        patientManager.add(patient);
+        insertedPatients.add(patient);
+    }
 
-        Date dob4 = new Date(format.parse("15.10.1994").getTime());
-        Patient testpatient3 = new Patient(
-                "Lorenz",
-                "Scheck",
-                dob4,
-                "Chutzenstrasse 29",
-                "3007",
-                "Bern",
-                "martinscheck94@gmail.com",
-                "0798340596",
-                testcontact
-        );
+    /**
+     * Remove all patients and people inserted during the test
+     */
+    private void removeTestData() {
+        PatientManager patientManager = new PatientManager();
+        insertedPatients.forEach(patientManager::remove);
+        insertedPatients = new ArrayList<>();
 
-        PatientManager testmanager = new PatientManager();
-        PersonManager persontestmanager = new PersonManager();
+        PersonManager personManager = new PersonManager();
+        insertedPeople.forEach(personManager::remove);
+        insertedPeople = new ArrayList<>();
+    }
 
-        //persist emergency contact
-        persontestmanager.add(testcontact);
-
-        //persist test patient
-        testmanager.add(testpatient1);
-
-        //retrieval of persisted test patient
-        Person retrievedtestpatient1 = testmanager.get(testpatient1.getId());
-
-        //test if persisted and retrieved patient is identical
-        Assert.assertEquals(testpatient1.getId(), retrievedtestpatient1.getId());
-
-        //update test patient
-        testpatient1.setFirstName("Jakob");
-        testmanager.update(testpatient1);
-        retrievedtestpatient1 = testmanager.get(testpatient1.getId());
-        Assert.assertEquals(testpatient1.getFirstName(), retrievedtestpatient1.getFirstName());
-
-        //remove patient
-        testmanager.remove(testpatient1);
-
-        //persist all test patients
-        List<Patient> listoftestpatients = Arrays.asList(testpatient2, testpatient3);
-        listoftestpatients.stream().forEach(tp -> testmanager.add(tp));
-
-        //retrieval of all test patients
-        List<Patient> listofretrievedtestpatients = testmanager.findAll();
-
-        //remove all test patients
-        listoftestpatients.stream().forEach(tp -> testmanager.remove(tp));
-
-        //test if ids of persisted and retrieved persons are identical
-        int[] arrayoftestpatientsids = listoftestpatients.stream().mapToInt(tp -> tp.getId()).toArray();
-        int[] arrayofretrievedtestpatientsids = listofretrievedtestpatients.stream().mapToInt(tp -> tp.getId()).toArray();
-
-        Arrays.stream(arrayoftestpatientsids).forEach(tp -> {
-            Assert.assertTrue(Arrays.stream(arrayofretrievedtestpatientsids).anyMatch(r -> r == tp));
-        });
+    /**
+     * Get the id of the last patient inserted
+     *
+     * @return id
+     */
+    private int getTestPatientId() {
+        return insertedPatients.get(insertedPatients.size() - 1).getId();
     }
 }
