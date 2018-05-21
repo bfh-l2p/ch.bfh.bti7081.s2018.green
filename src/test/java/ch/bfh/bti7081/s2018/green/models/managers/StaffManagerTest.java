@@ -15,134 +15,111 @@ import java.util.List;
 
 public class StaffManagerTest {
 
-	   private List<Staff> insertedStaff = new ArrayList<>();
+	private List<Staff> insertedStaff = new ArrayList<>();
 
-	    @Before
-	    public void setUp() throws Exception {
-	        addTestData();
-	    }
+	@Before
+	public void setUp() throws Exception {
+		addTestData();
+	}
 
-	    @After
-	    public void tearDown() throws Exception {
-	        removeTestData();
-	    }
+	@After
+	public void tearDown() throws Exception {
+		removeTestData();
+	}
 
-	    @Test
-	    public void get() throws Exception {
-	        int testStaffId = getTestStaffId();
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        Staff staff = staffManager.get(testStaffId);
-	        Assert.assertEquals(testStaffId, staff.getId());
-	    }
+	@Test
+	public void get() throws Exception {
+		int testStaffId = getTestStaffId();
+		StaffManager staffManager = new StaffManager(Staff.class);
+		Staff staff = staffManager.get(testStaffId);
+		Assert.assertEquals(testStaffId, staff.getId());
+	}
 
-	    @Test
-	    public void findAll() throws Exception {
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        List<Staff> staffList = staffManager.findAll();
+	@Test
+	public void findAll() throws Exception {
+		StaffManager staffManager = new StaffManager(Staff.class);
+		List<Staff> staffList = staffManager.findAll();
 
-	        insertedStaff.forEach(p1 -> {
-	            Assert.assertTrue(
-	                    staffList.stream().anyMatch(p2 -> p1.getId() == p2.getId())
-	            );
-	        });
-	    }
+		insertedStaff.forEach(p1 -> {
+			Assert.assertTrue(staffList.stream().anyMatch(p2 -> p1.getId() == p2.getId()));
+		});
+	}
 
-	    @Test
-	    public void add() throws Exception {
-	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-	        Date dobStaff = new Date(format.parse("14.10.1991").getTime());
-	        Staff staff = new Staff(
-	                "Martin",
-	                "Scheck",
-	                dobStaff,
-	                "Chutzenstrasse 27",
-	                "3007",
-	                "Bern",
-	                "martinscheck91@gmail.com",
-	                "0798340599",
-	                StaffType.PSYCHOLOGIST
-	        );
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        staffManager.add(staff);
-	        insertedStaff.add(staff);
+	@Test
+	public void add() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		Date dobStaff = new Date(format.parse("14.10.1991").getTime());
+		Staff staff = new Staff("Martin", "Scheck", dobStaff, "Chutzenstrasse 27", "3007", "Bern",
+				"martinscheck91@gmail.com", "0798340599", StaffType.PSYCHOLOGIST);
+		StaffManager staffManager = new StaffManager(Staff.class);
+		staffManager.add(staff);
+		insertedStaff.add(staff);
 
-	        Assert.assertEquals(
-	                staff.getFirstName(),
-	                staffManager.get(staff.getId()).getFirstName()
-	        );
-	    }
+		Assert.assertEquals(staff.getFirstName(), staffManager.get(staff.getId()).getFirstName());
+	}
 
-	    @Test
-	    public void update() throws Exception {
-	        int testStaffId = getTestStaffId();
-	        String s = "Testing is fun";
+	@Test
+	public void update() throws Exception {
+		int testStaffId = getTestStaffId();
+		String s = "Testing is fun";
 
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        Staff staff = staffManager.get(testStaffId);
+		StaffManager staffManager = new StaffManager(Staff.class);
+		Staff staff = staffManager.get(testStaffId);
 
-	        staff.setFirstName(s);
-	        staffManager.update(staff);
+		staff.setFirstName(s);
+		staffManager.update(staff);
 
-	        Staff updatedStaff = staffManager.get(testStaffId);
-	        Assert.assertEquals(s, updatedStaff.getFirstName());
-	    }
+		Staff updatedStaff = staffManager.get(testStaffId);
+		Assert.assertEquals(s, updatedStaff.getFirstName());
+	}
 
-	    @Test
-	    public void remove() throws Exception {
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        Integer i = insertedStaff.size() - 1;
-	        Staff staff = insertedStaff.get(i);
-	        staffManager.remove(staff);
-	        List<Staff> staffList = staffManager.findAll();
-	        Assert.assertTrue(staffList.stream().noneMatch(p -> p.getId() == staff.getId()));
-	        insertedStaff.remove(staff);
-	    }
-	    
-	    @Test
-	    public void findBy() throws Exception {
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        List<Staff> staffList = staffManager.findBy(StaffType.PSYCHIATRIST);
+	@Test
+	public void remove() throws Exception {
+		StaffManager staffManager = new StaffManager(Staff.class);
+		Integer i = insertedStaff.size() - 1;
+		Staff staff = insertedStaff.get(i);
+		staffManager.remove(staff);
+		List<Staff> staffList = staffManager.findAll();
+		Assert.assertTrue(staffList.stream().noneMatch(p -> p.getId() == staff.getId()));
+		insertedStaff.remove(staff);
+	}
 
-	        staffList.forEach(p -> Assert.assertTrue(p.getType() == StaffType.PSYCHIATRIST));
-	    }
+	@Test
+	public void findBy() throws Exception {
+		StaffManager staffManager = new StaffManager(Staff.class);
+		List<Staff> staffList = staffManager.findBy(StaffType.PSYCHIATRIST);
 
-	    /**
-	     * Insert some test data
-	     */
-	    private void addTestData() throws Exception {
-	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-	        Date dobStaff = new Date(format.parse("14.10.1991").getTime());
-	        Staff staff = new Staff(
-	                "Tobias",
-	                "Scheck",
-	                dobStaff,
-	                "Chutzenstrasse 28",
-	                "3007",
-	                "Bern",
-	                "martinscheck91@gmail.com",
-	                "0798340599",
-	                StaffType.PSYCHIATRIST
-	        );
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        staffManager.add(staff);
-	        insertedStaff.add(staff);
-	    }
+		staffList.forEach(p -> Assert.assertTrue(p.getType() == StaffType.PSYCHIATRIST));
+	}
 
-	    /**
-	     * Remove all staffs and people inserted during the test
-	     */
-	    private void removeTestData() {
-	        StaffManager staffManager = new StaffManager(Staff.class);
-	        insertedStaff.forEach(staffManager::remove);
-	        insertedStaff = new ArrayList<>();
-	    }
+	/**
+	 * Insert some test data
+	 */
+	private void addTestData() throws Exception {
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		Date dobStaff = new Date(format.parse("14.10.1991").getTime());
+		Staff staff = new Staff("Tobias", "Scheck", dobStaff, "Chutzenstrasse 28", "3007", "Bern",
+				"martinscheck91@gmail.com", "0798340599", StaffType.PSYCHIATRIST);
+		StaffManager staffManager = new StaffManager(Staff.class);
+		staffManager.add(staff);
+		insertedStaff.add(staff);
+	}
 
-	    /**
-	     * Get the id of the last staff inserted
-	     *
-	     * @return id
-	     */
-	    private int getTestStaffId() {
-	        return insertedStaff.get(insertedStaff.size() - 1).getId();
-	    }
+	/**
+	 * Remove all staffs and people inserted during the test
+	 */
+	private void removeTestData() {
+		StaffManager staffManager = new StaffManager(Staff.class);
+		insertedStaff.forEach(staffManager::remove);
+		insertedStaff = new ArrayList<>();
+	}
+
+	/**
+	 * Get the id of the last staff inserted
+	 *
+	 * @return id
+	 */
+	private int getTestStaffId() {
+		return insertedStaff.get(insertedStaff.size() - 1).getId();
+	}
 }
