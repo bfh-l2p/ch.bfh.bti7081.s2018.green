@@ -1,66 +1,84 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
 
 public class Medication {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
-    private int ID;
-    //private boolean canEdit = true;
+    @GeneratedValue
+    private int id;
 
     private String name;
-    //private String chemAgent;
-    private Date start;
-    private Date stop;
+    private LocalDateTime start;
+    private LocalDateTime stop;
     private int periode;
     private float dose;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "prescriberId", nullable = false)
     private Staff prescriber;
-    private Date updated;
+    private LocalDateTime updated;
+    private LocalDateTime created;
 
-
-    public int getID() {
-        return ID;
+    public Medication () {
+        // required by JPA
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public Medication (String name, LocalDateTime start, LocalDateTime end, int periode, float dose, Staff prescriber) {
+        this.name = name;
+        this.start = start;
+        this.stop = end;
+        this.periode = periode;
+        this.dose = dose;
+        this.prescriber = prescriber;
     }
 
-    public String getname() {
+    @PrePersist
+    public void onPrePersist() {
+        created = LocalDateTime.now();
+    }
+      
+    @PreUpdate
+    public void onPreUpdate() {
+    	updated = LocalDateTime.now();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void setname(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Date getStartDate() {
+    public LocalDateTime getStartDate() {
         return start;
     }
 
-    public void setStartDate(Date startDate) {
-        this.start = startDate;
+    public void setStartDate(LocalDateTime start) {
+        this.start = start;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return stop;
     }
 
-    public void setEndDate(Date endDate) {
-        this.stop = endDate;
+    public void setEndDate(LocalDateTime end) {
+        this.stop = end;
     }
 
-    public int getFrequency() {
+    public int getPeriode() {
         return periode;
     }
 
-    public void setFrequency(int frequency) {
-        this.periode = frequency;
+    public void setPeriode(int periode) {
+        this.periode = periode;
     }
 
     public float getDose() {
@@ -75,48 +93,7 @@ public class Medication {
         return prescriber;
     }
 
-    public String getPrescriberName () {
-        return this.getPrescriber().getFirstName() + " " + this.getPrescriber().getLastName();
+    public void setPrescriber(Staff prescriber) {
+        this.prescriber = prescriber;
     }
-
-    public void setPrescriber(Staff doctorPrescribed) {
-        this.prescriber = doctorPrescribed;
-    }
-
-    public Date getLasModifed() {
-        return updated;
-    }
-
-    public void setLasModifed(Date lasModifed) {
-        this.updated = lasModifed;
-    }
-
-    public Medication (int ID, String name, String chemAgent, Date startDate, Date endDate, int frequency, float dose, Staff doctorPrescribed, Date updated) {
-
-        this.ID = ID;
-        this.name = name;
-        this.start = startDate;
-        this.stop = endDate;
-        this.periode = frequency;
-        this.dose = dose;
-        this.prescriber = doctorPrescribed;
-        this.updated = updated;
-    }
-
-    public Medication (int ID, String name, String chemAgent, Date startDate, Date endDate, int frequency, float dose, Staff doctorPrescribed) {
-
-        this.ID = ID;
-        this.name = name;
-        this.start = startDate;
-        this.stop = endDate;
-        this.periode = frequency;
-        this.dose = dose;
-        this.prescriber = doctorPrescribed;
-    }
-
-    public Medication () {
-        // required by JPA
-    }
-
-
 }

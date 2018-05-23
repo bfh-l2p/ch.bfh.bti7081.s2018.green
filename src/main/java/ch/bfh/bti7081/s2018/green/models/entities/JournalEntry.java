@@ -17,8 +17,7 @@ import javax.persistence.PrePersist;
 @NamedQuery(name="JournalEntry.findByPatient", query="SELECT j FROM JournalEntry j where patientId = :patientId order by created asc")
 public class JournalEntry {
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Column(nullable = false)
@@ -37,8 +36,7 @@ public class JournalEntry {
     private Staff staff;
 
     @PrePersist
-    protected void onCreate() {
-        System.out.println("created");
+    protected void onPrePersist() {
     	created = new Date();
     }
 
