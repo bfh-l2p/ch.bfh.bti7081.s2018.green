@@ -60,7 +60,13 @@ public class Event {
     }
 
     public void setStart(LocalDateTime start) {
+        LocalDateTime old = this.start;
         this.start = start;
+
+        if (!isValid()) {
+            this.start = old;
+            throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
+        }
     }
 
     public LocalDateTime getStop() {
@@ -68,7 +74,13 @@ public class Event {
     }
 
     public void setStop(LocalDateTime stop) {
+        LocalDateTime old = this.stop;
         this.stop = stop;
+
+        if (!isValid()) {
+            this.stop = old;
+            throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
+        }
     }
 
     public String getDesc() {

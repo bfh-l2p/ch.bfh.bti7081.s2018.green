@@ -12,6 +12,19 @@ import java.time.LocalDateTime;
 
 public class RecurringEventTest {
     @Test(expected = IllegalArgumentException.class)
+    public void setNext() throws Exception {
+        LocalDateTime start1 = LocalDateTime.of(2018, 5, 21, 13, 45);
+        LocalDateTime stop1 = LocalDateTime.of(2018, 5, 21, 14, 30);
+
+        Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
+        Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
+        Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
+
+        RecurringEvent event1 = new RecurringEvent(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        event1.setNext(event1);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
     public void testRecurringEvent() {
         LocalDateTime start1 = LocalDateTime.of(2018, 5, 21, 13, 45);
         LocalDateTime start2 = LocalDateTime.of(2018, 5, 22, 13, 45);

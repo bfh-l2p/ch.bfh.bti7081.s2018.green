@@ -13,6 +13,35 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 public class EventTest {
+    @Test(expected = IllegalArgumentException.class)
+    public void setStart() throws Exception {
+        LocalDateTime start = LocalDateTime.of(2018, 5, 21, 13, 45);
+        LocalDateTime stop = LocalDateTime.of(2018, 5, 21, 14, 30);
+
+        Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
+        Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
+        Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
+
+        Event event = new Event(start, stop, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
+        event.setStart(stop);
+
+        Assert.assertEquals(start, event.getStart());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void setStop() throws Exception {
+        LocalDateTime start = LocalDateTime.of(2018, 5, 21, 13, 45);
+        LocalDateTime stop = LocalDateTime.of(2018, 5, 21, 14, 30);
+
+        Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
+        Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
+        Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
+
+        Event event = new Event(start, stop, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
+        event.setStop(start);
+
+        Assert.assertEquals(stop, event.getStop());
+    }
 
     @Test(expected = IllegalArgumentException.class)
     public void testEvent() {

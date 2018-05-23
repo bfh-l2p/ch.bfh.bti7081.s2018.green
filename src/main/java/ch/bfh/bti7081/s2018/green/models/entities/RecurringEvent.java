@@ -37,6 +37,12 @@ public class RecurringEvent extends Event {
     }
 
     public void setNext(Event next) {
+        Event old = this.next;
         this.next = next;
+
+        if (!isValid()) {
+            this.next = old;
+            throw new IllegalArgumentException("The start of the next event must always be after the stop of the current one.");
+        }
     }
 }
