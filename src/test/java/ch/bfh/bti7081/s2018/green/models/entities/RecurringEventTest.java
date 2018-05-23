@@ -22,6 +22,8 @@ public class RecurringEventTest {
 
         RecurringEvent event1 = new RecurringEvent(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
         event1.setNext(event1);
+
+        Assert.assertEquals(null, event1.getNext());
     }
 
     @Test(expected = IllegalArgumentException.class)
