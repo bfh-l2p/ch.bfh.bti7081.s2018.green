@@ -13,7 +13,8 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 
 public class EventTest {
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void testEvent() {
         LocalDateTime start = LocalDateTime.of(2018, 5, 21, 13, 45);
         LocalDateTime stop = LocalDateTime.of(2018, 5, 21, 14, 30);
@@ -51,5 +52,8 @@ public class EventTest {
         // test if persisted and read are identical
         Assert.assertEquals(event.getId(), event2.getId());
         Assert.assertEquals("2018-05-21T13:45", event2.getStart().toString());
+
+        // test IllegalArgumentException
+        Event illegalEvent = new Event(stop, start, "I'm illegal", "start after stop", patient, staff);
     }
 }

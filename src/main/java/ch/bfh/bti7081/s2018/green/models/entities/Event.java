@@ -7,28 +7,22 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "nextId", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "null")
 public class Event {
+    @JoinColumn(name = "nextId", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
+    @OneToOne(optional = true)
+    protected Event next = null;
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
     @Column(nullable = false)
     @OrderBy("start asc")
     private LocalDateTime start;
-
     @Column(nullable = false)
     private LocalDateTime stop;
-
     @Column(name = "description")
     private String desc;
-
     @Column(nullable = false)
     private String title;
-
-    @JoinColumn(name = "nextId", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
-    @OneToOne(optional = true)
-    protected Event next = null;
-
     @ManyToOne
     @JoinColumn(name = "patientId", nullable = false)
     private Patient patient;
@@ -47,30 +41,14 @@ public class Event {
         this.title = title;
         this.patient = patient;
         this.therapist = therapist;
+
+        if (!isValid()) {
+            throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
+        }
     }
 
-    public void setStart(LocalDateTime start) {
-        this.start = start;
-    }
-
-    public void setStop(LocalDateTime stop) {
-        this.stop = stop;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public void setTherapist(Staff therapist) {
-        this.therapist = therapist;
+    private boolean isValid() {
+        return start.isBefore(stop);
     }
 
     public Integer getId() {
@@ -81,23 +59,47 @@ public class Event {
         return start;
     }
 
+    public void setStart(LocalDateTime start) {
+        this.start = start;
+    }
+
     public LocalDateTime getStop() {
         return stop;
+    }
+
+    public void setStop(LocalDateTime stop) {
+        this.stop = stop;
     }
 
     public String getDesc() {
         return desc;
     }
 
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Patient getPatient() {
         return patient;
     }
 
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
     public Staff getTherapist() {
         return therapist;
+    }
+
+    public void setTherapist(Staff therapist) {
+        this.therapist = therapist;
     }
 }

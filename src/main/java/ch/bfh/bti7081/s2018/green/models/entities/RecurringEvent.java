@@ -18,6 +18,18 @@ public class RecurringEvent extends Event {
     public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, Event next) {
         super(start, stop, desc, title, patient, therapist);
         this.next = next;
+
+        if (!isValid()) {
+            throw new IllegalArgumentException("The start of the next event must always be after the stop of the current one.");
+        }
+    }
+
+    private boolean isValid() {
+        if (null == next) {
+            return true;
+        }
+
+        return next.getStart().isAfter(getStop());
     }
 
     public Event getNext() {
