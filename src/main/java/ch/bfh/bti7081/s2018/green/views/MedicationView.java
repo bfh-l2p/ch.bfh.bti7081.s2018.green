@@ -2,6 +2,8 @@ package ch.bfh.bti7081.s2018.green.views;
 
 import ch.bfh.bti7081.s2018.green.layouts.MedicationAppLayout;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Person;
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
 import com.vaadin.navigator.View;
@@ -15,6 +17,11 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 public class MedicationView extends MedicationAppLayout implements View {
 
     public static String NAME = "medication";
@@ -26,13 +33,12 @@ public class MedicationView extends MedicationAppLayout implements View {
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     public MedicationView () {
+        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
 
-        // ToDo: remove the dummy values!
-        Staff prescriber = new Staff("Ali", "Baba", LocalDate.now(), "Bachweg 123", "1234", "Example City", "a.baba@test.ch", "+41 12 345 67 89", StaffType.PSYCHIATRIST);
-        LocalDateTime start = LocalDateTime.of(2018, 4, 10, 18, 34);
-        LocalDateTime end = LocalDateTime.of(2018, 4, 12, 18, 34);
-        Medication med = new Medication("Ponstan", start, end, 4, 125, prescriber);
-
+        Medication med = em.find(Medication.class, 1);
         ArrayList<Medication> medDummyList = new ArrayList();
         medDummyList.add(med);
 

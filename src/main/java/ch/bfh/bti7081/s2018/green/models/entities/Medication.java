@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
+@Entity
 public class Medication {
 
     @Id
@@ -19,25 +20,35 @@ public class Medication {
     @OneToOne
     @JoinColumn(name = "prescriberId", nullable = false)
     private Staff prescriber;
+    
+    @OneToOne
+    @JoinColumn(name = "patientId", nullable = false)
+    private Patient patient;
+    
+    @Column(nullable = false)
     private LocalDateTime updated;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime created;
 
     public Medication () {
         // required by JPA
     }
 
-    public Medication (String name, LocalDateTime start, LocalDateTime end, int periode, float dose, Staff prescriber) {
+    public Medication (String name, LocalDateTime start, LocalDateTime end, int periode, float dose, Staff prescriber, Patient patient) {
         this.name = name;
         this.start = start;
         this.stop = end;
         this.periode = periode;
         this.dose = dose;
         this.prescriber = prescriber;
+        this.patient = patient;
     }
 
     @PrePersist
     public void onPrePersist() {
         created = LocalDateTime.now();
+        updated = LocalDateTime.now();
     }
       
     @PreUpdate
