@@ -34,7 +34,7 @@ public class Event {
     public Event() {
     }
 
-    public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist) {
+    public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
         this.start = start;
         this.stop = stop;
         this.desc = desc;

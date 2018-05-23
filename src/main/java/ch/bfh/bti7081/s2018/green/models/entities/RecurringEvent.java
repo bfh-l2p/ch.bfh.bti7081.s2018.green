@@ -15,7 +15,7 @@ public class RecurringEvent extends Event {
     public RecurringEvent() {
     }
 
-    public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, Event next) {
+    public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, Event next) throws IllegalArgumentException {
         super(start, stop, desc, title, patient, therapist);
         this.next = next;
 
