@@ -66,6 +66,11 @@ CREATE INDEX journalEntry_authorId_index
   ON JournalEntry (authorId);
 CREATE INDEX journalEntry_patientId_index
   ON JournalEntry (patientId);
+CREATE TABLE IF NOT EXISTS Therapy
+(
+  id   INTEGER PRIMARY KEY NOT NULL,
+  name VARCHAR(120)        NOT NULL
+);
 CREATE TABLE IF NOT EXISTS Event
 (
   id          INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -77,9 +82,11 @@ CREATE TABLE IF NOT EXISTS Event
   therapistId INTEGER                           NOT NULL,
   nextId      INTEGER DEFAULT NULL,
   programId   INTEGER DEFAULT NULL,
+  therapyId   INTEGER DEFAULT NULL,
   CONSTRAINT event_patient_fk FOREIGN KEY (patientId) REFERENCES Patient (id),
   CONSTRAINT event_staff_id_fk FOREIGN KEY (therapistId) REFERENCES Staff (id),
-  CONSTRAINT event_event_id_fk FOREIGN KEY (nextId) REFERENCES Event (id)
+  CONSTRAINT event_event_id_fk FOREIGN KEY (nextId) REFERENCES Event (id),
+  CONSTRAINT event_therapy_id_fk FOREIGN KEY (therapyId) REFERENCES Therapy (id)
 );
 CREATE INDEX event_start_index
   ON Event (start);
@@ -91,6 +98,8 @@ CREATE INDEX event_patientId_index
   ON Event (patientId);
 CREATE INDEX event_therapistId_index
   ON Event (therapistId);
+CREATE INDEX event_therapyId_index
+  ON Event (therapyId);
 CREATE TRIGGER update_medication_trigger
   AFTER UPDATE
   ON Medication

@@ -25,6 +25,26 @@ INSERT INTO Staff
     values
         (3, 1);
 
+INSERT INTO Therapy
+        (id, name)
+    values
+        (1, "Töpfern");
+
+INSERT INTO Therapy
+        (id, name)
+    values
+        (2, "WC-Ente füttern");
+
+INSERT INTO Therapy
+        (id, name)
+    values
+        (3, "Spaziergang");
+
+INSERT INTO Therapy
+        (id, name)
+    values
+        (4, "Streichelzoo besuchen");
+
 INSERT INTO JournalEntry
         (id, content, created, patientId, authorId)
     values
