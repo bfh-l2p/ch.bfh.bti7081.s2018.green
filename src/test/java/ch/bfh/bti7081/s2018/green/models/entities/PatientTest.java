@@ -7,17 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class PatientTest {
 
     @Test
     public void testPatient() throws ClassNotFoundException, ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dob1 = new Date(format.parse("20.01.1989").getTime());
-        Date dob2 = new Date(format.parse("25.05.1992").getTime());
+        LocalDate dob1 = LocalDate.of(1989, 1, 20);
+        LocalDate dob2 = LocalDate.of(1992, 5, 25);
 
         Person emergencyContact = new Person(
                 "testtestEmergency",
