@@ -2,24 +2,15 @@ package ch.bfh.bti7081.s2018.green.views;
 
 import ch.bfh.bti7081.s2018.green.layouts.MedicationAppLayout;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.models.entities.Person;
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.components.grid.SingleSelectionModel;
-
 import java.util.ArrayList;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class MedicationView extends MedicationAppLayout implements View {
@@ -33,16 +24,16 @@ public class MedicationView extends MedicationAppLayout implements View {
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     public MedicationView () {
-        
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
 
         Medication med = em.find(Medication.class, 1);
-        ArrayList<Medication> medDummyList = new ArrayList();
+        List<Medication> medDummyList = new ArrayList<>();
         medDummyList.add(med);
 
         buildView(medDummyList);
+        new MedicationPresenter(this);
     }
 
     public MedicationView (List<Medication> medDataList) {
@@ -67,14 +58,7 @@ public class MedicationView extends MedicationAppLayout implements View {
         // Allow column hiding
         grdMedicamentGridView.getColumns().stream().forEach(column -> column.setHidable(true));
 
-        grdMedicamentGridView.addSelectionListener(event -> {
-            Notification.show("You have clicked on element");
-        });
 
-        SingleSelectionModel<Medication> selectionModel = (SingleSelectionModel<Medication>) grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
-        selectionModel.addSingleSelectionListener(event -> {
-            Notification.show(selectionModel.getSelectedItem().get().getName());
-        });
 
         grdMedicamentGridView.addColumn(Medication::getId).setCaption("ID");
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
@@ -87,7 +71,9 @@ public class MedicationView extends MedicationAppLayout implements View {
 
         grdMedicamentGridView.setId("medicationAppGrid");
         this.addComponent(grdMedicamentGridView, "dataGrid");
+    }
 
-
+    public Grid<Medication> getMedicamentGrid() {
+        return grdMedicamentGridView;
     }
 }
