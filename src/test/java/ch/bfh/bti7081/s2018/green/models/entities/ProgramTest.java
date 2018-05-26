@@ -4,10 +4,6 @@ import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
 import org.junit.Assert;
 import org.junit.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -32,7 +28,7 @@ public class ProgramTest {
             Program program = new Program(therapy, startDate, stopDate, frequence, firstEvent);
             RecurringEvent secondEvent = firstEvent.getNext();
             Assert.assertNotEquals(firstEvent, secondEvent);
-            Assert.assertEquals(firstEvent.getStart(), secondEvent.getStart().minus(program.getFrequence()));
+            Assert.assertEquals(firstEvent.getStart(), secondEvent.getStart().minus(program.getFrequency()));
         }
         catch (IllegalArgumentException ex) {
             Assert.fail(ex.getMessage());
