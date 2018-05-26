@@ -36,7 +36,7 @@ public class RecurringEvent extends Event {
         return next;
     }
 
-    public void setNext(RecurringEvent next) {
+    public void setNext(RecurringEvent next) throws IllegalArgumentException {
         RecurringEvent old = this.next;
         this.next = next;
 

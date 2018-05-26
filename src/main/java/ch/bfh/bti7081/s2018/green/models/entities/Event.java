@@ -69,7 +69,7 @@ public class Event {
         return start;
     }
 
-    public void setStart(LocalDateTime start) {
+    public void setStart(LocalDateTime start) throws IllegalArgumentException{
         LocalDateTime old = this.start;
         this.start = start;
 
@@ -83,7 +83,7 @@ public class Event {
         return stop;
     }
 
-    public void setStop(LocalDateTime stop) {
+    public void setStop(LocalDateTime stop) throws IllegalArgumentException{
         LocalDateTime old = this.stop;
         this.stop = stop;
 
