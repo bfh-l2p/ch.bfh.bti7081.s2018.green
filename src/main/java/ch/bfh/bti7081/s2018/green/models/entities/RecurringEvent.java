@@ -15,7 +15,7 @@ public class RecurringEvent extends Event {
     public RecurringEvent() {
     }
 
-    public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, Event next) throws IllegalArgumentException {
+    public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, RecurringEvent next) throws IllegalArgumentException {
         super(start, stop, desc, title, patient, therapist);
         this.next = next;
 
@@ -32,12 +32,12 @@ public class RecurringEvent extends Event {
         return next.getStart().isAfter(getStop());
     }
 
-    public Event getNext() {
+    public RecurringEvent getNext() {
         return next;
     }
 
-    public void setNext(Event next) throws IllegalArgumentException {
-        Event old = this.next;
+    public void setNext(RecurringEvent next) throws IllegalArgumentException {
+        RecurringEvent old = this.next;
         this.next = next;
 
         if (!isValid()) {
