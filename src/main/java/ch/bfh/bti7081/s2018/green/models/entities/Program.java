@@ -11,16 +11,16 @@ public class Program {
 
     private LocalDate startDate;
 
-    private LocalDate stopDate;
+    private LocalDate endDate;
 
     private Period frequency;
 
     private RecurringEvent firstEvent;
 
-    public Program(Therapy therapy, LocalDate startDate, LocalDate stopDate, Period frequence, RecurringEvent firstEvent) throws IllegalArgumentException {
+    public Program(Therapy therapy, LocalDate startDate, LocalDate endDate, Period frequence, RecurringEvent firstEvent) throws IllegalArgumentException {
         this.therapy = therapy;
         this.startDate = startDate;
-        this.stopDate = stopDate;
+        this.endDate = endDate;
         this.frequency = frequence;
         this.firstEvent = createRecurringEvents(firstEvent);
     }
@@ -33,8 +33,8 @@ public class Program {
         return startDate;
     }
 
-    public LocalDate getStopDate() {
-        return stopDate;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
     public Period getFrequency() {
@@ -51,8 +51,8 @@ public class Program {
             firstEvent.setTherapy(this.therapy);
             RecurringEvent previousEvent = firstEvent;
 
-            // creates identical recurring events in a defined frequency from the startDate until the stopDate of the program
-            while (previousEvent.getStart().toLocalDate().compareTo(this.stopDate) <= 0) {
+            // creates identical recurring events in a defined frequency from the startDate until the endDate of the program
+            while (previousEvent.getStart().toLocalDate().compareTo(this.endDate) <= 0) {
                 LocalDateTime newStartDateTime = previousEvent.getStart().plus(this.frequency);
                 LocalDateTime newStopDateTime = previousEvent.getStop().plus(this.frequency);
                 RecurringEvent currentEvent = new RecurringEvent(newStartDateTime, newStopDateTime, previousEvent.getDesc(),
