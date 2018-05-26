@@ -9,20 +9,26 @@ import java.time.LocalDateTime;
 public class Event {
     @JoinColumn(name = "nextId", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
     @OneToOne(optional = true)
-    protected Event next = null;
+    protected RecurringEvent next = null;
+
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
     @Column(nullable = false)
     @OrderBy("start asc")
     private LocalDateTime start;
+
     @Column(nullable = false)
     private LocalDateTime stop;
+
     @Column(name = "description")
     private String desc;
+
     @Column(nullable = false)
     private String title;
+
     @ManyToOne
     @JoinColumn(name = "patientId", nullable = false)
     private Patient patient;
@@ -30,6 +36,10 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "therapistId", nullable = false)
     private Staff therapist;
+
+    @ManyToOne
+    @JoinColumn(name = "therapyId")
+    protected Therapy therapy;
 
     public Event() {
     }
@@ -113,5 +123,13 @@ public class Event {
 
     public void setTherapist(Staff therapist) {
         this.therapist = therapist;
+    }
+
+    public Therapy getTherapy() {
+        return therapy;
+    }
+
+    public void setTherapy(Therapy therapy) {
+        this.therapy = therapy;
     }
 }
