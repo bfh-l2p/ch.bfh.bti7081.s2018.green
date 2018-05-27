@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
+import ch.bfh.bti7081.s2018.green.models.managers.JournalEntryManager;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,11 +61,11 @@ public class Patient extends Person {
 	}
 
 	public List<JournalEntry> getJournalEntries() {
-	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-        EntityManager em = emf.createEntityManager();
-        TypedQuery<JournalEntry> query = em.createNamedQuery("JournalEntry.findByPatient", JournalEntry.class);
-        System.out.println(this.getId());
-        query.setParameter("patientId", this.getId());
-        return query.getResultList();
+	    JournalEntryManager manager = new JournalEntryManager();
+        return manager.findByPatient(this.getId());
 	}
+
+    public List<Event> getEvents() {
+       return null;
+    }
 }
