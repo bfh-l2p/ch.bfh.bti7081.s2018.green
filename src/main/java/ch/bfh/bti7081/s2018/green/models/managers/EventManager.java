@@ -1,10 +1,14 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Event;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 
 
 public class EventManager extends Manager<Event> {
@@ -12,13 +16,45 @@ public class EventManager extends Manager<Event> {
     	this.entityclass = Event.class;
 	}
     
-    public List<Event> findByPatient(Integer id) {
-        setNewEntityManager();
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM event j WHERE patientId = :patientId", Event.class);
-        query.setParameter("patientId", id);
+    public List<Event> findBy(Staff item) {
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", Event.class);
+		query.setParameter("therapistId", item.getId());
+		return findByQuery(query);
+    }
+    
+    public List<Event> findBy(Patient item) {
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", Event.class);
+		query.setParameter("patientId", item.getId());
+		return findByQuery(query);
+    }
+    
+    public List<Event> findBy(LocalDateTime date) {
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start = :start", Event.class);
+        query.setParameter("created", date);
+        return findByQuery(query);
+    }
+    
+    private List<Event> findByQuery(TypedQuery<Event> query) {
+    	setNewEntityManager();
         List<Event> items = query.getResultList();
-
         manager.close();
-        return items;
+    	return items;
+    }
+    
+    public Event update(Event item) {
+    	EntityTransaction updateTransaction = beginTransaction();
+        manager.merge(item);
+        closeTransaction(updateTransaction);
+
+        return item;
+    }
+    
+    public Event remove(Event item) {
+
+    	EntityTransaction updateTransaction = beginTransaction();
+        manager.remove(manager.contains(item) ? item : manager.merge(item));
+        closeTransaction(updateTransaction);
+        
+        return item;
     }
 }
