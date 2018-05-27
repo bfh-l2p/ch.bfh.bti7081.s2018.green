@@ -14,15 +14,15 @@ public class JournalEntryManager extends Manager<JournalEntry> {
     	this.entityclass = JournalEntry.class;
 	}
     
-    public List<JournalEntry> findBy(Staff item) {
+    public List<JournalEntry> findBy(Staff staff) {
         TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE authorId = :authorId", this.entityclass);
-		query.setParameter("authorId", item.getId());
+		query.setParameter("authorId", staff.getId());
 		return findByQuery(query);
     }
     
-    public List<JournalEntry> findBy(Patient item) {
+    public List<JournalEntry> findBy(Patient patient) {
         TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId", this.entityclass);
-		query.setParameter("patientId", item.getId());
+		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
     
