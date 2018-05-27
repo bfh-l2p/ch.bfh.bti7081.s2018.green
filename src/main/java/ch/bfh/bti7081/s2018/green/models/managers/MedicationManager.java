@@ -15,15 +15,15 @@ public class MedicationManager extends Manager<Medication> {
 		this.entityclass = Medication.class;
 	}
     
-    public List<Medication> findBy(Staff item) {
+    public List<Medication> findBy(Staff staff) {
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE prescriberId = :prescriberId", entityclass);
-		query.setParameter("prescriberId", item.getId());
+		query.setParameter("prescriberId", staff.getId());
 		return findByQuery(query);
     }
     
-    public List<Medication> findBy(Patient item) {
+    public List<Medication> findBy(Patient patient) {
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE patientId = :patientId", entityclass);
-		query.setParameter("patientId", item.getId());
+		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
     
@@ -35,16 +35,16 @@ public class MedicationManager extends Manager<Medication> {
     
     private List<Medication> findByQuery(TypedQuery<Medication> query) {
     	setNewEntityManager();
-        List<Medication> items = query.getResultList();
+        List<Medication> medications = query.getResultList();
         manager.close();
-    	return items;
+    	return medications;
     }
     
-    public Medication update(Medication item) {
+    public Medication update(Medication medication) {
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.merge(item);
+        manager.merge(medication);
         closeTransaction(updateTransaction);
 
-        return item;
+        return medication;
     }
 }

@@ -34,8 +34,8 @@ public class JournalEntryManager extends Manager<JournalEntry> {
 
     private List<JournalEntry> findByQuery(TypedQuery<JournalEntry> query) {
     	setNewEntityManager();
-        List<JournalEntry> items = query.getResultList();
+        List<JournalEntry> journalEntries = query.getResultList();
         manager.close();
-    	return items;
+    	return journalEntries;
     }
 }
