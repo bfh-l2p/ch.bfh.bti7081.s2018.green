@@ -1,32 +1,28 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.OrderBy;
 import javax.persistence.PrePersist;
 
 @Entity
 @NamedQuery(name="JournalEntry.findByPatient", query="SELECT j FROM JournalEntry j where patientId = :patientId order by created asc")
 public class JournalEntry {
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
-    @OrderBy("created asc")
-    private Date created;
+    @Column(nullable = false, updatable = false)
+    public LocalDateTime created;
 
     @OneToOne
     @JoinColumn(name = "patientId", nullable = false)
@@ -35,12 +31,6 @@ public class JournalEntry {
     @OneToOne
     @JoinColumn(name = "authorId", nullable = false)
     private Staff staff;
-
-    @PrePersist
-    protected void onCreate() {
-        System.out.println("created");
-    	created = new Date();
-    }
 
     public JournalEntry() {
         // required by JPA
@@ -51,6 +41,11 @@ public class JournalEntry {
 		this.staff = staff;
 		this.patient = patient;
 	}
+
+    @PrePersist
+    public void onPrePersist() {
+        created = LocalDateTime.now();
+    }
 
 	public Integer getId() {
 		return id;
@@ -72,7 +67,7 @@ public class JournalEntry {
 	    return patient;
 	}
 
-	public Date getCreated() {
+	public LocalDateTime getCreated() {
 	    return created;
 	}
 }

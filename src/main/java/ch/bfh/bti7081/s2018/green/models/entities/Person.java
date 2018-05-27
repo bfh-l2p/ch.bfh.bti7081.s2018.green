@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.persistence.*;
 
 @Entity
@@ -19,7 +20,7 @@ public class Person {
     private String lastName;
 
     @Column
-    private Date dob;
+    private LocalDate dob;
 
     @Column
     private String address;
@@ -40,7 +41,7 @@ public class Person {
         // required by JPA
     }
 
-    public Person(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone) {
+    public Person(String firstName, String lastName, LocalDate dob, String address, String zip, String city, String email, String phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dob = dob;
@@ -75,11 +76,11 @@ public class Person {
         return firstName + " " + lastName;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 

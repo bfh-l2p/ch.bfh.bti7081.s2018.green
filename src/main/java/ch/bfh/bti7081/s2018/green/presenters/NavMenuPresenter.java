@@ -32,7 +32,7 @@ public class NavMenuPresenter {
 
         HorizontalLayout lyb4 = (HorizontalLayout) this.view.getLblMedication().getParent();
         lyb4.addLayoutClickListener((clickEvent) ->
-                setActive(lyb4, MedicationAppView.NAME)
+                setActive(lyb4, MedicationView.NAME)
         );
 
 

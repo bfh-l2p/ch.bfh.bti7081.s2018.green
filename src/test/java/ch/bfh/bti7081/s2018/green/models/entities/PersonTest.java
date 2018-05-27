@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class PersonTest {
 
     @Test
     public void testPerson() throws ClassNotFoundException, ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dob = new Date(format.parse("20.01.1989").getTime());
+        LocalDate dob = LocalDate.of(1989, 1, 20);
         Person person = new Person(
                 "testestCyrill",
                 "testestBolliger",

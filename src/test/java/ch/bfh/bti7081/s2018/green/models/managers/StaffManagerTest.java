@@ -8,8 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +46,7 @@ public class StaffManagerTest {
 
 	@Test
 	public void add() throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		Date dobStaff = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobStaff = LocalDate.of(1991, 10, 14);
 		Staff staff = new Staff("Martin", "Scheck", dobStaff, "Chutzenstrasse 27", "3007", "Bern",
 				"martinscheck91@gmail.com", "0798340599", StaffType.PSYCHOLOGIST);
 		StaffManager staffManager = new StaffManager();
@@ -96,8 +94,7 @@ public class StaffManagerTest {
 	 * Insert some test data
 	 */
 	private void addTestData() throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		Date dobStaff = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobStaff = LocalDate.of(1991, 10, 14);
 		Staff staff = new Staff("Tobias", "Scheck", dobStaff, "Chutzenstrasse 28", "3007", "Bern",
 				"martinscheck91@gmail.com", "0798340599", StaffType.PSYCHIATRIST);
 		StaffManager staffManager = new StaffManager();

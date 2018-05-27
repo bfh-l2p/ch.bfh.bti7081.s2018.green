@@ -7,8 +7,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,15 +46,14 @@ public class PatientManagerTest {
 
 	@Test
 	public void add() throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobPerson = LocalDate.of(1991, 10, 14);
 		Person person = new Person("Martin", "Scheck", dobPerson, "Chutzenstrasse 27", "3007", "Bern",
 				"martinscheck91@gmail.com", "0798340599");
 		PersonManager personManager = new PersonManager();
 		personManager.add(person);
 		insertedPeople.add(person);
 
-		Date dobPatient = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobPatient = LocalDate.of(1991, 10, 14);
 		Patient patient = new Patient("So much fun testing", "Last", dobPatient, "Street 1", "4455", "City",
 				"info@example.com", "0777777777", person);
 		PatientManager patientManager = new PatientManager();
@@ -95,15 +93,14 @@ public class PatientManagerTest {
 	 * Insert some test data
 	 */
 	private void addTestData() throws Exception {
-		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		Date dobPerson = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobPerson = LocalDate.of(1991, 10, 14);
 		Person person = new Person("Martin", "Scheck", dobPerson, "Chutzenstrasse 27", "3007", "Bern",
 				"martinscheck91@gmail.com", "0798340599");
 		PersonManager personManager = new PersonManager();
 		personManager.add(person);
 		insertedPeople.add(person);
 
-		Date dobPatient = new Date(format.parse("14.10.1991").getTime());
+		LocalDate dobPatient = LocalDate.of(1991, 10, 14);
 		Patient patient = new Patient("First", "Last", dobPatient, "Street 1", "4455", "City", "info@example.com",
 				"0777777777", person);
 		PatientManager patientManager = new PatientManager();

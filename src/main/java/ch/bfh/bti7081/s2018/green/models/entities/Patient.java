@@ -2,7 +2,7 @@ package ch.bfh.bti7081.s2018.green.models.entities;
 
 import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.*;
@@ -28,7 +28,7 @@ public class Patient extends Person {
 		// required by JPA
 	}
 
-	public Patient(String firstName, String lastName, Date dob, String address, String zip, String city, String email, String phone, Person emergencyContact) {
+	public Patient(String firstName, String lastName, LocalDate dob, String address, String zip, String city, String email, String phone, Person emergencyContact) {
 		super(firstName, lastName, dob, address, zip, city, email, phone);
 		this.emergencyContact = emergencyContact;
 		this.selfEndangerment = DangerLevel.LOW;

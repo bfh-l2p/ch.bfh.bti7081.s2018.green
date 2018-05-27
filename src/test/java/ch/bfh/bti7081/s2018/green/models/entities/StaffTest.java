@@ -11,13 +11,14 @@ import javax.persistence.Persistence;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 public class StaffTest {
 
     @Test
     public void testStaff() throws ClassNotFoundException, ParseException {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        Date dob = new Date(format.parse("20.01.1989").getTime());
+        LocalDate dob = LocalDate.of(1989, 1, 20);
         Staff staff = new Staff(
                 "testestCyrill",
                 "testestBolliger",
