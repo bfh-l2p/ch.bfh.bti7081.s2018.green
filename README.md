@@ -1,7 +1,9 @@
 # Software Engineering and Design
+[![Build Status](https://travis-ci.org/bfh-l2p/ch.bfh.bti7081.s2018.green.svg?branch=master)](https://travis-ci.org/bfh-l2p/ch.bfh.bti7081.s2018.green)
+
 [Documentation Link](https://drive.google.com/drive/folders/1UXU21kisqqE7-1se04mWbdYlOFDn_dyX?usp=sharing) (on Google Drive)<br/>
 [Project Backlog](https://docs.google.com/spreadsheets/d/1mwmGhjBuQdBR8QeKBXALKiAcL2_Oh5-5jSCAFHzOqfA/edit#gid=0)<br/>
-[Sprint Packlog](https://docs.google.com/spreadsheets/d/19aeU9MhjBFeie8FDAwakxD2CRsg3AF24cYosmDBYatI/edit#gid=0)
+[Sprint Backlog](https://docs.google.com/spreadsheets/d/19aeU9MhjBFeie8FDAwakxD2CRsg3AF24cYosmDBYatI/edit#gid=0)
 
 ## Project Specifications
 
