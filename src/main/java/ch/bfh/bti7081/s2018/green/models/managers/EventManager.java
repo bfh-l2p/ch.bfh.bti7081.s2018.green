@@ -16,15 +16,15 @@ public class EventManager extends Manager<Event> {
     	this.entityclass = Event.class;
 	}
     
-    public List<Event> findBy(Staff item) {
+    public List<Event> findBy(Staff staff) {
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", entityclass);
-		query.setParameter("tId", item.getId());
+		query.setParameter("tId", staff.getId());
 		return findByQuery(query);
     }
     
-    public List<Event> findBy(Patient item) {
+    public List<Event> findBy(Patient patient) {
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", entityclass);
-		query.setParameter("patientId", item.getId());
+		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
     
@@ -36,9 +36,9 @@ public class EventManager extends Manager<Event> {
     
     private List<Event> findByQuery(TypedQuery<Event> query) {
     	setNewEntityManager();
-        List<Event> items = query.getResultList();
+        List<Event> events = query.getResultList();
         manager.close();
-    	return items;
+    	return events;
     }
     
     public Event update(Event item) {

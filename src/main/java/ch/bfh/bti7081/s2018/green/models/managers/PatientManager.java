@@ -8,20 +8,20 @@ public class PatientManager extends Manager<Patient> {
     	this.entityclass = Patient.class;
 	}
 
-    public Patient update(Patient item) {
+    public Patient update(Patient patient) {
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.merge(item);
+        manager.merge(patient);
         closeTransaction(updateTransaction);
 
-        return item;
+        return patient;
     }
     
-    public Patient remove(Patient item) {
+    public Patient remove(Patient patient) {
 
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.remove(manager.contains(item) ? item : manager.merge(item));
+        manager.remove(manager.contains(patient) ? patient : manager.merge(patient));
         closeTransaction(updateTransaction);
         
-        return item;
+        return patient;
     }
 }
