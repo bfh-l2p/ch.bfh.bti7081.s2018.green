@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class RecurringEvent extends Event {
 
     public RecurringEvent() {
+        // required by JPA
     }
 
     public RecurringEvent(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, RecurringEvent next) throws IllegalArgumentException {

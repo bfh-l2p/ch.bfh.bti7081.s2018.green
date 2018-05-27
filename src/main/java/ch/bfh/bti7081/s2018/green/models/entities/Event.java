@@ -7,13 +7,12 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "nextId", discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue(value = "null")
 public class Event {
-    @JoinColumn(name = "nextId", referencedColumnName = "id", nullable = true, insertable = false, updatable = false)
+    @JoinColumn(name = "nextId", insertable = false, updatable = false)
     @OneToOne(optional = true)
     protected RecurringEvent next = null;
 
     @Id
-    @Column(nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Integer id;
 
     @Column(nullable = false)
@@ -42,22 +41,22 @@ public class Event {
     protected Therapy therapy;
 
     public Event() {
+        // required by JPA
     }
 
     public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
+        if (!isValid(start, stop)) {
+            throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
+        }
         this.start = start;
         this.stop = stop;
         this.desc = desc;
         this.title = title;
         this.patient = patient;
         this.therapist = therapist;
-
-        if (!isValid()) {
-            throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
-        }
     }
 
-    private boolean isValid() {
+    private boolean isValid(LocalDateTime start, LocalDateTime stop) {
         return start.isBefore(stop);
     }
 
@@ -69,28 +68,22 @@ public class Event {
         return start;
     }
 
-    public void setStart(LocalDateTime start) throws IllegalArgumentException{
-        LocalDateTime old = this.start;
-        this.start = start;
-
-        if (!isValid()) {
-            this.start = old;
+    public void setStart(LocalDateTime start) throws IllegalArgumentException {
+        if (!isValid(start, this.stop)) {
             throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
         }
+        this.start = start;
     }
 
     public LocalDateTime getStop() {
         return stop;
     }
 
-    public void setStop(LocalDateTime stop) throws IllegalArgumentException{
-        LocalDateTime old = this.stop;
-        this.stop = stop;
-
-        if (!isValid()) {
-            this.stop = old;
+    public void setStop(LocalDateTime stop) throws IllegalArgumentException {
+        if (!isValid(this.start, stop)) {
             throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
         }
+        this.stop = stop;
     }
 
     public String getDesc() {
