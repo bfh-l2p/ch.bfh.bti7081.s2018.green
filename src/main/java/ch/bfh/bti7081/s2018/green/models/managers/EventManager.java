@@ -17,19 +17,19 @@ public class EventManager extends Manager<Event> {
 	}
     
     public List<Event> findBy(Staff item) {
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", Event.class);
-		query.setParameter("therapistId", item.getId());
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", entityclass);
+		query.setParameter("tId", item.getId());
 		return findByQuery(query);
     }
     
     public List<Event> findBy(Patient item) {
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", Event.class);
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", item.getId());
 		return findByQuery(query);
     }
     
     public List<Event> findBy(LocalDateTime date) {
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start = :start", Event.class);
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start = :start", entityclass);
         query.setParameter("created", date);
         return findByQuery(query);
     }

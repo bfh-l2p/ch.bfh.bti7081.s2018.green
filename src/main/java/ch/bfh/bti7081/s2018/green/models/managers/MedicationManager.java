@@ -16,19 +16,19 @@ public class MedicationManager extends Manager<Medication> {
 	}
     
     public List<Medication> findBy(Staff item) {
-        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE prescriberId = :prescriberId", Medication.class);
+        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE prescriberId = :prescriberId", entityclass);
 		query.setParameter("prescriberId", item.getId());
 		return findByQuery(query);
     }
     
     public List<Medication> findBy(Patient item) {
-        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE patientId = :patientId", Medication.class);
+        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", item.getId());
 		return findByQuery(query);
     }
     
     public List<Medication> findBy(LocalDateTime date) {
-        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE created = :created", Medication.class);
+        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE created = :created", entityclass);
         query.setParameter("created", date);
         return findByQuery(query);
     }
