@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityTransaction;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,12 +45,18 @@ public class JournalEntryManagerTest {
 	public void findAll() throws Exception {
 		JournalEntryManager journalEntryManager = new JournalEntryManager();
 		List<JournalEntry> journalEntryList = journalEntryManager.findAll();
+		journalEntryList.stream().forEach(s -> System.out.println(s.getId()));
 
 		journalEntryList.forEach(je1 -> {
 			Assert.assertTrue(journalEntryList.stream().anyMatch(je2 -> je1.getId().intValue() == je2.getId().intValue()));
 		});
 	}
-
+/*	
+	@Test
+	public void findBy() throws Exception {
+		Patient p
+	}
+*/
 	@Test
 	public void add() throws Exception {
 		LocalDate dobPerson = LocalDate.of(1991, 10, 14);
@@ -115,6 +123,11 @@ public class JournalEntryManagerTest {
 	 * Remove all patients and people inserted during the test
 	 */
 	private void removeTestData() {
+		JournalEntryManager journalEntryManager = new JournalEntryManager();
+    	EntityTransaction updateTransaction = journalEntryManager.beginTransaction();
+    	insertedJournalEntries.forEach(je -> journalEntryManager.manager.remove(journalEntryManager.manager.contains(je) ? je : journalEntryManager.manager.merge(je)));
+        journalEntryManager.closeTransaction(updateTransaction);
+        
 		PatientManager patientManager = new PatientManager();
 		insertedPatients.forEach(patientManager::remove);
 		insertedPatients = new ArrayList<>();
@@ -126,7 +139,6 @@ public class JournalEntryManagerTest {
 		StaffManager staffManager = new StaffManager();
 		insertedStaff.forEach(staffManager::remove);
 		insertedStaff = new ArrayList<>();
-
 	}
 
 	/**
