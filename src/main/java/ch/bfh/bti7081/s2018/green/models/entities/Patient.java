@@ -62,7 +62,7 @@ public class Patient extends Person {
 
 	public List<JournalEntry> getJournalEntries() {
 	    JournalEntryManager manager = new JournalEntryManager();
-        return manager.findByPatient(this.getId());
+        return manager.findBy(this);
 	}
 
     public List<Event> getEvents() {

@@ -10,20 +10,20 @@ public class PersonManager extends Manager<Person> {
 		this.entityclass = Person.class;
 	}
 
-    public Person update(Person item) {
+    public Person update(Person person) {
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.merge(item);
+        manager.merge(person);
         closeTransaction(updateTransaction);
 
-        return item;
+        return person;
     }
     
-    public Person remove(Person item) {
+    public Person remove(Person person) {
 
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.remove(manager.contains(item) ? item : manager.merge(item));;
+        manager.remove(manager.contains(person) ? person : manager.merge(person));;
         closeTransaction(updateTransaction);
         
-        return item;
+        return person;
     }
 }
