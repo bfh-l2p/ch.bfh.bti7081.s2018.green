@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,33 +64,17 @@ public class JournalEntryManagerTest {
 	
 	@Test
 	public void findByStaff() throws Exception {
-		LocalDate dobPerson = LocalDate.of(1991, 10, 14);
-		Person person = new Person("Martin", "Scheck", dobPerson, "Chutzenstrasse 27", "3007", "Bern",
-				"martinscheck91@gmail.com", "0798340599");
-		PersonManager personManager = new PersonManager();
-		personManager.add(person);
-		insertedPeople.add(person);
-
-		LocalDate dobPatient = LocalDate.of(1991, 10, 14);
-		Patient patient = new Patient("So much fun testing", "Last", dobPatient, "Street 1", "4455", "City",
-				"info@example.com", "0777777777", person);
-		PatientManager patientManager = new PatientManager();
-		patientManager.add(patient);
-		insertedPatients.add(patient);
-
-		LocalDate dobStaff = LocalDate.of(1991, 10, 16);
-		Staff staff = new Staff("Martin", "Scheck", dobStaff, "Chutzenstrasse 27", "3007", "Bern",
-				"martinscheck91@gmail.com", "0798340599", StaffType.PSYCHOLOGIST);
-		StaffManager staffManager = new StaffManager();
-		staffManager.add(staff);
-		insertedStaff.add(staff);
-		
-		JournalEntry journalEntry = new JournalEntry("TestEintrag", patient, staff);
-		JournalEntryManager journalEntryManager = new JournalEntryManager();
-		journalEntryManager.add(journalEntry);
-		insertedJournalEntries.add(journalEntry);
-		
+		Staff staff = insertedStaff.get(0);
 		List<JournalEntry> journalEntryList = new JournalEntryManager().findBy(staff);
+		journalEntryList.forEach(je1 -> {
+			Assert.assertTrue(journalEntryList.stream().anyMatch(je2 -> je1.getId().intValue() == je2.getId().intValue()));
+		});
+	}
+	
+	@Test
+	public void findByDate() throws Exception {
+		LocalDateTime today = LocalDateTime.now();
+		List<JournalEntry> journalEntryList = new JournalEntryManager().findBy(today);
 		journalEntryList.forEach(je1 -> {
 			Assert.assertTrue(journalEntryList.stream().anyMatch(je2 -> je1.getId().intValue() == je2.getId().intValue()));
 		});
