@@ -16,7 +16,7 @@ public class ProgramTest {
         Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        RecurringEvent firstEvent = new RecurringEvent(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
 
         Therapy therapy = new Therapy("Test Therapy");
 
@@ -26,7 +26,7 @@ public class ProgramTest {
 
         try {
             Program program = new Program(therapy, startDate, stopDate, frequence, firstEvent);
-            RecurringEvent secondEvent = firstEvent.getNext();
+            Event secondEvent = firstEvent.getNext();
             Assert.assertNotEquals(firstEvent, secondEvent);
             Assert.assertEquals(firstEvent.getStart(), secondEvent.getStart().minus(program.getFrequency()));
         }
@@ -42,7 +42,7 @@ public class ProgramTest {
         Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        RecurringEvent firstEvent = new RecurringEvent(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
 
         Therapy therapy = new Therapy("Test Therapy");
 
