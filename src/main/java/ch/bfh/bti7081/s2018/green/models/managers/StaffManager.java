@@ -16,21 +16,21 @@ public class StaffManager extends Manager<Staff> {
     	this.entityclass = Staff.class;
 	}
 
-	public Staff update(Staff item) {
+	public Staff update(Staff staff) {
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.merge(item);
+        manager.merge(staff);
         closeTransaction(updateTransaction);
 
-        return item;
+        return staff;
     }
     
-    public Staff remove(Staff item) {
+    public Staff remove(Staff staff) {
 
     	EntityTransaction updateTransaction = beginTransaction();
-        manager.remove(manager.contains(item) ? item : manager.merge(item));
+        manager.remove(manager.contains(staff) ? staff : manager.merge(staff));
         closeTransaction(updateTransaction);
         
-        return item;
+        return staff;
     }
 	
     public List<Staff> findBy(StaffType type) {
