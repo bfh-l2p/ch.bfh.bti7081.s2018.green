@@ -33,14 +33,23 @@ public class EventManager extends Manager<Event> {
     
     public List<Event> findBy(LocalDate date) {
     	setNewEntityManager();
-        LocalDateTime startLocalDateTime = date.atStartOfDay();
-        LocalDateTime endLocalDateTime = date.atStartOfDay().plusDays(1);
-    	TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
-    			+ " or start < :startLocalDateTime and stop > :endLocalDateTime"
-    			+ " or stop > :startLocalDateTime and stop < :endLocalDateTime"
-    			+ " or start >= :startLocalDateTime and stop < :endLocalDateTime", entityclass);
-        query.setParameter("startLocalDateTime", startLocalDateTime);
-        query.setParameter("endLocalDateTime", endLocalDateTime);
+        LocalDateTime start = date.atStartOfDay();
+        LocalDateTime end = date.atStartOfDay().plusDays(1);
+    	return findBy(start, end);
+    }
+
+    public List<Event> findConflicting(Event event) {
+        return findBy(event.getStart(), event.getStop());
+    }
+
+    private List<Event> findBy(LocalDateTime start, LocalDateTime end) {
+        setNewEntityManager();
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
+                + " or start < :startLocalDateTime and stop > :endLocalDateTime"
+                + " or stop > :startLocalDateTime and stop < :endLocalDateTime"
+                + " or start >= :startLocalDateTime and stop < :endLocalDateTime", entityclass);
+        query.setParameter("startLocalDateTime", start);
+        query.setParameter("endLocalDateTime", end);
         return findByQuery(query);
     }
     
