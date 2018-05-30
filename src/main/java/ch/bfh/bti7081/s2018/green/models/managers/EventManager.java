@@ -11,7 +11,7 @@ public class EventManager extends Manager<Event> {
     public EventManager() {
     	this.entityclass = Event.class;
 	}
-    
+
     public List<Event> findByPatient(Integer id) {
         setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", Event.class);
