@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,25 +17,20 @@ public class MedicationManager extends Manager<Medication> {
 	}
     
     public List<Medication> findBy(Staff staff) {
+    	setNewEntityManager();
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE prescriberId = :prescriberId", entityclass);
 		query.setParameter("prescriberId", staff.getId());
 		return findByQuery(query);
     }
     
     public List<Medication> findBy(Patient patient) {
+    	setNewEntityManager();
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
     
-    public List<Medication> findBy(LocalDateTime date) {
-        TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE created = :created", entityclass);
-        query.setParameter("created", date);
-        return findByQuery(query);
-    }
-    
     private List<Medication> findByQuery(TypedQuery<Medication> query) {
-    	setNewEntityManager();
         List<Medication> medications = query.getResultList();
         manager.close();
     	return medications;

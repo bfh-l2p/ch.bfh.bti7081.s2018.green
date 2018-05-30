@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,10 +29,13 @@ public class JournalEntryManager extends Manager<JournalEntry> {
 		return findByQuery(query);
     }
     
-    public List<JournalEntry> findBy(LocalDateTime date) {
+    public List<JournalEntry> findBy(LocalDate date) {
     	setNewEntityManager();
-        TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created = :created", entityclass);
-        query.setParameter("created", date);
+        LocalDateTime startLocalDateTime = date.atStartOfDay();
+        LocalDateTime endLocalDateTime = date.atStartOfDay().plusDays(1);
+    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created >= :startLocalDateTime and created < :endLocalDateTime", entityclass);
+        query.setParameter("startLocalDateTime", startLocalDateTime);
+        query.setParameter("endLocalDateTime", endLocalDateTime);
         return findByQuery(query);
     }
 
