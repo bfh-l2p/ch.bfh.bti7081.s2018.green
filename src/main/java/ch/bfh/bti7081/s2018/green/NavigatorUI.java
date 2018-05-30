@@ -188,6 +188,7 @@ public class NavigatorUI extends UI {
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(DiagnosisAppView.NAME, DiagnosisAppView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
+        navigator.addView(EventListView.NAME, EventListView.class);
     }
 
 

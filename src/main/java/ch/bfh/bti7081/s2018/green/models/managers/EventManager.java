@@ -16,21 +16,21 @@ public class EventManager extends Manager<Event> {
     public EventManager() {
     	this.entityclass = Event.class;
 	}
-    
+
     public List<Event> findBy(Staff staff) {
     	setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", entityclass);
 		query.setParameter("therapistId", staff.getId());
 		return findByQuery(query);
     }
-    
+
     public List<Event> findBy(Patient patient) {
     	setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
-    
+
     public List<Event> findBy(LocalDate date) {
     	setNewEntityManager();
         LocalDateTime startLocalDateTime = date.atStartOfDay();
@@ -43,13 +43,13 @@ public class EventManager extends Manager<Event> {
         query.setParameter("endLocalDateTime", endLocalDateTime);
         return findByQuery(query);
     }
-    
+
     private List<Event> findByQuery(TypedQuery<Event> query) {
         List<Event> events = query.getResultList();
         manager.close();
     	return events;
     }
-    
+
     public Event update(Event item) {
     	EntityTransaction updateTransaction = beginTransaction();
         manager.merge(item);
@@ -57,13 +57,13 @@ public class EventManager extends Manager<Event> {
 
         return item;
     }
-    
+
     public Event remove(Event item) {
 
     	EntityTransaction updateTransaction = beginTransaction();
         manager.remove(manager.contains(item) ? item : manager.merge(item));
         closeTransaction(updateTransaction);
-        
+
         return item;
     }
 }

@@ -55,7 +55,7 @@ public class Program {
             while (previousEvent.getStart().toLocalDate().compareTo(this.endDate) <= 0) {
                 LocalDateTime newStartDateTime = previousEvent.getStart().plus(this.frequency);
                 LocalDateTime newStopDateTime = previousEvent.getStop().plus(this.frequency);
-                Event currentEvent = new Event(newStartDateTime, newStopDateTime, previousEvent.getDesc(),
+                Event currentEvent = new Event(newStartDateTime, newStopDateTime, previousEvent.getDescription(),
                         previousEvent.getTitle(), previousEvent.getPatient(), previousEvent.getTherapist());
                 currentEvent.setTherapy(this.therapy);
 
