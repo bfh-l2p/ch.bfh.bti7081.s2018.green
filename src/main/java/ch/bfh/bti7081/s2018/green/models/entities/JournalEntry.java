@@ -16,7 +16,7 @@ import javax.persistence.PrePersist;
 public class JournalEntry {
     @Id
     @GeneratedValue
-    private Integer id;
+    private int id;
 
     @Column(nullable = false)
     private String content;
@@ -47,7 +47,7 @@ public class JournalEntry {
         created = LocalDateTime.now();
     }
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
