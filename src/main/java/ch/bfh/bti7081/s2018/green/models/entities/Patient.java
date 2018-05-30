@@ -1,13 +1,13 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
-import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
-import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
-import ch.bfh.bti7081.s2018.green.models.managers.JournalEntryManager;
-
 import java.time.LocalDate;
-import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
 
 
 @Entity
@@ -22,9 +22,6 @@ public class Patient extends Person {
 
     @Column(nullable = false)
     private DangerLevel dangerToOthers;
-
-    //@OneToMany
-	//private List<JournalEntry> journalEntries = new ArrayList<>();
 
     public Patient() {
 		// required by JPA
@@ -60,14 +57,4 @@ public class Patient extends Person {
 	public void setDangerToOthers(DangerLevel dangerToOthers) {
 		this.dangerToOthers = dangerToOthers;
 	}
-
-	public List<JournalEntry> getJournalEntries() {
-	    JournalEntryManager manager = new JournalEntryManager();
-        return manager.findByPatient(this.getId());
-	}
-
-    public List<Event> getEvents() {
-    	EventManager manager = new EventManager();
-    	return manager.findByPatient(this.getId());
-    }
 }

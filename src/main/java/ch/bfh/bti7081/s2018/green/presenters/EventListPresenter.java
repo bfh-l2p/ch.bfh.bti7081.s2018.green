@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
 
 public class EventListPresenter {
@@ -22,8 +23,7 @@ public class EventListPresenter {
     }
 
     private void enteredView() {
-        // will be called when corresponding view is about to open
-        // use this method to populate the view-elements with data
-        view.setEvents(data.getCurrentPatient().getEvents());
+    	EventManager manager = new EventManager();
+        view.setEvents(manager.findByPatient(data.getCurrentPatient().getId()));
     }
 }
