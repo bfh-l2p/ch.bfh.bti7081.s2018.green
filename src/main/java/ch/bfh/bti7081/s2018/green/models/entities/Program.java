@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 
+import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -72,9 +74,9 @@ public class Program {
 
     public void saveAllEventsOfProgram() {
         Event currentEvent = firstEvent;
+        EventManager eventManager = new EventManager();
         while (currentEvent != null) {
-            //TODO: use EventManager to create Events in the DB
-
+            eventManager.add(currentEvent);
             currentEvent = currentEvent.getNext();
         }
     }
