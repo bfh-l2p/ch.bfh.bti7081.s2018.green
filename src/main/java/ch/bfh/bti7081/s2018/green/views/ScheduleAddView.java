@@ -50,6 +50,10 @@ public class ScheduleAddView extends CustomLayout implements View {
     public Button getBtnSave() {
         return btnSave;
     }
+    
+    public TextArea getTfContent() {
+        return tfContent;
+    }
 /*
     public void setJournalEntries(List<JournalEntry> journalEntries) {
         journalEntryList = new VerticalLayout();
