@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 import ch.bfh.bti7081.s2018.green.models.enumerations.DangerLevel;
+import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.models.managers.JournalEntryManager;
 
 import java.time.LocalDate;
@@ -66,6 +67,7 @@ public class Patient extends Person {
 	}
 
     public List<Event> getEvents() {
-       return null;
+    	EventManager manager = new EventManager();
+    	return manager.findByPatient(this.getId());
     }
 }

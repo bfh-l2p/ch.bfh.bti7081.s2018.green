@@ -23,8 +23,7 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime stop;
 
-    @Column(name = "description")
-    private String desc;
+    private String description;
 
     @Column(nullable = false)
     private String title;
@@ -44,10 +43,10 @@ public class Event {
     public Event() {
     }
 
-    public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
+    public Event(LocalDateTime start, LocalDateTime stop, String description, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
         this.start = start;
         this.stop = stop;
-        this.desc = desc;
+        this.description = description;
         this.title = title;
         this.patient = patient;
         this.therapist = therapist;
@@ -93,12 +92,12 @@ public class Event {
         }
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {

@@ -51,9 +51,7 @@ public class NavMenuPresenter {
 
         HorizontalLayout lyb5 = (HorizontalLayout) this.view.getLblSchedules().getParent();
         lyb5.addLayoutClickListener((clickEvent) ->
-                Notification.show(
-                        "Schedules view not yet implemented",
-                        Notification.Type.WARNING_MESSAGE)
+                setActive(lyb5, EventListView.NAME)
         );
 
     }
