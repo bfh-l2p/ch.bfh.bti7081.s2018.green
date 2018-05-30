@@ -16,7 +16,7 @@ public class ProgramTest {
         Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
 
         Therapy therapy = new Therapy("Test Therapy");
 
@@ -42,7 +42,7 @@ public class ProgramTest {
         Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event firstEvent = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
 
         Therapy therapy = new Therapy("Test Therapy");
 

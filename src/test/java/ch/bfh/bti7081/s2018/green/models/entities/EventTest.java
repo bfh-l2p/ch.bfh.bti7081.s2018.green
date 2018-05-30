@@ -143,7 +143,7 @@ public class EventTest {
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
 
         Event event1 = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
-        Event event2 = new Event(start2, stop2, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event event2 = new Event(start2, stop2, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
         event1.setNext(event2);
 
         Assert.assertEquals(event1.getNext(), event2);
@@ -158,7 +158,7 @@ public class EventTest {
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
 
-        Event event1 = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
+        Event event1 = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
         event1.setNext(event1);
     }
 
@@ -173,8 +173,9 @@ public class EventTest {
         Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
         Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
 
-        Event event2 = new Event(start2, stop2, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
-        Event event1 = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, event2);
+        Event event1 = new Event(start1, stop1, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
+        Event event2 = new Event(start2, stop2, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff);
+        event1.setNext(event2);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
@@ -209,20 +210,5 @@ public class EventTest {
         em.close();
 
         // test IllegalArgumentException
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void creatingEvent_IllegalArgument_ThrowsException() {
-        LocalDateTime start2 = LocalDateTime.of(2018, 5, 22, 13, 45);
-        LocalDateTime stop2 = LocalDateTime.of(2018, 5, 22, 14, 30);
-
-        Person person = new Person("Emergency", "Contact", null, null, null, null, null, null);
-        Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, person);
-        Staff staff = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-
-        Event event2 = new Event(start2, stop2, "Sprechstunde weil nicht gut", "Sprechstunde", patient, staff, null);
-
-        // test IllegalArgumentException
-        new Event(start2, stop2, "illegal", "illegal", patient, staff, event2);
     }
 }

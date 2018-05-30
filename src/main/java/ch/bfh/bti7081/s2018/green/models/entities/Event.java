@@ -54,16 +54,6 @@ public class Event {
         this.therapist = therapist;
     }
 
-    public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist, Event next) throws IllegalArgumentException {
-        this(start, stop, desc, title, patient, therapist);
-
-        if (!isValid(start, stop, next)) {
-            throw new IllegalArgumentException("The start of the next event must always be AFTER the stop of the current one.");
-        }
-
-        this.next = next;
-    }
-
     private boolean isValid(LocalDateTime start, LocalDateTime stop, Event next) {
         if (null != next && !next.getStart().isAfter(stop)) {
             return false;
