@@ -1,15 +1,18 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.HeaderLayout;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 
-public class HeaderView extends HeaderLayout implements View {
+public class HeaderView extends CustomLayout implements View {
 
     // Enum to load views in the "NavigatorUI" class
     public static final String NAME = "header";
 
     public HeaderView () {
+        this.setTemplateName("header");
+        this.addComponent(new Label("BreadCrumbs Placeholder"), "breadcrumbs");
+        this.addComponent(new Label("Team Green: Patient Management System"),"pageLogo");
         addUserLogoContainer();
     }
 

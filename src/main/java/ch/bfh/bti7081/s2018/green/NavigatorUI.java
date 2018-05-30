@@ -1,26 +1,32 @@
 package ch.bfh.bti7081.s2018.green;
 
 
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
-import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
-import ch.bfh.bti7081.s2018.green.views.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.servlet.annotation.WebServlet;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
-import com.vaadin.ui.*;
+import com.vaadin.ui.CustomLayout;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.servlet.annotation.WebServlet;
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
+import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
+import ch.bfh.bti7081.s2018.green.views.DiagnosisAppView;
+import ch.bfh.bti7081.s2018.green.views.FooterView;
+import ch.bfh.bti7081.s2018.green.views.HeaderView;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.NavMenuView;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
@@ -56,22 +62,17 @@ public class NavigatorUI extends UI {
         getPage().setTitle("Patient Management System");
 
         // Get the base layout
-        BaseLayoutFabric layout = new BaseLayoutFabric();
+        CustomLayout layout = new CustomLayout("baselayout");
 
         setContent(layout);
 
-        // header row
-        layout.setContainer(getHeader(), BaseLayoutFabric.SECTIONS.headSection);
-
-        // add navigation menu
-        layout.setContainer(getNavigation(), BaseLayoutFabric.SECTIONS.navSection);
-
-        // add footer bar
-        layout.setContainer(getFooterBar(), BaseLayoutFabric.SECTIONS.footerSection);
+        layout.addComponent(getHeader(), "headSection");
+        layout.addComponent(getNavigation(), "navSection");
+        layout.addComponent(getFooterBar(), "footerSection");
 
         // the app container itself which displays the current views of the application
         VerticalLayout canvas = getCanvas();
-        layout.setContainer(canvas, BaseLayoutFabric.SECTIONS.appSection);
+        layout.addComponent(canvas, "appSection");
 
         // tell the navigation to use
         navigator = new Navigator(this,canvas);
