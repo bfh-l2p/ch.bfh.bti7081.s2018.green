@@ -24,6 +24,6 @@ public class EventListPresenter {
 
     private void enteredView() {
     	EventManager manager = new EventManager();
-        view.setEvents(manager.findByPatient(data.getCurrentPatient().getId()));
+        view.setEvents(manager.findBy(data.getCurrentPatient()));
     }
 }
