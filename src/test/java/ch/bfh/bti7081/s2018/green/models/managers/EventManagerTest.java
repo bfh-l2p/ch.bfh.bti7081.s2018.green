@@ -105,7 +105,7 @@ public class EventManagerTest {
 
         LocalDateTime start5 = LocalDateTime.of(2018, 5, 5, 12, 0);
         LocalDateTime stop5 = LocalDateTime.of(2018, 5, 5, 14, 0);
-        Event event5 = new Event(start5, stop5, "shuld not be in the list", "no interference", patient, staff);
+        Event event5 = new Event(start5, stop5, "should not be in the list", "no interference", patient, staff);
         eventManager.add(event5);
         insertedEvents.add(event5);
 
