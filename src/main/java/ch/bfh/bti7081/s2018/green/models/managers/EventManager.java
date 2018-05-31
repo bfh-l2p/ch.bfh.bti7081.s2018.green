@@ -35,21 +35,30 @@ public class EventManager extends Manager<Event> {
     	setNewEntityManager();
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atStartOfDay().plusDays(1);
-    	return findBy(start, end);
-    }
-
-    public List<Event> findConflicting(Event event) {
-        return findBy(event.getStart(), event.getStop());
-    }
-
-    private List<Event> findBy(LocalDateTime start, LocalDateTime end) {
         setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
                 + " or start < :startLocalDateTime and stop > :endLocalDateTime"
-                + " or stop > :startLocalDateTime and stop < :endLocalDateTime"
+                + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
                 + " or start >= :startLocalDateTime and start < :endLocalDateTime", entityclass);
         query.setParameter("startLocalDateTime", start);
         query.setParameter("endLocalDateTime", end);
+        return findByQuery(query);
+    }
+
+    public List<Event> findConflicting(Event event) {
+        setNewEntityManager();
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j"
+                + " WHERE (start >= :startLocalDateTime and stop < :endLocalDateTime"
+                + " or start < :startLocalDateTime and stop > :endLocalDateTime"
+                + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
+                + " or start >= :startLocalDateTime and start < :endLocalDateTime)"
+                + " and (patientId = :patientId or therapistId = :therapistId)",
+                entityclass);
+        query.setParameter("startLocalDateTime", event.getStart());
+        query.setParameter("endLocalDateTime", event.getStop());
+        query.setParameter("patientId", event.getPatient().getId());
+        query.setParameter("therapistId", event.getTherapist().getId());
+
         return findByQuery(query);
     }
     

@@ -216,4 +216,70 @@ public class EventManagerTest {
     private int getTestEventId() {
         return insertedEvents.get(insertedEvents.size() - 1).getId();
     }
+
+    @Test
+    public void findConflicting() {
+        EventManager eventManager = new EventManager();
+
+        Patient patient = new PatientManager().findAll().get(0);
+        Staff staff = new StaffManager().findAll().get(0);
+
+        LocalDateTime start1 = LocalDateTime.of(2018, 5, 30, 12, 0);
+        LocalDateTime stop1 = LocalDateTime.of(2018, 5, 30, 14, 0);
+        Event event1 = new Event(start1, stop1, "fully in the given date", "in day", patient, staff);
+        eventManager.add(event1);
+        insertedEvents.add(event1);
+
+        LocalDateTime start2 = LocalDateTime.of(2018, 5, 30, 12, 0);
+        LocalDateTime stop2 = LocalDateTime.of(2018, 5, 31, 14, 0);
+        Event event2 = new Event(start2, stop2, "stops the day after", "stop after", patient, staff);
+        eventManager.add(event2);
+        insertedEvents.add(event2);
+
+        LocalDateTime start3 = LocalDateTime.of(2018, 5, 29, 12, 0);
+        LocalDateTime stop3 = LocalDateTime.of(2018, 5, 30, 14, 0);
+        Event event3 = new Event(start3, stop3, "starts the day before", "start before", patient, staff);
+        eventManager.add(event3);
+        insertedEvents.add(event3);
+
+        LocalDateTime start4 = LocalDateTime.of(2018, 5, 29, 12, 0);
+        LocalDateTime stop4 = LocalDateTime.of(2018, 5, 31, 14, 0);
+        Event event4 = new Event(start4, stop4, "starts before stops after", "start before, stop after", patient, staff);
+        eventManager.add(event4);
+        insertedEvents.add(event4);
+
+        LocalDateTime start5 = LocalDateTime.of(2018, 5, 5, 12, 0);
+        LocalDateTime stop5 = LocalDateTime.of(2018, 5, 5, 14, 0);
+        Event event5 = new Event(start5, stop5, "should not be in the list", "no interference", patient, staff);
+        eventManager.add(event5);
+        insertedEvents.add(event5);
+
+        Patient patient1 = new PatientManager().findAll().get(1);
+        Staff staff1 = new StaffManager().findAll().get(1);
+
+        Event event6 = new Event(start1, stop1, "conflict same patient", "same patient", patient1, staff);
+        eventManager.add(event6);
+        insertedEvents.add(event6);
+
+        Event event7 = new Event(start1, stop1, "conflict same staff", "same staff", patient, staff1);
+        eventManager.add(event7);
+        insertedEvents.add(event7);
+
+        Event event8 = new Event(start1, stop1, "no conflict", "no conflict", patient1, staff1);
+        eventManager.add(event8);
+        insertedEvents.add(event8);
+
+        List<Event> eventList = new EventManager().findConflicting(event1);
+
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event1.getId().equals(e.getId())));
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event2.getId().equals(e.getId())));
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event3.getId().equals(e.getId())));
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event4.getId().equals(e.getId())));
+
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event6.getId().equals(e.getId())));
+        Assert.assertTrue(eventList.stream().anyMatch(e -> event7.getId().equals(e.getId())));
+
+        Assert.assertFalse(eventList.stream().anyMatch(e -> event5.getId().equals(e.getId())));
+        Assert.assertFalse(eventList.stream().anyMatch(e -> event8.getId().equals(e.getId())));
+    }
 }
