@@ -8,6 +8,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import com.vaadin.ui.DateTimeField;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
@@ -38,15 +39,15 @@ public class SchedulePresenter {
     	// Get data that was defined with ScheduleAddView
     	LocalDateTime dtfFrom = addview.getDtfFrom().getValue();
     	LocalDateTime dtfTo = addview.getDtfTo().getValue();
-    	String tfContent = addview.getTfContent().getValue();
+    	TextArea tfContent = addview.getTfContent();
     	
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
     	
     	// Insertion
-    	if (dtfFrom.isAfter(dtfTo) == false && tfContent.isEmpty() ) {
-    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent,"",data.getCurrentPatient(),data.getCurrentStaff()));
+    	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false ) {
+    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),"",data.getCurrentPatient(),data.getCurrentStaff()));
+    		NavigatorUI.navigator.navigateTo(EventListView.NAME);
     	}
-    	
     }
 }
