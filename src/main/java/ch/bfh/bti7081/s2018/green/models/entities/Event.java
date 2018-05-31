@@ -4,12 +4,10 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@DiscriminatorColumn(name = "nextId", discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorValue(value = "null")
 public class Event {
     @JoinColumn(name = "nextId", insertable = false, updatable = false)
     @OneToOne(optional = true)
-    protected RecurringEvent next = null;
+    private Event next = null;
 
     @Id
     @GeneratedValue
@@ -22,8 +20,7 @@ public class Event {
     @Column(nullable = false)
     private LocalDateTime stop;
 
-    @Column(name = "description")
-    private String desc;
+    private String description;
 
     @Column(nullable = false)
     private String title;
@@ -38,25 +35,29 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "therapyId")
-    protected Therapy therapy;
+    private Therapy therapy;
 
     public Event() {
         // required by JPA
     }
 
-    public Event(LocalDateTime start, LocalDateTime stop, String desc, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
-        if (!isValid(start, stop)) {
+    public Event(LocalDateTime start, LocalDateTime stop, String description, String title, Patient patient, Staff therapist) throws IllegalArgumentException {
+        if (!isValid(start, stop, null)) {
             throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
         }
         this.start = start;
         this.stop = stop;
-        this.desc = desc;
+        this.description = description;
         this.title = title;
         this.patient = patient;
         this.therapist = therapist;
     }
 
-    private boolean isValid(LocalDateTime start, LocalDateTime stop) {
+    private boolean isValid(LocalDateTime start, LocalDateTime stop, Event next) {
+        if (null != next && !next.getStart().isAfter(stop)) {
+            return false;
+        }
+
         return start.isBefore(stop);
     }
 
@@ -69,7 +70,7 @@ public class Event {
     }
 
     public void setStart(LocalDateTime start) throws IllegalArgumentException {
-        if (!isValid(start, this.stop)) {
+        if (!isValid(start, this.stop, next)) {
             throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
         }
         this.start = start;
@@ -80,18 +81,18 @@ public class Event {
     }
 
     public void setStop(LocalDateTime stop) throws IllegalArgumentException {
-        if (!isValid(this.start, stop)) {
+        if (!isValid(this.start, stop, next)) {
             throw new IllegalArgumentException("The stop of an event must always be AFTER its start.");
         }
         this.stop = stop;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getTitle() {
@@ -124,5 +125,17 @@ public class Event {
 
     public void setTherapy(Therapy therapy) {
         this.therapy = therapy;
+    }
+
+    public Event getNext() {
+        return next;
+    }
+
+    public void setNext(Event next) throws IllegalArgumentException {
+        if (!isValid(start, stop, next)) {
+            throw new IllegalArgumentException("The start of the next event must always be AFTER the stop of the current one.");
+        }
+
+        this.next = next;
     }
 }

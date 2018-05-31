@@ -41,25 +41,19 @@ public class JournalView extends CustomLayout implements View {
 
     public void addJournalEntry(JournalEntry journalEntry) {
         CustomLayout journalEntryLayout = new CustomLayout("journalentry");
+        
+        addLabel(journalEntryLayout, "content", journalEntry.getContent());
+        addLabel(journalEntryLayout, "author", journalEntry.getStaff().getFullName());
+        addLabel(journalEntryLayout, "created", journalEntry.getCreated().toString());
 
-        // set content
-        Label content = new Label();
-        content.setValue(journalEntry.getContent());
-        content.setWidth("300px");
-        //content.setContentMode(ContentMode.PREFORMATTED);
-        journalEntryLayout.addComponent(content, "content");
-
-        // set author
-        Label author = new Label();
-        author.setValue(journalEntry.getStaff().getFullName());
-        journalEntryLayout.addComponent(author, "author");
         journalEntryList.addComponentAsFirst(journalEntryLayout);
+    }
 
-
-        Label created = new Label();
-        created.setValue(journalEntry.getCreated().toString());
-        journalEntryLayout.addComponent(created, "created");
-        journalEntryList.addComponentAsFirst(journalEntryLayout);
+    private void addLabel(CustomLayout layout, String slot, String value) {
+        Label label = new Label();
+        label.setValue(value);
+        label.setWidth("300px");
+        layout.addComponent(label, slot);
     }
 
     public TextArea getTxtEntry() {

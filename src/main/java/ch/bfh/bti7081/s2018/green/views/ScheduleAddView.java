@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 public class ScheduleAddView extends CustomLayout implements View {
 
-    public static final String NAME = "schedule";
+    public static final String NAME = "scheduleAdd";
 
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();

@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,25 +16,30 @@ public class JournalEntryManager extends Manager<JournalEntry> {
 	}
     
     public List<JournalEntry> findBy(Staff staff) {
+    	setNewEntityManager();
         TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE authorId = :authorId", entityclass);
 		query.setParameter("authorId", staff.getId());
 		return findByQuery(query);
     }
     
     public List<JournalEntry> findBy(Patient patient) {
-        TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId", entityclass);
+    	setNewEntityManager();
+    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
     
-    public List<JournalEntry> findBy(LocalDateTime date) {
-        TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created = :created", entityclass);
-        query.setParameter("created", date);
+    public List<JournalEntry> findBy(LocalDate date) {
+    	setNewEntityManager();
+        LocalDateTime startLocalDateTime = date.atStartOfDay();
+        LocalDateTime endLocalDateTime = date.atStartOfDay().plusDays(1);
+    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created >= :startLocalDateTime and created < :endLocalDateTime", entityclass);
+        query.setParameter("startLocalDateTime", startLocalDateTime);
+        query.setParameter("endLocalDateTime", endLocalDateTime);
         return findByQuery(query);
     }
 
     private List<JournalEntry> findByQuery(TypedQuery<JournalEntry> query) {
-    	setNewEntityManager();
         List<JournalEntry> journalEntries = query.getResultList();
         manager.close();
     	return journalEntries;

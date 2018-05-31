@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 
+import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -15,14 +17,14 @@ public class Program {
 
     private Period frequency;
 
-    private RecurringEvent firstEvent;
+    private Event firstEvent;
 
-    public Program(Therapy therapy, LocalDate startDate, LocalDate endDate, Period frequence, RecurringEvent firstEvent) throws IllegalArgumentException {
+    public Program(Therapy therapy, LocalDate startDate, LocalDate endDate, Period frequence, Event firstEvent) throws IllegalArgumentException {
         this.therapy = therapy;
         this.startDate = startDate;
         this.endDate = endDate;
         this.frequency = frequence;
-        this.firstEvent = createRecurringEvents(firstEvent);
+        this.firstEvent = createEvents(firstEvent);
     }
 
     public Therapy getTherapy() {
@@ -41,22 +43,22 @@ public class Program {
         return frequency;
     }
 
-    public RecurringEvent getFirstEvent() {
+    public Event getFirstEvent() {
         return firstEvent;
     }
 
-    private RecurringEvent createRecurringEvents(RecurringEvent firstEvent) throws IllegalArgumentException {
+    private Event createEvents(Event firstEvent) throws IllegalArgumentException {
         // verify that the date of the first recurring event corresponds to the startDate date of the program
         if (firstEvent.getStart().toLocalDate().compareTo(this.startDate) == 0) {
             firstEvent.setTherapy(this.therapy);
-            RecurringEvent previousEvent = firstEvent;
+            Event previousEvent = firstEvent;
 
             // creates identical recurring events in a defined frequency from the startDate until the endDate of the program
             while (previousEvent.getStart().toLocalDate().compareTo(this.endDate) <= 0) {
                 LocalDateTime newStartDateTime = previousEvent.getStart().plus(this.frequency);
                 LocalDateTime newStopDateTime = previousEvent.getStop().plus(this.frequency);
-                RecurringEvent currentEvent = new RecurringEvent(newStartDateTime, newStopDateTime, previousEvent.getDesc(),
-                        previousEvent.getTitle(), previousEvent.getPatient(), previousEvent.getTherapist(), null);
+                Event currentEvent = new Event(newStartDateTime, newStopDateTime, previousEvent.getDescription(),
+                        previousEvent.getTitle(), previousEvent.getPatient(), previousEvent.getTherapist());
                 currentEvent.setTherapy(this.therapy);
 
                 previousEvent.setNext(currentEvent);
@@ -70,11 +72,11 @@ public class Program {
         return firstEvent;
     }
 
-    public void saveAllRecurringEventsOfProgram() {
-        RecurringEvent currentEvent = firstEvent;
+    public void saveAllEventsOfProgram() {
+        Event currentEvent = firstEvent;
+        EventManager eventManager = new EventManager();
         while (currentEvent != null) {
-            //TODO: use EventManager to create RecurringEvents in the DB
-
+            eventManager.add(currentEvent);
             currentEvent = currentEvent.getNext();
         }
     }

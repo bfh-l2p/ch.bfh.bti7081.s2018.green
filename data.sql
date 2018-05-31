@@ -56,3 +56,8 @@ INSERT INTO Medication
     values
         (1, "Ponstan", 1523378040000, 1523550840000, 4, 125, 3, 2, 1523550840000, 1523550840000);
 
+-- Create sample event
+INSERT INTO Event
+        (id, title, description, patientId, therapistId, start, stop)
+    values
+        (1, "test event", "some description", 2, 3, 1523378040000, 1523550840000);

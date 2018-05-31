@@ -50,7 +50,7 @@ public class NavMenuPresenter {
         
         HorizontalLayout lyb5 = (HorizontalLayout) this.view.getLblSchedules().getParent();
         lyb5.addLayoutClickListener((clickEvent) ->
-                setActive(lyb5, ScheduleAddView.NAME)
+                setActive(lyb5, EventListView.NAME)
         );
     }
 
