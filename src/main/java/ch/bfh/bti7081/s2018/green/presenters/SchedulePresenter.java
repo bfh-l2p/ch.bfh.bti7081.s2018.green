@@ -35,6 +35,8 @@ public class SchedulePresenter {
     	DateTimeField dtfTo = addview.getDtfTo();
     	TextArea tfContent = addview.getTfContent();
     	
+    	// Transform 
+    	
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
     	
