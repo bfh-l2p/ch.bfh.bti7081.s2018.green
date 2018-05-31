@@ -47,7 +47,7 @@ public class EventManager extends Manager<Event> {
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
                 + " or start < :startLocalDateTime and stop > :endLocalDateTime"
                 + " or stop > :startLocalDateTime and stop < :endLocalDateTime"
-                + " or start >= :startLocalDateTime and stop < :endLocalDateTime", entityclass);
+                + " or start >= :startLocalDateTime and start < :endLocalDateTime", entityclass);
         query.setParameter("startLocalDateTime", start);
         query.setParameter("endLocalDateTime", end);
         return findByQuery(query);
