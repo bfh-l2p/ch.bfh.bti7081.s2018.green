@@ -1,7 +1,5 @@
 package ch.bfh.bti7081.s2018.green.models.managers;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
