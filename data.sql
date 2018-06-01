@@ -10,12 +10,20 @@ INSERT INTO Person
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)
     VALUES
-        (2, "test", "Patient", NULL, NULL, NULL, NULL, NULL, NULL);
+        (1, "Hans", "Huber", NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO Person
+        (id, firstName, lastName, address, city, dob, email, phone, zip);
+    VALUES        
+        (2, "Matthias", "Keller", NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO Patient
+        (id, dangerToOthers, contactId, selfEndangerment)
+    values
+        (1, 1, 1, 1);
 INSERT INTO Patient
         (id, dangerToOthers, contactId, selfEndangerment)
     values
         (2, 1, 1, 1);
-
+        
 -- Create test staff
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)
