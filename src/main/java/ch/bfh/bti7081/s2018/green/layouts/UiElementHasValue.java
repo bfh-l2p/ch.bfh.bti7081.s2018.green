@@ -18,7 +18,7 @@ public class UiElementHasValue extends UiElement{
     public <T extends AbstractField> UiElementHasValue (T t, String location, boolean isProtected) {
         this.component = t;
         this.location = location;
-        this.protectedField = false;
+        this.protectedField = isProtected;
     }
 
     public Object getActualValue() {

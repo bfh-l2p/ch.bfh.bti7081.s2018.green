@@ -6,20 +6,18 @@ import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 
 import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.MedDummyList;
+import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.PatDummy;
 import ch.bfh.bti7081.s2018.green.views.interfaces.IClickableDivPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class MedicationView extends MedicationLayout implements View,IClickableDivPanel {
 
     public static String NAME = "medication";
-    // @ToDo: later add a way to get the actual pat dossier name instead settin of a static text
+    // @ToDo: later add a way to get the actual pat dossier name instead setting of a static text
     private Label lblMedicationOverview = new Label("Medication");
 
     private Label lblAddMedication = new Label ("Medication +");
@@ -34,7 +32,8 @@ public class MedicationView extends MedicationLayout implements View,IClickableD
 
     public MedicationView () {
 
-        List<Medication> medDummyList = MedDummyList.buildDummyMedList();
+        // @ToDo: dont get Dummy value
+        List<Medication> medDummyList = MedDummyList.buildDummyMedList(PatDummy.getPatDummy());
 
         buildView(medDummyList);
         new MedicationPresenter(this);

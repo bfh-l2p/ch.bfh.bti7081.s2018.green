@@ -15188,6 +15188,10 @@ div.v-layout.v-horizontal.v-widget {
 	background-color: #edeff2;
 }
 
+.mytheme #medDetailView {
+	margin: 15px 10px 10px 10px;
+}
+
 .mytheme .medDetailViewData {
 	float: right;
 }
@@ -15209,4 +15213,26 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme #medDetailViewTitle {
 	font-weight: bold;
 	font-size: 1.2rem;
+}
+
+.mytheme div.btnLeft {
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme div.btnMiddle {
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme div.btnRight {
+	float: right;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme #medButtonContainer {
+	width: 80%;
 }

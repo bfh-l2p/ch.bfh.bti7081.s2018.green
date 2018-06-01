@@ -167,6 +167,9 @@
   }
 
   // Medication detail view
+  #medDetailView {
+    margin: 15px 10px 10px 10px;
+  }
   .medDetailViewData {
     float:right;
   }
@@ -184,5 +187,24 @@
   #medDetailViewTitle {
     font-weight: bold;
     font-size: 1.2rem;
+  }
+
+  div.btnLeft {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div.btnMiddle {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div.btnRight {
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;;
+  }
+  #medButtonContainer {
+    width: 80%;
   }
 }

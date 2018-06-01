@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.MedDummyList;
+import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.PatDummy;
 import ch.bfh.bti7081.s2018.green.views.interfaces.IRetSetAbstField;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
@@ -73,8 +74,8 @@ public class MedciationPrescriptionView extends CustomLayout implements View, IR
         return StaffDummy;
     }
 
-    Patient PatDummy = MedDummyList.buildDummyMedList().get(0).getPatient();
-    Staff StaffDummy = MedDummyList.buildDummyMedList().get(0).getPrescriber();
+    Patient PatDummy = MedDummyList.buildDummyMedList(ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.PatDummy.getPatDummy()).get(0).getPatient();
+    Staff StaffDummy = MedDummyList.buildDummyMedList(ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.PatDummy.getPatDummy()).get(0).getPrescriber();
 
     private CustomLayout body;
     public CustomLayout getBody() {
@@ -118,6 +119,7 @@ public class MedciationPrescriptionView extends CustomLayout implements View, IR
         this.medEndDate = new UiElementHasValue(new DateTimeField(), "medStopDate");
         this.medPeriod = new UiElementHasValue(new TextField(),"medFrequency");
         this.medDose = new UiElementHasValue(new TextField(),"medDose");
+        //change protected fields
         this.medPrescriberFullName = new UiElementHasValue(new TextField(),"medPrescriber", true);
         this.medRecordCreated = new UiElementHasValue(new DateTimeField(),"medCreated", true);
         this.medRecordModified = new UiElementHasValue(new DateTimeField(),"medUpdated", true);
@@ -145,14 +147,9 @@ public class MedciationPrescriptionView extends CustomLayout implements View, IR
             listUiElements.add(this.medEndDate);
             listUiElements.add(this.medPeriod);
             listUiElements.add(this.medDose);
+            listUiElements.add(this.medRecordCreated);
+            listUiElements.add(this.medRecordModified);
 
-            // just display time created/modified & prescriber if editing an existing one
-            if (this.medPrescibed != null) {
-                listUiElements.add(this.medRecordCreated);
-                listUiElements.add(this.medRecordModified);
-                // this field shall not be changed trough the user itself
-                listUiElements.add(this.medPrescriberFullName);
-            }
         // does add all elements from List txtToAdd
         addAllComponents(listUiElements, editMode);
     }
