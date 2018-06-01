@@ -47,13 +47,11 @@ public class NavMenuPresenter {
                         "Patient File view not yet implemented",
                         Notification.Type.WARNING_MESSAGE)
         );
-
-
+        
         HorizontalLayout lyb5 = (HorizontalLayout) this.view.getLblSchedules().getParent();
         lyb5.addLayoutClickListener((clickEvent) ->
                 setActive(lyb5, EventListView.NAME)
         );
-
     }
 
     private void setActive (HorizontalLayout ly, String enumView) {
