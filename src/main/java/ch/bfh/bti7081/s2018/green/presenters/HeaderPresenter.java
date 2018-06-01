@@ -6,11 +6,9 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.ComboBox;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
-import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.PatientManager;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
 
 public class HeaderPresenter {
 
@@ -21,20 +19,21 @@ public class HeaderPresenter {
         this.view = view;
         this.data = DataContainer.getInstance();
         
-        // Sets the patient that was selected by the user
-        view.getCboxPatients().addValueChangeListener(event -> {            	
-        	// Check if selected patient is previous patient, if not, set new patient
-        	if(data.getCurrentPatient() == null ||data.getCurrentPatient().getId() != event.getValue().getId()) {
-            	data.setCurrentPatient(event.getValue());
-            	
-        	}
-        });
-        
-        enteredView();
+        enteredView();       
     }
 
     private void enteredView(){
+    	
+    	// Assemble ComboBox to select a patient and...
     	assembleCboxPatients();
+    	
+    	// ...set Change-Listener
+        view.getCboxPatients().addValueChangeListener(event -> {            	
+        	// Check if selected patient is previous patient, if not, set new patient
+        	if(data.getCurrentPatient() == null ||data.getCurrentPatient().getId() != event.getValue().getId()) {
+            	data.setCurrentPatient(event.getValue());            	
+        	}
+        });
     }
     
     private void assembleCboxPatients(){
