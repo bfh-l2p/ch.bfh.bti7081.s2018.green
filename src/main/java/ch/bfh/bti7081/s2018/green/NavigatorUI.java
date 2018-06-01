@@ -22,11 +22,13 @@ import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.DiagnosisAppView;
+import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.views.NavMenuView;
+import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser
