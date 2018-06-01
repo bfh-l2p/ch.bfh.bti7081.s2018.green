@@ -18,6 +18,7 @@ public class ScheduleAddView extends CustomLayout implements View {
 
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
+    private TextArea tfTitle = new TextArea();
     private TextArea tfContent = new TextArea();
     private Button btnSave = new Button("Save Schedule");
 
@@ -33,6 +34,7 @@ public class ScheduleAddView extends CustomLayout implements View {
         this.setTemplateName("scheduleAdd");
         this.addComponent(dtfFrom, "fromField");
         this.addComponent(dtfTo, "toField");
+        this.addComponent(tfTitle, "titleField");
         this.addComponent(tfContent, "contentField");
         this.addComponent(btnSave, "saveButton");
 
@@ -53,5 +55,9 @@ public class ScheduleAddView extends CustomLayout implements View {
     
     public TextArea getTfContent() {
         return tfContent;
+    }
+    
+    public TextArea getTfTitle() {
+        return tfTitle;
     }
 }
