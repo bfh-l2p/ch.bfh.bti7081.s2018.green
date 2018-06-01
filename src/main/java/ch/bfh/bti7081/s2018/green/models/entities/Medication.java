@@ -56,6 +56,11 @@ public class Medication {
     	updated = LocalDateTime.now();
     }
 
+    public boolean isActive() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(start) && now.isBefore(stop);
+    }
+
     public int getId() {
         return id;
     }
