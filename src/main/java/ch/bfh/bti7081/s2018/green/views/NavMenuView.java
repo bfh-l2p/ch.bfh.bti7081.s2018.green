@@ -1,12 +1,11 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.NavMenuLayout;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
 
-public class NavMenuView extends NavMenuLayout implements View {
+public class NavMenuView extends CustomLayout implements View {
 
     public static final String NAME = "navmenu";
 
@@ -44,6 +43,7 @@ public class NavMenuView extends NavMenuLayout implements View {
     }
 
     public NavMenuView () {
+        this.setTemplateName("navmenu");
         buildMenu();
     }
 
