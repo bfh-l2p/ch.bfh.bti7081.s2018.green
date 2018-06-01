@@ -54,44 +54,4 @@ public class ScheduleAddView extends CustomLayout implements View {
     public TextArea getTfContent() {
         return tfContent;
     }
-/*
-    public void setJournalEntries(List<JournalEntry> journalEntries) {
-        journalEntryList = new VerticalLayout();
-        for (JournalEntry journalEntry : journalEntries) {
-            addJournalEntry(journalEntry);
-        }
-        this.addComponent(journalEntryList, "journal");
-    }
-
-    public void addJournalEntry(JournalEntry journalEntry) {
-        CustomLayout journalEntryLayout = new CustomLayout("journalentry");
-
-        // set content
-        Label content = new Label();
-        content.setValue(journalEntry.getContent());
-        content.setWidth("300px");
-        //content.setContentMode(ContentMode.PREFORMATTED);
-        journalEntryLayout.addComponent(content, "content");
-
-        // set author
-        Label author = new Label();
-        author.setValue(journalEntry.getStaff().getFullName());
-        journalEntryLayout.addComponent(author, "author");
-        journalEntryList.addComponentAsFirst(journalEntryLayout);
-
-
-        Label created = new Label();
-        created.setValue(journalEntry.getCreated().toString());
-        journalEntryLayout.addComponent(created, "created");
-        journalEntryList.addComponentAsFirst(journalEntryLayout);
-    }
-
-    public TextArea getTxtEntry() {
-        return txtEntry;
-    }
-
-    public Button getBtnSave() {
-        return btnSave;
-    }
-*/
 }

@@ -31,7 +31,6 @@ public class SchedulePresenter {
         this.data = DataContainer.getInstance();
       
         this.addview.getBtnSave().addClickListener(clickEvent -> SaveSchedule());
-        //this.addview.getBtnSave().addClickListener(clickEvent -> NavigatorUI.navigator.navigateTo(EventListView.NAME));
     }
     
     private void SaveSchedule() {
