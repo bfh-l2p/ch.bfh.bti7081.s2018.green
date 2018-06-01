@@ -84,20 +84,6 @@ public class NavigatorUI extends UI {
 
         // Navigates to the startpage
         navigator.navigateTo(JournalView.NAME);
-
-    }
-
-    /**
-     * Creates and configures the main container that holds the navigation and the canvas
-     *
-     * @return main container
-     */
-    private HorizontalLayout getMainContainer() {
-        HorizontalLayout main = new HorizontalLayout();
-        main.setWidth("100%");
-        main.setHeight("100%");
-
-        return main;
     }
 
     /**
@@ -113,21 +99,6 @@ public class NavigatorUI extends UI {
         return main;
     }
 
-    /**
-     * Create navigation view and presenter and return in i a vertical layout
-     *
-     * @return navigation
-     */
-    /*private VerticalLayout getNavigation() {
-        VerticalLayout nav = new VerticalLayout();
-
-        NavigationView navigationView = new NavigationView();
-        new NavigationPresenter(navigationView);
-        nav.addComponent(navigationView);
-
-        return nav;
-    }*/
-
     private CustomLayout getNavigation() {
         NavMenuView navMen = new NavMenuView();
         // add the click listeners now
@@ -135,25 +106,6 @@ public class NavigatorUI extends UI {
         return navMen;
     }
 
-    /**
-     * Create an configure the layouts header
-     *
-     * @return header
-     */
-   /* private HorizontalLayout getHeader() {
-        HorizontalLayout header = new HorizontalLayout();
-        header.setWidth("100%");
-        header.setHeight("100px");
-        // TODO move this into a separate HeaderView class
-        HeaderView headerView = new HeaderView();
-        header.addComponent(headerView);
-
-
-
-        //header.addComponent(new Label("Patient Management System Team Green"));
-        return header;
-    }
-*/
     private CustomLayout getFooterBar() {
         FooterView footer = new FooterView();
         FooterPresenter fp = new FooterPresenter(footer);
@@ -161,7 +113,6 @@ public class NavigatorUI extends UI {
         return footer;
     }
     private CustomLayout getHeader() {
-        //HeaderView header = new HeaderView();
         HeaderView header = new HeaderView();
         HeaderPresenter hp = new HeaderPresenter(header);
         hp.addUserName("User: " + System.getProperty("user.name"));

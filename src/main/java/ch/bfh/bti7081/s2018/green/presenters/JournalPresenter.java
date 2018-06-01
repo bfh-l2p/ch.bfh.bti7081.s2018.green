@@ -1,12 +1,6 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.TextField;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
@@ -33,16 +27,8 @@ public class JournalPresenter {
         txtEntry.clear();
         if (content != null && !content.isEmpty()) {
             JournalEntry journalEntry = new JournalEntry(content, data.getCurrentPatient(), data.getCurrentStaff());
-
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-            EntityManager em = emf.createEntityManager();
-            EntityTransaction tx = em.getTransaction();
-
-            // insert test record
-            tx.begin();
-            em.persist(journalEntry);
-            tx.commit();
-
+            JournalEntryManager manager = new JournalEntryManager();
+            manager.add(journalEntry);
             view.addJournalEntry(journalEntry);
         }
     }
