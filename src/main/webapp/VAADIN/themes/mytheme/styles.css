@@ -15062,6 +15062,9 @@ div.v-layout.v-horizontal.v-widget {
 	width: 300px;
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.mytheme .card.journal {
 	padding: 1rem;
 }
 
@@ -15183,4 +15186,27 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .appMenuTab div {
 	background-color: #edeff2;
+}
+
+.mytheme .medDetailViewData {
+	float: right;
+}
+
+.mytheme .medDetailViewDescription {
+	font-weight: bold;
+}
+
+.mytheme #medViewDetailTable {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.mytheme #medViewDetailTable .v-textfield {
+	width: 100%;
+}
+
+.mytheme #medDetailViewTitle {
+	font-weight: bold;
+	font-size: 1.2rem;
 }

@@ -6,11 +6,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 import com.vaadin.ui.TextArea;
-import com.vaadin.ui.TextField;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
-import ch.bfh.bti7081.s2018.green.models.managers.JournalEntryManager;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 
 public class JournalPresenter {
@@ -47,7 +45,8 @@ public class JournalPresenter {
         }
     }
     private void enteredView() {
-	    JournalEntryManager manager = new JournalEntryManager();
-        view.setJournalEntries(manager.findBy(data.getCurrentPatient()));
+        // will be called when corresponding view is about to open
+        // use this method to populate the view-elements with data
+        //view.setJournalEntries(data.getCurrentPatient().getJournalEntries());
     }
 }

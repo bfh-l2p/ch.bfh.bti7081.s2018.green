@@ -1,10 +1,7 @@
 package ch.bfh.bti7081.s2018.green.layouts;
 
-import com.vaadin.ui.Component;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Layout;
-
-import java.util.Set;
 
 public class BaseLayoutFabric extends CustomLayout {
 

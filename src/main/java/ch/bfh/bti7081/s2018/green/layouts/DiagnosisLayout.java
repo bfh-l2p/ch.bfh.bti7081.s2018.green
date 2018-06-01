@@ -5,9 +5,9 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.TextField;
 
-public class DiagnosisAppLayout extends CustomLayout {
+public class DiagnosisLayout extends CustomLayout {
 
-    public DiagnosisAppLayout() {
+    public DiagnosisLayout() {
         this.setTemplateName("diagnosisApp");
         this.addComponents();
     }

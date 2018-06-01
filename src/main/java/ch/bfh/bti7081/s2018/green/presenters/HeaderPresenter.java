@@ -8,7 +8,6 @@ public class HeaderPresenter {
 
     public HeaderPresenter (HeaderView h) {
         head = h;
-        //addUserName();
     }
 
     public void addUserName(String username) {

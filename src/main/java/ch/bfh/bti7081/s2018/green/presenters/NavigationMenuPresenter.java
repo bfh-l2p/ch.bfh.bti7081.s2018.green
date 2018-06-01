@@ -5,19 +5,13 @@ import ch.bfh.bti7081.s2018.green.views.*;
 
 import com.vaadin.ui.Component;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.Notification;
 
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
+public class NavigationMenuPresenter {
 
+    private NavigationMenuView view;
 
-public class NavMenuPresenter {
-
-    private NavMenuView view;
-
-    public NavMenuPresenter (NavMenuView view) {
+    public NavigationMenuPresenter(NavigationMenuView view) {
         this.view = view;
 
         registerNavBarEventHandlers();
@@ -38,7 +32,7 @@ public class NavMenuPresenter {
 
         HorizontalLayout lyb2 = (HorizontalLayout) this.view.getLblDiagnosis().getParent();
         lyb2.addLayoutClickListener((clickEvent) ->
-                setActive(lyb2, DiagnosisAppView.NAME)
+                setActive(lyb2, DiagnosisView.NAME)
         );
 
         HorizontalLayout lyb3 = (HorizontalLayout) this.view.getLblPatFile().getParent();

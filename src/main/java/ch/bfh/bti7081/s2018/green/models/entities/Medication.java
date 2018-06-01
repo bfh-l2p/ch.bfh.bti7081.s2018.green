@@ -107,4 +107,14 @@ public class Medication {
     public void setPrescriber(Staff prescriber) {
         this.prescriber = prescriber;
     }
+
+    public LocalDateTime getUpdated() {
+        return updated;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public Patient getPatient () { return patient; }
 }

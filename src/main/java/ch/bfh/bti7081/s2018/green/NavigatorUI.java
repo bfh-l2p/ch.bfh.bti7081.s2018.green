@@ -1,14 +1,12 @@
 package ch.bfh.bti7081.s2018.green;
 
 
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
+import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -17,9 +15,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -111,46 +106,17 @@ public class NavigatorUI extends UI {
     }
 
     /**
-     * Create navigation view and presenter and return in i a vertical layout
+     * Create navigation view and presenter and return in i a custom layout
      *
      * @return navigation
      */
-    /*private VerticalLayout getNavigation() {
-        VerticalLayout nav = new VerticalLayout();
-
-        NavigationView navigationView = new NavigationView();
-        new NavigationPresenter(navigationView);
-        nav.addComponent(navigationView);
-
-        return nav;
-    }*/
-
     private CustomLayout getNavigation() {
-        NavMenuView navMen = new NavMenuView();
+        NavigationMenuView navMen = new NavigationMenuView();
         // add the click listeners now
-        new NavMenuPresenter(navMen);
+        new NavigationMenuPresenter(navMen);
         return navMen;
     }
 
-    /**
-     * Create an configure the layouts header
-     *
-     * @return header
-     */
-   /* private HorizontalLayout getHeader() {
-        HorizontalLayout header = new HorizontalLayout();
-        header.setWidth("100%");
-        header.setHeight("100px");
-        // TODO move this into a separate HeaderView class
-        HeaderView headerView = new HeaderView();
-        header.addComponent(headerView);
-
-
-
-        //header.addComponent(new Label("Patient Management System Team Green"));
-        return header;
-    }
-*/
     private CustomLayout getFooterBar() {
         FooterView footer = new FooterView();
         FooterPresenter fp = new FooterPresenter(footer);
@@ -173,7 +139,7 @@ public class NavigatorUI extends UI {
 
         DataContainer data = DataContainer.getInstance();
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
 
         // TODO: add patient list instead of hardcoding the id
@@ -182,11 +148,11 @@ public class NavigatorUI extends UI {
         System.out.println(matthias.getFirstName());
         data.setCurrentPatient(matthias);
         data.setCurrentStaff(exampleDoctor);
-
+*/
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-        navigator.addView(DiagnosisAppView.NAME, DiagnosisAppView.class);
+        navigator.addView(DiagnosisView.NAME, DiagnosisView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
     }

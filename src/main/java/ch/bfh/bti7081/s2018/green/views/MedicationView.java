@@ -1,9 +1,12 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.MedicationAppLayout;
+import ch.bfh.bti7081.s2018.green.layouts.MedicationLayout;
+import ch.bfh.bti7081.s2018.green.layouts.UiElement;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 
+import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.MedDummyList;
+import ch.bfh.bti7081.s2018.green.views.interfaces.IClickableDivPanel;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
@@ -13,24 +16,25 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public class MedicationView extends MedicationAppLayout implements View {
+public class MedicationView extends MedicationLayout implements View,IClickableDivPanel {
 
     public static String NAME = "medication";
     // @ToDo: later add a way to get the actual pat dossier name instead settin of a static text
     private Label lblMedicationOverview = new Label("Medication");
 
     private Label lblAddMedication = new Label ("Medication +");
+    public Label getLblAddMedication() {
+        return lblAddMedication;
+    }
 
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
+    public Grid<Medication> getMedicamentGrid() {
+        return grdMedicamentGridView;
+    }
 
     public MedicationView () {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-        EntityManager em = emf.createEntityManager();
-
-        Medication med = em.find(Medication.class, 1);
-        List<Medication> medDummyList = new ArrayList<>();
-        medDummyList.add(med);
+        List<Medication> medDummyList = MedDummyList.buildDummyMedList();
 
         buildView(medDummyList);
         new MedicationPresenter(this);
@@ -41,8 +45,11 @@ public class MedicationView extends MedicationAppLayout implements View {
     }
 
     private void buildView(List<Medication> mList) {
-        this.addComponent(lblMedicationOverview, "mainTab");
-        this.addComponent(lblAddMedication, "addMedicationTab");
+        List<UiElement> elements = new ArrayList<>();
+        elements.add(new UiElement(wrapElement(lblMedicationOverview), "mainTab"));
+        elements.add(new UiElement(wrapElement(lblAddMedication), "addMedicationTab"));
+        buildComponentList(elements);
+
 
         medGridBuilder(mList);
     }
@@ -50,7 +57,6 @@ public class MedicationView extends MedicationAppLayout implements View {
     private void medGridBuilder (List<Medication> data) {
 
         grdMedicamentGridView.setItems(data);
-        //grdMedicamentGridView.setSizeFull();
 
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
@@ -58,11 +64,8 @@ public class MedicationView extends MedicationAppLayout implements View {
         // Allow column hiding
         grdMedicamentGridView.getColumns().stream().forEach(column -> column.setHidable(true));
 
-
-
         grdMedicamentGridView.addColumn(Medication::getId).setCaption("ID");
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
-        //grdMedicamentGridView.addColumn(Medication::getChemAgent).setCaption("Chemical Agent");
         grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
         grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("End of");
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
@@ -73,7 +76,10 @@ public class MedicationView extends MedicationAppLayout implements View {
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
 
-    public Grid<Medication> getMedicamentGrid() {
-        return grdMedicamentGridView;
+    @Override
+    public void buildComponentList(List<UiElement> clickableElements) {
+        for (UiElement el : clickableElements) {
+            el.addElement(this);
+        }
     }
 }
