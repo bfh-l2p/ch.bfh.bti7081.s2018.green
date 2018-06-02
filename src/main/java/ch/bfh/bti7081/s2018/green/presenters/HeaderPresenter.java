@@ -11,6 +11,7 @@ import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.PatientManager;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
 
 public class HeaderPresenter {
 
@@ -33,8 +34,10 @@ public class HeaderPresenter {
 		view.getCboxPatients().addValueChangeListener(event -> {
 			data.setCurrentPatient(event.getValue());
 
-			// TODO get current view and refresh it by triggering navigator
-			System.out.println(UI.getCurrent().getClass().getSimpleName());
+			// TODO: Link to startpage:
+			if(NavigatorUI.navigator != null) {
+				NavigatorUI.navigator.navigateTo(JournalView.NAME);
+			}
 		});
 	}
 
@@ -46,14 +49,15 @@ public class HeaderPresenter {
 		// Get all available patients from DB
 		List<Patient> pList = new PatientManager().findAll();
 
-		cboxPatients.setCaption("Select Patient:");
+		cboxPatients.setCaptionAsHtml(true);
+		cboxPatients.setCaption("<b style=\"font-size:16px\"> Patient: &nbsp;&nbsp;</b>");
 		cboxPatients.setItems(pList);
 
 		// Set property that will be displayed on combobox
 		cboxPatients.setItemCaptionGenerator(Patient::getFullName);
 
 		// Set size of ComboBox
-		cboxPatients.setHeight(30, Unit.PIXELS);
+		cboxPatients.setHeight(25, Unit.PIXELS);
 		cboxPatients.setWidth(200, Unit.PIXELS);
 
 		// First patient in list will be set by default
