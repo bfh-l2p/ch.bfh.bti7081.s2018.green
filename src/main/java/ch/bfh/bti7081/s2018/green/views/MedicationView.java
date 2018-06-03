@@ -16,7 +16,7 @@ import javax.persistence.Persistence;
 public class MedicationView extends MedicationAppLayout implements View {
 
     public static String NAME = "medication";
-    // @ToDo: later add a way to get the actual pat dossier name instead settin of a static text
+    // TODO: add a way to get the actual pat dossier name instead settin of a static text
     private Label lblMedicationOverview = new Label("Medication");
 
     private Label lblAddMedication = new Label ("Medication +");
@@ -24,7 +24,6 @@ public class MedicationView extends MedicationAppLayout implements View {
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     public MedicationView () {
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
 
@@ -36,7 +35,7 @@ public class MedicationView extends MedicationAppLayout implements View {
         new MedicationPresenter(this);
     }
 
-    public MedicationView (List<Medication> medDataList) {
+    public MedicationView(List<Medication> medDataList) {
         buildView(medDataList);
     }
 
@@ -48,9 +47,7 @@ public class MedicationView extends MedicationAppLayout implements View {
     }
 
     private void medGridBuilder (List<Medication> data) {
-
         grdMedicamentGridView.setItems(data);
-        //grdMedicamentGridView.setSizeFull();
 
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
@@ -58,11 +55,8 @@ public class MedicationView extends MedicationAppLayout implements View {
         // Allow column hiding
         grdMedicamentGridView.getColumns().stream().forEach(column -> column.setHidable(true));
 
-
-
         grdMedicamentGridView.addColumn(Medication::getId).setCaption("ID");
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
-        //grdMedicamentGridView.addColumn(Medication::getChemAgent).setCaption("Chemical Agent");
         grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
         grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("End of");
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");

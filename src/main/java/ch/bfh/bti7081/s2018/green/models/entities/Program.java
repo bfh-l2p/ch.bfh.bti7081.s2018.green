@@ -64,8 +64,7 @@ public class Program {
                 previousEvent.setNext(currentEvent);
                 previousEvent = currentEvent;
             }
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Recurring event's start date doesn't correspond to the start date of the program");
         }
 

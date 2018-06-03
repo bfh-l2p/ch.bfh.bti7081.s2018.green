@@ -33,14 +33,32 @@ public class EventManager extends Manager<Event> {
 
     public List<Event> findBy(LocalDate date) {
     	setNewEntityManager();
-        LocalDateTime startLocalDateTime = date.atStartOfDay();
-        LocalDateTime endLocalDateTime = date.atStartOfDay().plusDays(1);
-    	TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
-    			+ " or start < :startLocalDateTime and stop > :endLocalDateTime"
-    			+ " or stop > :startLocalDateTime and stop < :endLocalDateTime"
-    			+ " or start >= :startLocalDateTime and stop < :endLocalDateTime", entityclass);
-        query.setParameter("startLocalDateTime", startLocalDateTime);
-        query.setParameter("endLocalDateTime", endLocalDateTime);
+        LocalDateTime start = date.atStartOfDay();
+        LocalDateTime end = date.atStartOfDay().plusDays(1);
+        setNewEntityManager();
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
+                + " or start < :startLocalDateTime and stop > :endLocalDateTime"
+                + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
+                + " or start >= :startLocalDateTime and start < :endLocalDateTime", entityclass);
+        query.setParameter("startLocalDateTime", start);
+        query.setParameter("endLocalDateTime", end);
+        return findByQuery(query);
+    }
+
+    public List<Event> findConflicting(Event event) {
+        setNewEntityManager();
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j"
+                + " WHERE (start >= :startLocalDateTime and stop < :endLocalDateTime"
+                + " or start < :startLocalDateTime and stop > :endLocalDateTime"
+                + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
+                + " or start >= :startLocalDateTime and start < :endLocalDateTime)"
+                + " and (patientId = :patientId or therapistId = :therapistId)",
+                entityclass);
+        query.setParameter("startLocalDateTime", event.getStart());
+        query.setParameter("endLocalDateTime", event.getStop());
+        query.setParameter("patientId", event.getPatient().getId());
+        query.setParameter("therapistId", event.getTherapist().getId());
+
         return findByQuery(query);
     }
 

@@ -5,14 +5,15 @@ import javax.persistence.*;
 @Entity
 public class Therapy {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(updatable = false, nullable = false)
+    @GeneratedValue
     private int id;
 
     @Column(nullable = false)
     private String name;
 
-    public Therapy() {}
+    public Therapy() {
+        // required by JPA
+    }
 
     public Therapy(String name) {
         this.name = name;
