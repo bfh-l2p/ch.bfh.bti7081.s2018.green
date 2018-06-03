@@ -26,16 +26,31 @@ public class SchedulePresenter {
     private void SaveSchedule() {
     	
     	// Get data that was defined with ScheduleAddView
+<<<<<<< HEAD
+    	LocalDateTime dtfFrom = addview.getDtfFrom().getValue();
+    	LocalDateTime dtfTo = addview.getDtfTo().getValue();
+    	TextArea tfContent = addview.getTfContent();
+    	TextArea tfTitle = addview.getTfTitle();
+=======
     	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
     	LocalDateTime dtfTo = view.getDtfTo().getValue();
     	TextArea tfContent = view.getTfContent();
+>>>>>>> master
     	
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
     	
     	// Insertion
-    	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false ) {
-    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),"",data.getCurrentPatient(),data.getCurrentStaff()));
+    	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && tfTitle.isEmpty() == false ) {
+    		emSchedule.add(new Event(
+    								dtfFrom,
+    								dtfTo,
+    								tfContent.getValue(),
+    								tfTitle.getValue(),
+    								data.getCurrentPatient(),
+    								data.getCurrentStaff()
+    								)
+    						);
     		NavigatorUI.navigator.navigateTo(EventListView.NAME);
     	}
     }
