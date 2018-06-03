@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green;
 
 
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
@@ -15,6 +17,9 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 /**
@@ -139,7 +144,7 @@ public class NavigatorUI extends UI {
 
         DataContainer data = DataContainer.getInstance();
 
-        /*EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
 
         // TODO: add patient list instead of hardcoding the id
@@ -148,13 +153,14 @@ public class NavigatorUI extends UI {
         System.out.println(matthias.getFirstName());
         data.setCurrentPatient(matthias);
         data.setCurrentStaff(exampleDoctor);
-*/
+
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(DiagnosisView.NAME, DiagnosisView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
+        navigator.addView(PatientFile.NAME, PatientFile.class);
     }
 
 

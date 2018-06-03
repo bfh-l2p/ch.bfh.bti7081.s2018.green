@@ -15148,6 +15148,10 @@ div.v-layout.v-horizontal.v-widget {
 	color: snow;
 }
 
+.mytheme #navButton {
+	color: #ce3812;
+}
+
 .mytheme #navMenuWrapper .v-button {
 	font-weight: bold;
 	border: none;

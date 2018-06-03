@@ -1,13 +1,32 @@
 package ch.bfh.bti7081.s2018.green.layouts;
 
 import com.vaadin.ui.AbstractField;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomLayout;
 
-public class UiElementHasValue extends UiElement{
+/*
+ * A simple class who contains an element to add to a data-location of a custom layout and location given as string.
+ * It allows to create lists of elements and add them in a foreach or similar to bigger forms
+ */
+public class UiElementHasValue {
 
+
+    private String location;
     private AbstractField component;
+    private boolean protectedField;
+
+    private Button btn;
+
+    public String getLocation() {
+        return location;
+    }
     public Component getComponent() {
         return component;
+    }
+
+    public boolean isProtectedField() {
+        return protectedField;
     }
 
     public <T extends AbstractField>  UiElementHasValue (T t, String location) {
@@ -38,5 +57,8 @@ public class UiElementHasValue extends UiElement{
             this.component.setValue(t);
         }
 
+    }
+    public void addElement (CustomLayout panel) {
+        panel.addComponent(this.component, this.location);
     }
 }

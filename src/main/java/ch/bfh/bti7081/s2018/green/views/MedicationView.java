@@ -1,28 +1,26 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.MedicationLayout;
-import ch.bfh.bti7081.s2018.green.layouts.UiElement;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
-
-import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.MedDummyList;
-import ch.bfh.bti7081.s2018.green.views.dummyValueGenerators.PatDummy;
-import ch.bfh.bti7081.s2018.green.views.interfaces.IClickableDivPanel;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
-import java.util.ArrayList;
 import java.util.List;
 
-public class MedicationView extends MedicationLayout implements View,IClickableDivPanel {
+public class MedicationView extends CustomLayout implements View {
 
-    public static String NAME = "medication";
+    public static final String NAME = "medication";
     // @ToDo: later add a way to get the actual pat dossier name instead setting of a static text
-    private Label lblMedicationOverview = new Label("Medication");
+    private NavigationButton btnMedicationOverview;
 
-    private Label lblAddMedication = new Label ("Medication +");
-    public Label getLblAddMedication() {
-        return lblAddMedication;
+    private NavigationButton btnAddMedication;
+    public NavigationButton getBtnAddMedication() {
+        return btnAddMedication;
+    }
+
+    public void setGrdMedicamentGridViewItems (List<Medication> items) {
+        this.grdMedicamentGridView.setItems(items);
     }
 
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
@@ -32,30 +30,32 @@ public class MedicationView extends MedicationLayout implements View,IClickableD
 
     public MedicationView () {
 
-        // @ToDo: dont get Dummy value
-        List<Medication> medDummyList = MedDummyList.buildDummyMedList(PatDummy.getPatDummy());
+        this.setTemplateName("medicationApp");
 
-        buildView(medDummyList);
+        buildView();
         new MedicationPresenter(this);
     }
 
     public MedicationView (List<Medication> medDataList) {
-        buildView(medDataList);
+        this.setTemplateName("medicationApp");
+        buildView();
     }
 
-    private void buildView(List<Medication> mList) {
-        List<UiElement> elements = new ArrayList<>();
-        elements.add(new UiElement(wrapElement(lblMedicationOverview), "mainTab"));
-        elements.add(new UiElement(wrapElement(lblAddMedication), "addMedicationTab"));
-        buildComponentList(elements);
+    private void buildView() {
 
+        this.btnMedicationOverview = new NavigationButton("Medication Overview", MedicationView.NAME, this);
+        this.addComponent(this.btnMedicationOverview, "mainTab");
 
-        medGridBuilder(mList);
+        this.btnAddMedication = new NavigationButton("New Medication", this);
+        this.btnAddMedication.addClickListener((clickEvent) ->
+                new MedicationPrescriptionPresenter(null, this)
+        );
+
+        this.addComponent(this.btnAddMedication, "addMedicationTab");
+        medGridBuilder();
     }
 
-    private void medGridBuilder (List<Medication> data) {
-
-        grdMedicamentGridView.setItems(data);
+    private void medGridBuilder () {
 
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
@@ -73,12 +73,5 @@ public class MedicationView extends MedicationLayout implements View,IClickableD
 
         grdMedicamentGridView.setId("medicationAppGrid");
         this.addComponent(grdMedicamentGridView, "dataGrid");
-    }
-
-    @Override
-    public void buildComponentList(List<UiElement> clickableElements) {
-        for (UiElement el : clickableElements) {
-            el.addElement(this);
-        }
     }
 }
