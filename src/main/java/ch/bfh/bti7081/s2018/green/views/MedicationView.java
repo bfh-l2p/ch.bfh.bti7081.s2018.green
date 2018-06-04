@@ -1,12 +1,17 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+import ch.bfh.bti7081.s2018.green.layouts.MedicationAppLayout;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+
 import com.vaadin.navigator.View;
-import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.Label;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class MedicationView extends CustomLayout implements View {
 

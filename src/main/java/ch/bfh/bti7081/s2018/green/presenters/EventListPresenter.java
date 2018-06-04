@@ -1,8 +1,10 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
+import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
 
 public class EventListPresenter {
 
@@ -15,11 +17,7 @@ public class EventListPresenter {
 
         enteredView();
 
-        this.view.getBtnNew().addClickListener(clickEvent -> newEvent());
-    }
-
-    private void newEvent() {
-
+        this.view.getBtnNew().addClickListener(clickEvent -> NavigatorUI.navigator.navigateTo(ScheduleAddView.NAME));
     }
 
     private void enteredView() {
