@@ -12,19 +12,19 @@ public class NavigationButton extends Button{
 
     }
 
-    public NavigationButton (String caption, String enumView, AbstractComponentContainer vw) {
+    public NavigationButton (String caption, String enumView, AbstractComponentContainer containingView) {
         this.setCaption(caption);
         changeStyle();
         this.addClickListener((clickEvent) ->
-                setActive(this, enumView, vw)
+                setActive(this, enumView, containingView)
         );
     }
 
-    public NavigationButton (String caption, AbstractComponentContainer vw) {
+    public NavigationButton (String caption, AbstractComponentContainer containingView) {
         this.setCaption(caption);
         changeStyle();
         this.addClickListener((clickEvent) ->
-                setActiveNoListener(this, vw)
+                setActiveNoListener(this, containingView)
         );
     }
 
@@ -32,9 +32,9 @@ public class NavigationButton extends Button{
         this.removeStyleNames("menuBarButton",".v-button", ".v-widget");
         this.setId("navButton");
     }
-    private static void setActive (NavigationButton ly, String enumView, AbstractComponentContainer vw) {
+    private static void setActive (NavigationButton ly, String enumView, AbstractComponentContainer containingView) {
         // remove all CSS styles who mark a div as visited in the whole navMenu view
-        for (Component co : vw)
+        for (Component co : containingView)
         {
             co.removeStyleName("NavVisited");
         }
@@ -43,9 +43,9 @@ public class NavigationButton extends Button{
         NavigatorUI.navigator.navigateTo(enumView);
     }
 
-    private static void setActiveNoListener (NavigationButton ly, AbstractComponentContainer vw) {
+    private static void setActiveNoListener (NavigationButton ly, AbstractComponentContainer containingView) {
         // remove all CSS styles who mark a div as visited in the whole navMenu view
-        for (Component co : vw)
+        for (Component co : containingView)
         {
             co.removeStyleName("NavVisited");
         }

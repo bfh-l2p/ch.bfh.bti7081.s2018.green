@@ -3,12 +3,12 @@ package ch.bfh.bti7081.s2018.green;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.layouts.BaseLayoutFabric;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
+
 import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
@@ -16,23 +16,19 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.NavMenuPresenter;
-import ch.bfh.bti7081.s2018.green.views.DiagnosisAppView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.views.NavMenuView;
+
 import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.servlet.annotation.WebServlet;
 
 /**
  * This UI is the application entry point. A UI may either represent a browser

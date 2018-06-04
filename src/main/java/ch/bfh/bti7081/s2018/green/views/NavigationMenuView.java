@@ -41,19 +41,19 @@ public class NavigationMenuView extends CustomLayout implements View{
         this.setTemplateName("navmenu");
 
         this.btnPatFile = new NavigationButton("Patient File", PatientFile.NAME, this );
-        addBtn(this.btnPatFile, "navMenuPatFile");
+        this.addComponent(this.btnPatFile, "navMenuPatFile");
 
         this.btnJournal = new NavigationButton("Journal", JournalView.NAME, this);
-        addBtn(this.btnJournal, "navMenuJournal");
+        this.addComponent(this.btnJournal, "navMenuJournal");
 
         this.btnMedication = new NavigationButton("Medication", MedicationView.NAME, this);
-        addBtn(this.btnMedication, "navMenuMedication");
+        this.addComponent(this.btnMedication, "navMenuMedication");
 
         this.btnDiagnosis = new NavigationButton("Diagnosis", DiagnosisView.NAME, this);
-        addBtn(this.btnDiagnosis, "navMenuDiagnosis");
+        this.addComponent(this.btnDiagnosis, "navMenuDiagnosis");
 
         this.btnSchedules = new NavigationButton("Schedules", EventListView.NAME, this);
-        addBtn(this.btnSchedules, "navMenuSchedules");
+        this.addComponent(this.btnSchedules, "navMenuSchedules");
     }
 
 
@@ -61,8 +61,4 @@ public class NavigationMenuView extends CustomLayout implements View{
         return this;
     }
 
-    public void addBtn(NavigationButton btn, String location) {
-        this.addComponent(btn, location);
-
-    }
 }
