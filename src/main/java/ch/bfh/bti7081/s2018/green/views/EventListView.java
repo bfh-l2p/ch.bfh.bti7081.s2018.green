@@ -21,7 +21,7 @@ public class EventListView extends CustomLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        Notification.show("Welcome to the Event View");
+        //Notification.show("Welcome to the Event View");
         this.setTemplateName("eventList");
         this.addComponent(btnNew, "newbutton");
 

@@ -1,10 +1,14 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
-import com.vaadin.ui.Button;
+import javax.persistence.PersistenceException;
+
+import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
+import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
 
 public class MedicationPrescriptionPresenter {
@@ -15,23 +19,17 @@ public class MedicationPrescriptionPresenter {
         this.view = view;
        
         this.data = DataContainer.getInstance();
-        addSaveButton();
-    }
-
-    /*
-     * Adds a save button, the function is not implementend yet
-     */
-    private void addSaveButton () {
-        Button btnSave = view.getSaveButton();
-        btnSave.addClickListener(click -> {
+        
+        view.getSaveButton().addClickListener(click -> {
             this.saveData();
-            // maybe display "your data has been saved" notification here?
-            //Notification.show("Your changes have been saved (not really, just a test)");
         });
-       
+        
     }
+    
 
     private void saveData (){
+    	
+    	try {
         Medication medication = view.getMedication();
         medication.setPatient(data.getCurrentPatient());
         medication.setPrescriber(data.getCurrentStaff());
@@ -42,6 +40,18 @@ public class MedicationPrescriptionPresenter {
         	manager.update(medication);
         }
   
+        // Show success-message in case saving was successful
+        
+        Notification.show("Data was saved!");
+        
         view.close();
+
+        
+    	} catch (PersistenceException e) {
+    		
+    		ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
+    		
+    	}
+    	
     }
 }
