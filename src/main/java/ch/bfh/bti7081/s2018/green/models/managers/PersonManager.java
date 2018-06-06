@@ -19,7 +19,6 @@ public class PersonManager extends Manager<Person> {
     }
     
     public Person remove(Person person) {
-
     	EntityTransaction updateTransaction = beginTransaction();
         manager.remove(manager.contains(person) ? person : manager.merge(person));;
         closeTransaction(updateTransaction);

@@ -11,22 +11,22 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 public abstract class Manager<T> {
-	protected EntityManager manager;
-	protected Class<T> entityclass;
+	protected EntityManager manager = Persistence.createEntityManagerFactory("pmsDB").createEntityManager();
+	protected Class<T> entityclass; 
 	
 	public Manager() {}
 
 	public T get(int id) {
-		EntityTransaction transaction = beginTransaction();
+		EntityTransaction getTransaction = beginTransaction();
 		T entity = manager.find(entityclass, id);
-		closeTransaction(transaction);
+		closeTransaction(getTransaction);
 		return entity;
 	}
 
 	public T add(T item) {
 		EntityTransaction addTransaction = beginTransaction();
 		manager.persist(item);
-		addTransaction.commit();
+		closeTransaction(addTransaction);
 		return item;
 	}
 
@@ -45,7 +45,6 @@ public abstract class Manager<T> {
 	}
 
 	protected EntityTransaction beginTransaction() {
-		setNewEntityManager();
 		EntityTransaction transaction = manager.getTransaction();
 		transaction.begin();
 		return transaction;
@@ -53,7 +52,6 @@ public abstract class Manager<T> {
 
 	protected EntityTransaction closeTransaction(EntityTransaction transaction) {
 		transaction.commit();
-		manager.close();
 		return transaction;
 	}
 

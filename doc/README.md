@@ -8,3 +8,4 @@
 | Martin   | tscheckow      | Developer, Scrum-Master           |
 | Matthias | mkeller1992    | Developer                         |
 | Raphael  | raaph          | Developer                         |
+| Stephan  | gohst1         | Developer                         |

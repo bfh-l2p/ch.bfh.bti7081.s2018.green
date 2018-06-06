@@ -1,29 +1,39 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.HeaderLayout;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 
-public class HeaderView extends HeaderLayout implements View {
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
 
-    // Enum to load views in the "NavigatorUI" class
-    public static final String NAME = "header";
+public class HeaderView extends CustomLayout implements View {
 
-    public HeaderView () {
-        addUserLogoContainer();
-    }
+	public static final String NAME = "header";
+	ComboBox<Patient> cboxSelectPatient;
 
-    private Label lblLoggedOnUser = new Label("User Logo Placeholder");
+	public HeaderView() {
 
-    // add a "dynamical" component which can be accessed/derived by the presenter according MVP pattern
-    private void addUserLogoContainer () {
-       this.addComponent(lblLoggedOnUser, "userlogo");
-    }
+		// Create new Combobox to select the patient
+		cboxSelectPatient = new ComboBox<>("");
+		this.addComponent(cboxSelectPatient, "cboxSelectPatients");
 
-    // typical getter
-    public Label getLblLoggedOnUser() {
-        return lblLoggedOnUser;
-    }
+		this.setTemplateName("header");
+		this.addComponent(new Label("Team Green: Patient Management System"), "pageLogo");
+		this.addComponent(lblLoggedOnUser, "userlogo");
+		
+		new HeaderPresenter(this);
+	}
+
+	private Label lblLoggedOnUser = new Label("User Logo Placeholder");
+
+	public ComboBox<Patient> getCboxPatients() {
+		return cboxSelectPatient;
+	}
+
+	public Label getLblLoggedOnUser() {
+		return lblLoggedOnUser;
+	}
 
 }
-
