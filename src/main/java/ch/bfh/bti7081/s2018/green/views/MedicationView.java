@@ -13,38 +13,23 @@ import java.util.List;
 public class MedicationView extends CustomLayout implements View {
 
     public static final String NAME = "medication";
-    // @ToDo: later add a way to get the actual pat dossier name instead setting of a static text
+    
     private NavigationButton btnMedicationOverview;
-
     private NavigationButton btnAddMedication;
-    public NavigationButton getBtnAddMedication() {
-        return btnAddMedication;
-    }
-
-    public void setGrdMedicamentGridViewItems (List<Medication> items) {
-        this.grdMedicamentGridView.setItems(items);
-    }
-
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
-    public Grid<Medication> getMedicamentGrid() {
-        return grdMedicamentGridView;
-    }
-
-    public MedicationView () {
-
+  
+    public MedicationView() {
         this.setTemplateName("medicationApp");
-
         buildView();
         new MedicationPresenter(this);
     }
 
-    public MedicationView (List<Medication> medDataList) {
+    public MedicationView(List<Medication> medDataList) {
         this.setTemplateName("medicationApp");
         buildView();
     }
 
     private void buildView() {
-
         this.btnMedicationOverview = new NavigationButton("Medication Overview", MedicationView.NAME, this);
         this.addComponent(this.btnMedicationOverview, "mainTab");
 
@@ -57,8 +42,7 @@ public class MedicationView extends CustomLayout implements View {
         medGridBuilder();
     }
 
-    private void medGridBuilder () {
-
+    private void medGridBuilder() {
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
@@ -75,5 +59,17 @@ public class MedicationView extends CustomLayout implements View {
 
         grdMedicamentGridView.setId("medicationAppGrid");
         this.addComponent(grdMedicamentGridView, "dataGrid");
+    }
+    
+    public void setGrdMedicamentGridViewItems(List<Medication> items) {
+        this.grdMedicamentGridView.setItems(items);
+    }
+    
+    public Grid<Medication> getMedicamentGrid() {
+        return grdMedicamentGridView;
+    }
+    
+    public NavigationButton getBtnAddMedication() {
+        return btnAddMedication;
     }
 }

@@ -2,54 +2,16 @@ package ch.bfh.bti7081.s2018.green.views;
 
 import ch.bfh.bti7081.s2018.green.layouts.UiElementHasValue;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.views.interfaces.IRetSetAbstField;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
-public class MedicationPrescriptionView extends CustomLayout implements View, IRetSetAbstField {
-
-    public Medication getMedPrescibed() {
-        return medPrescibed;
-    }
+public class MedicationPrescriptionView extends CustomLayout implements View {
 
     private List<UiElementHasValue> listUiElements = new ArrayList<>();
 
     protected Window window;
-
-    public UiElementHasValue getMedPeriod() {
-        return medPeriod;
-    }
-
-    public UiElementHasValue getMedDose() {
-        return medDose;
-    }
-
-    public UiElementHasValue getMedPrescriberFullName() {
-        return medPrescriberFullName;
-    }
-
-    public UiElementHasValue getMedRecordCreated() {
-        return medRecordCreated;
-    }
-
-    public UiElementHasValue getMedRecordModified() {
-        return medRecordModified;
-    }
-
-    public UiElementHasValue getMedStartDate() {
-        return medStartDate;
-    }
-
-    public UiElementHasValue getMedEndDate() {
-        return medEndDate;
-    }
-
-    public UiElementHasValue getMedName() {
-        return medName;
-    }
-
     UiElementHasValue medName;
     UiElementHasValue medStartDate;
     UiElementHasValue medEndDate;
@@ -60,14 +22,8 @@ public class MedicationPrescriptionView extends CustomLayout implements View, IR
     UiElementHasValue medRecordModified;
 
     Medication medPrescibed;
-
     private CustomLayout body;
-    public CustomLayout getBody() {
-        return body;
-    }
-
-    //@ToDo: add a proper way to get logged in Staff-Personnel and the actually opened pat. dossier instead of hardcoding it
-
+    
     public MedicationPrescriptionView(Medication med, CustomLayout body) {
 
         this.setTemplateName("medicationPrescription");
@@ -96,7 +52,7 @@ public class MedicationPrescriptionView extends CustomLayout implements View, IR
         body.getUI().getUI().addWindow(window);
     }
 
-    protected void addTheComponents (boolean editMode) {
+    protected void addTheComponents(boolean editMode) {
         // set UI Elements
         this.medName = new UiElementHasValue(new TextField(), "medName");
         this.medStartDate = new UiElementHasValue(new DateTimeField(), "medStartDate");
@@ -138,7 +94,7 @@ public class MedicationPrescriptionView extends CustomLayout implements View, IR
         addAllComponents(listUiElements, editMode);
     }
 
-    protected void addAllComponents (List<UiElementHasValue> list, boolean state) {
+    protected void addAllComponents(List<UiElementHasValue> list, boolean state) {
         for (UiElementHasValue el : list) {
             if (!el.isProtectedField()) {
                 el.getComponent().setEnabled(state);
@@ -149,7 +105,8 @@ public class MedicationPrescriptionView extends CustomLayout implements View, IR
             this.addComponent(el.getComponent(), el.getLocation());
         }
     }
-    protected void addAllComponents (boolean state) {
+    
+    protected void addAllComponents(boolean state) {
         for (UiElementHasValue el : this.listUiElements) {
             if (!el.isProtectedField()) {
                 el.getComponent().setEnabled(state);
@@ -159,5 +116,46 @@ public class MedicationPrescriptionView extends CustomLayout implements View, IR
             }
             this.addComponent(el.getComponent(), el.getLocation());
         }
+    }
+    
+    public Medication getMedPrescibed() {
+        return medPrescibed;
+    }
+
+    public UiElementHasValue getMedPeriod() {
+        return medPeriod;
+    }
+
+    public UiElementHasValue getMedDose() {
+        return medDose;
+    }
+
+    public UiElementHasValue getMedPrescriberFullName() {
+        return medPrescriberFullName;
+    }
+
+    public UiElementHasValue getMedRecordCreated() {
+        return medRecordCreated;
+    }
+
+    public UiElementHasValue getMedRecordModified() {
+        return medRecordModified;
+    }
+
+    public UiElementHasValue getMedStartDate() {
+        return medStartDate;
+    }
+
+    public UiElementHasValue getMedEndDate() {
+        return medEndDate;
+    }
+
+    public UiElementHasValue getMedName() {
+        return medName;
+    }
+
+  
+    public CustomLayout getBody() {
+        return body;
     }
 }

@@ -8,19 +8,19 @@ import com.vaadin.ui.Component;
 
 public class NavigationButton extends Button{
 
-    public NavigationButton () {
+    public NavigationButton() {
 
     }
 
-    public NavigationButton (String caption, String enumView, AbstractComponentContainer containingView) {
+    public NavigationButton(String caption, String targetViewName, AbstractComponentContainer containingView) {
         this.setCaption(caption);
         changeStyle();
         this.addClickListener((clickEvent) ->
-                setActive(this, enumView, containingView)
+                setActive(this, targetViewName, containingView)
         );
     }
 
-    public NavigationButton (String caption, AbstractComponentContainer containingView) {
+    public NavigationButton(String caption, AbstractComponentContainer containingView) {
         this.setCaption(caption);
         changeStyle();
         this.addClickListener((clickEvent) ->
@@ -32,7 +32,7 @@ public class NavigationButton extends Button{
         this.removeStyleNames("menuBarButton",".v-button", ".v-widget");
         this.setId("navButton");
     }
-    private static void setActive (NavigationButton ly, String enumView, AbstractComponentContainer containingView) {
+    private static void setActive(NavigationButton ly, String targetViewName, AbstractComponentContainer containingView) {
         // remove all CSS styles who mark a div as visited in the whole navMenu view
         for (Component co : containingView)
         {
@@ -40,10 +40,10 @@ public class NavigationButton extends Button{
         }
         // dynamically add the CSS style to mark a div as visited
         ly.addStyleName("NavVisited");
-        NavigatorUI.navigator.navigateTo(enumView);
+        NavigatorUI.navigator.navigateTo(targetViewName);
     }
 
-    private static void setActiveNoListener (NavigationButton ly, AbstractComponentContainer containingView) {
+    private static void setActiveNoListener(NavigationButton ly, AbstractComponentContainer containingView) {
         // remove all CSS styles who mark a div as visited in the whole navMenu view
         for (Component co : containingView)
         {
