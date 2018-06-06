@@ -12,6 +12,8 @@ import com.vaadin.ui.TextArea;
 import ch.bfh.bti7081.s2018.green.presenters.SchedulePresenter;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 
 public class ScheduleAddView extends CustomLayout implements View {
 
@@ -24,6 +26,9 @@ public class ScheduleAddView extends CustomLayout implements View {
     private TextArea tfContent = new TextArea();
     private Button btnSave = new Button("Save Schedule");
     private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
+    private CheckBox cbDailyRecurring = new CheckBox("Daily");
+    private CheckBox cbWeeklyRecurring = new CheckBox("Weekly");
+    private CheckBox cbMonthlyRecurring = new CheckBox("Monthly");
 
     @Override
     public void enter(ViewChangeEvent event) {
@@ -41,6 +46,9 @@ public class ScheduleAddView extends CustomLayout implements View {
         this.addComponent(tfContent, "contentField");
         this.addComponent(btnSave, "saveButton");
         this.addComponent(cbRecurringEvent, "RecurringCheckBox");
+        this.addComponent(cbDailyRecurring, "DailyCheckBox");
+        this.addComponent(cbWeeklyRecurring, "WeeklyCheckBox");
+        this.addComponent(cbMonthlyRecurring, "MonthlyCheckBox");
 
         new SchedulePresenter(this);
     }
@@ -49,7 +57,23 @@ public class ScheduleAddView extends CustomLayout implements View {
         return dtfFrom;
     }
 
-    public DateTimeField getDtfTo() {
+    public CheckBox getCbRecurringEvent() {
+		return cbRecurringEvent;
+	}
+
+	public CheckBox getCbDailyRecurring() {
+		return cbDailyRecurring;
+	}
+
+	public CheckBox getCbWeeklyRecurring() {
+		return cbWeeklyRecurring;
+	}
+
+	public CheckBox getCbMonthlyRecurring() {
+		return cbMonthlyRecurring;
+	}
+
+	public DateTimeField getDtfTo() {
         return dtfTo;
     }
     
@@ -63,5 +87,15 @@ public class ScheduleAddView extends CustomLayout implements View {
     
     public TextArea getTfTitle() {
         return tfTitle;
+    }
+    
+    public Date getFromDate() {
+    	Date tmp = Date.from(dtfFrom.getValue().atZone(ZoneId.systemDefault()).toInstant());
+    	return tmp;
+    }
+    
+    public Date getToDate() {
+    	Date tmp = Date.from(dtfTo.getValue().atZone(ZoneId.systemDefault()).toInstant());
+    	return tmp;
     }
 }

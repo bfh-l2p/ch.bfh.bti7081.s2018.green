@@ -25,18 +25,20 @@ public class SchedulePresenter {
         this.view.getBtnSave().addClickListener(clickEvent -> SaveSchedule());
     }
     
-    // Get data that was defined with ScheduleAddView
-	
-	private void SetToDate(LocalDateTime to) {
-		this.view.getDtfTo().setValue(to);
+    // Update DateTimeFields without impacting Time when changing Dates
+	private void SetToDate(LocalDateTime from) {
+		this.view.getDtfTo().setValue(from	.withHour(this.view.getDtfTo().getValue().getHour())
+											.withMinute(this.view.getDtfTo().getValue().getMinute()));
 	}
 	
-	private void SetFromDate(LocalDateTime from) {
-		this.view.getDtfFrom().setValue(from);
+	private void SetFromDate(LocalDateTime to) {
+		this.view.getDtfFrom().setValue(to	.withHour(this.view.getDtfFrom().getValue().getHour())
+											.withMinute(this.view.getDtfFrom().getValue().getMinute()));
 	}
     
     private void SaveSchedule() {
  
+    	// Get data that was defined with ScheduleAddView
     	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
     	LocalDateTime dtfTo = view.getDtfTo().getValue();
     	TextArea tfContent = view.getTfContent();
