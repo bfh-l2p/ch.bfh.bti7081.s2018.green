@@ -15,14 +15,12 @@ public class MedicationManager extends Manager<Medication> {
 	}
     
     public List<Medication> findBy(Staff staff) {
-    	setNewEntityManager();
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE prescriberId = :prescriberId", entityclass);
 		query.setParameter("prescriberId", staff.getId());
 		return findByQuery(query);
     }
     
     public List<Medication> findBy(Patient patient) {
-    	setNewEntityManager();
         TypedQuery<Medication> query = manager.createQuery("SELECT j FROM Medication j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
@@ -30,7 +28,6 @@ public class MedicationManager extends Manager<Medication> {
     
     private List<Medication> findByQuery(TypedQuery<Medication> query) {
         List<Medication> medications = query.getResultList();
-        manager.close();
     	return medications;
     }
     
