@@ -9,6 +9,4 @@ public class NavigationMenuPresenter {
     public NavigationMenuPresenter(NavigationMenuView view) {
         this.view = view;
     }
-
-
 }

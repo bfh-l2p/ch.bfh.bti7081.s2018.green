@@ -109,12 +109,13 @@ public class NavigatorUI extends UI {
     private CustomLayout getFooterBar() {
         FooterView footer = new FooterView();
         FooterPresenter fp = new FooterPresenter(footer);
-        fp.setFooterText("Programm under construction. You are not viewing a final or representative version");
+        fp.setFooterText("Program under construction. You are not viewing a final or representative version");
         return footer;
     }
     private CustomLayout getHeader() {
         HeaderView header = new HeaderView();
         HeaderPresenter hp = new HeaderPresenter(header);
+        
         hp.addUserName("User: " + System.getProperty("user.name"));
 
         return header;
@@ -131,10 +132,7 @@ public class NavigatorUI extends UI {
         EntityManager em = emf.createEntityManager();
 
         // TODO: add patient list instead of hardcoding the id
-        Patient matthias = em.find(Patient.class, 2);
         Staff exampleDoctor = em.find(Staff.class, 3);
-        System.out.println(matthias.getFirstName());
-        data.setCurrentPatient(matthias);
         data.setCurrentStaff(exampleDoctor);
 
         // ViewID, ClassToInitiate

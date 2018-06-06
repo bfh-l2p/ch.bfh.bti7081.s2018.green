@@ -16,12 +16,12 @@ public abstract class Manager<T> {
 	protected static final EntityManager manager = Persistence.createEntityManagerFactory("pmsDB").createEntityManager();
 	protected Class<T> entityclass; 
 
-	public T get(int id) throws EntityNotFoundException {
+	public T get(int id) throws PersistenceException {
 		EntityTransaction getTransaction = beginTransaction();
 		T entity = manager.find(entityclass, id);
 		closeTransaction(getTransaction);
 		if (entity == null) {
-			throw new EntityNotFoundException("entity not found");
+			throw new PersistenceException();
 		}
 		return entity;
 	}

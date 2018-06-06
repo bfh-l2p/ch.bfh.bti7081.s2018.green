@@ -2,16 +2,19 @@ package ch.bfh.bti7081.s2018.green.presenters;
 
 import java.util.List;
 
+import javax.persistence.PersistenceException;
+
+import com.vaadin.server.Page;
 import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.ComboBox;
-import com.vaadin.ui.UI;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.PatientManager;
+import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
+import ch.bfh.bti7081.s2018.green.views.PatientFile;
 
 public class HeaderPresenter {
 
@@ -27,6 +30,7 @@ public class HeaderPresenter {
 
 	private void enteredView() {
 
+		try {
 		// Assemble ComboBox to select a patient and...
 		assembleCboxPatients();
 
@@ -34,15 +38,19 @@ public class HeaderPresenter {
 		view.getCboxPatients().addValueChangeListener(event -> {
 			data.setCurrentPatient(event.getValue());
 
-			// TODO: Link to startpage:
+			// Upon switch to other patient: Go to Patient-File
 			if(NavigatorUI.navigator != null) {
-				NavigatorUI.navigator.navigateTo(JournalView.NAME);
+				NavigatorUI.navigator.navigateTo(PatientFile.NAME);
 			}
 		});
+		} catch (PersistenceException e) {
+			
+			ErrorView.showError("Couldn't load patients-list", Page.getCurrent());									
+		}			
 	}
 
-	private void assembleCboxPatients() {
-
+	private void assembleCboxPatients() throws PersistenceException {
+			
 		// Get ComboBox from View
 		ComboBox<Patient> cboxPatients = this.view.getCboxPatients();
 
