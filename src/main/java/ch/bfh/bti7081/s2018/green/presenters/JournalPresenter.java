@@ -33,7 +33,7 @@ public class JournalPresenter {
         }
     }
     private void enteredView() {
-	    JournalEntryManager manager = new JournalEntryManager();
+        JournalEntryManager manager = new JournalEntryManager();
         view.setJournalEntries(manager.findBy(data.getCurrentPatient()));
     }
 }

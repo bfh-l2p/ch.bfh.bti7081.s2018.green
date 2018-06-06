@@ -34,15 +34,12 @@ public class StaffManager extends Manager<Staff> {
     }
 	
     public List<Staff> findBy(StaffType type) {
-    	setNewEntityManager();
         CriteriaBuilder cb = manager.getCriteriaBuilder();
         CriteriaQuery<Staff> cq = cb.createQuery(Staff.class);
         Root<Staff> rootEntry = cq.from(Staff.class);
         CriteriaQuery<Staff> all = cq.select(rootEntry).where(cb.equal(rootEntry.get("type"), type));
         TypedQuery<Staff> allQuery = manager.createQuery(all);
         List<Staff> staffs = allQuery.getResultList();
-
-        manager.close();
 
         return staffs;
     }

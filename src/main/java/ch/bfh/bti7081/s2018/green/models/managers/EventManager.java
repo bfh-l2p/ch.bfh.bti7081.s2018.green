@@ -18,24 +18,20 @@ public class EventManager extends Manager<Event> {
 	}
 
     public List<Event> findBy(Staff staff) {
-    	setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", entityclass);
 		query.setParameter("therapistId", staff.getId());
 		return findByQuery(query);
     }
 
     public List<Event> findBy(Patient patient) {
-    	setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
 
     public List<Event> findBy(LocalDate date) {
-    	setNewEntityManager();
         LocalDateTime start = date.atStartOfDay();
         LocalDateTime end = date.atStartOfDay().plusDays(1);
-        setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
                 + " or start < :startLocalDateTime and stop > :endLocalDateTime"
                 + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
@@ -46,7 +42,6 @@ public class EventManager extends Manager<Event> {
     }
 
     public List<Event> findConflicting(Event event) {
-        setNewEntityManager();
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j"
                 + " WHERE (start >= :startLocalDateTime and stop < :endLocalDateTime"
                 + " or start < :startLocalDateTime and stop > :endLocalDateTime"
@@ -64,7 +59,6 @@ public class EventManager extends Manager<Event> {
 
     private List<Event> findByQuery(TypedQuery<Event> query) {
         List<Event> events = query.getResultList();
-        manager.close();
     	return events;
     }
 

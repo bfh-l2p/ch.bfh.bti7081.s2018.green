@@ -25,12 +25,6 @@ public class Medication {
     @JoinColumn(name = "patientId", nullable = false)
     private Patient patient;
     
-    @Column(nullable = false)
-    private LocalDateTime updated;
-
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime created;
-
     public Medication () {
         // required by JPA
     }
@@ -43,17 +37,6 @@ public class Medication {
         this.dose = dose;
         this.prescriber = prescriber;
         this.patient = patient;
-    }
-
-    @PrePersist
-    public void onPrePersist() {
-        created = LocalDateTime.now();
-        updated = LocalDateTime.now();
-    }
-      
-    @PreUpdate
-    public void onPreUpdate() {
-    	updated = LocalDateTime.now();
     }
 
     public boolean isActive() {
@@ -111,5 +94,13 @@ public class Medication {
 
     public void setPrescriber(Staff prescriber) {
         this.prescriber = prescriber;
+    }
+
+    public Patient getPatient() {
+    	return patient; 
+    }
+
+    public void setPatient(Patient patient) {
+    	this.patient = patient;
     }
 }
