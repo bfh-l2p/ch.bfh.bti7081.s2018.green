@@ -53,7 +53,7 @@ public class Medication {
       
     @PreUpdate
     public void onPreUpdate() {
-    	updated = LocalDateTime.now();
+    	//updated = LocalDateTime.now();
     }
 
     public boolean isActive() {
@@ -121,5 +121,11 @@ public class Medication {
         return created;
     }
 
-    public Patient getPatient () { return patient; }
+    public Patient getPatient() {
+    	return patient; 
+    }
+
+    public void setPatient(Patient patient) {
+    	this.patient = patient;
+    }
 }

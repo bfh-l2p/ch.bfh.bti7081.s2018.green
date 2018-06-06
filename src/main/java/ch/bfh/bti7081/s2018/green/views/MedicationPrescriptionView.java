@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +73,9 @@ public class MedicationPrescriptionView extends Window implements View {
         // TODO: validate input
         try {
             binder.writeBean(this.medication);
+            System.out.println(medication.getStartDate());
+            System.out.println(LocalDateTime.now());
+            
         } catch (ValidationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

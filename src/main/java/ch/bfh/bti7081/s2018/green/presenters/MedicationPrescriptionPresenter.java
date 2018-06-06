@@ -37,9 +37,18 @@ public class MedicationPrescriptionPresenter {
 
     private void saveData (){
         Medication medication = view.getMedication();
-        
+        medication.setPatient(data.getCurrentPatient());
+        medication.setPrescriber(data.getCurrentStaff());
         MedicationManager manager = new MedicationManager();
-        manager.add(medication);
+        if (medication.getId() == 0) {
+        	System.out.println("create");
+        	System.out.println(medication.getUpdated());
+        	manager.add(medication);
+        } else {
+        	System.out.println("update");
+        	System.out.println(medication.getUpdated());
+        	manager.update(medication);
+        }
   
         view.close();
     }
