@@ -1,25 +1,39 @@
 package ch.bfh.bti7081.s2018.green.views;
 
 import com.vaadin.navigator.View;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
 
+import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import ch.bfh.bti7081.s2018.green.presenters.HeaderPresenter;
+
 public class HeaderView extends CustomLayout implements View {
 
-    public static final String NAME = "header";
+	public static final String NAME = "header";
+	ComboBox<Patient> cboxSelectPatient;
 
-    public HeaderView () {
-        this.setTemplateName("header");
-        this.addComponent(new Label("BreadCrumbs Placeholder"), "breadcrumbs");
-        this.addComponent(new Label("Team Green: Patient Management System"),"pageLogo");
-        this.addComponent(lblLoggedOnUser, "userlogo");
-    }
+	public HeaderView() {
 
-    private Label lblLoggedOnUser = new Label("User Logo Placeholder");
+		// Create new Combobox to select the patient
+		cboxSelectPatient = new ComboBox<>("");
+		this.addComponent(cboxSelectPatient, "cboxSelectPatients");
 
-    public Label getLblLoggedOnUser() {
-        return lblLoggedOnUser;
-    }
+		this.setTemplateName("header");
+		this.addComponent(new Label("Team Green: Patient Management System"), "pageLogo");
+		this.addComponent(lblLoggedOnUser, "userlogo");
+		
+		new HeaderPresenter(this);
+	}
+
+	private Label lblLoggedOnUser = new Label("User Logo Placeholder");
+
+	public ComboBox<Patient> getCboxPatients() {
+		return cboxSelectPatient;
+	}
+
+	public Label getLblLoggedOnUser() {
+		return lblLoggedOnUser;
+	}
 
 }
-

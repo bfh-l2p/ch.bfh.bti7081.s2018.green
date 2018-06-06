@@ -4,13 +4,13 @@ INSERT INTO hibernate_sequence (next_val) VALUES (1000);
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)
     VALUES
-        (1, "emergency", "contact", NULL, NULL, NULL, NULL, NULL, NULL);
+        (1, "Stefan", "Schwab", NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- Create test patient
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)
     VALUES
-        (2, "test", "Patient", NULL, NULL, NULL, NULL, NULL, NULL);
+        (2, "Freddy", "Huber", NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO Patient
         (id, dangerToOthers, contactId, selfEndangerment)
     values
@@ -20,11 +20,21 @@ INSERT INTO Patient
 INSERT INTO Person
         (id, firstName, lastName, address, city, dob, email, phone, zip)
     VALUES
-        (3, "test", "Staff", NULL, NULL, NULL, NULL, NULL, NULL);
+        (3, "Caroline", "Malade", NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO Staff
         (id, type)
     values
         (3, 1);
+
+-- Create test patient
+INSERT INTO Person
+        (id, firstName, lastName, address, city, dob, email, phone, zip)
+    VALUES
+        (4, "Wilfried", "Sauer", NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO Patient
+        (id, dangerToOthers, contactId, selfEndangerment)
+    values
+        (4, 1, 1, 1);
 
 -- Add sample therapies
 INSERT INTO Therapy
@@ -60,4 +70,4 @@ INSERT INTO Medication
 INSERT INTO Event
         (id, title, description, patientId, therapistId, start, stop)
     values
-        (1, "test event", "some description", 2, 3, 1523378040000, 1523550840000);
+        (1, "Tanz dich frei", "Vorgängige Einnahme von 3 Ecstasy-Pillen", 2, 3, 1523378040000, 1523550840000);
