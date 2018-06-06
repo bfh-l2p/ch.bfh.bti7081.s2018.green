@@ -1,161 +1,110 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.layouts.UiElementHasValue;
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.vaadin.data.Binder;
+import com.vaadin.data.ValidationException;
 import com.vaadin.navigator.View;
-import com.vaadin.ui.*;
-import java.time.LocalDateTime;
-import java.util.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.CustomLayout;
+import com.vaadin.ui.DateTimeField;
+import com.vaadin.ui.Panel;
+import com.vaadin.ui.TextField;
+import com.vaadin.ui.Window;
 
-public class MedicationPrescriptionView extends CustomLayout implements View {
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 
-    private List<UiElementHasValue> listUiElements = new ArrayList<>();
+public class MedicationPrescriptionView extends Window implements View {
+    
+    public static final String NAME = "medicationPrescription";
 
     protected Window window;
-    UiElementHasValue medName;
-    UiElementHasValue medStartDate;
-    UiElementHasValue medEndDate;
-    UiElementHasValue medPeriod;
-    UiElementHasValue medDose;
-    UiElementHasValue medPrescriberFullName;
-    UiElementHasValue medRecordCreated;
-    UiElementHasValue medRecordModified;
-
-    Medication medPrescibed;
-    private CustomLayout body;
+    Medication medication;
+    Binder<Medication> binder;
+    TextField medName = new TextField();
+    DateTimeField medStartDate = new DateTimeField();
+    DateTimeField medStopDate = new DateTimeField();
+    TextField medPeriod = new TextField();
+    TextField medDose = new TextField();
+    TextField medPrescriberFullName = new TextField();
+    DateTimeField medRecordCreated = new DateTimeField();
+    DateTimeField medRecordModified = new DateTimeField();
+    Button btnSave = new Button("Save");
     
-    public MedicationPrescriptionView(Medication med, CustomLayout body) {
-
-        this.setTemplateName("medicationPrescription");
-
-        this.medPrescibed = med;
-        this.body = body;
-        display(body);
-    }
-
-    // In case a new medication shall be created
-    public MedicationPrescriptionView(Layout body) {
-        this.medPrescibed = null;
-    }
-
-    private void display (Layout body) {
-
-        this.window = new Window();
-        this.window.setWidth("40%");
-
-        this.addTheComponents(false);
-
-        this.window.isDraggable();
-        this.window.isModal();
-        this.window.setContent(this);
-
-        body.getUI().getUI().addWindow(window);
-    }
-
-    protected void addTheComponents(boolean editMode) {
-        // set UI Elements
-        this.medName = new UiElementHasValue(new TextField(), "medName");
-        this.medStartDate = new UiElementHasValue(new DateTimeField(), "medStartDate");
-        this.medEndDate = new UiElementHasValue(new DateTimeField(), "medStopDate");
-        this.medPeriod = new UiElementHasValue(new TextField(),"medFrequency");
-        this.medDose = new UiElementHasValue(new TextField(),"medDose");
-        //change protected fields
-        this.medPrescriberFullName = new UiElementHasValue(new TextField(),"medPrescriber", true);
-        this.medRecordCreated = new UiElementHasValue(new DateTimeField(),"medCreated", true);
-        this.medRecordModified = new UiElementHasValue(new DateTimeField(),"medUpdated", true);
-
-
-        //if an existing record shall be edited
-        if (this.medPrescibed != null) {
-            this.medName.setValue( medPrescibed.getName());
-            this.medStartDate.setValue(medPrescibed.getStartDate());
-            this.medEndDate.setValue(medPrescibed.getEndDate());
-            this.medPeriod.setValue(medPrescibed.getPeriode());
-            this.medDose.setValue(new String().valueOf(medPrescibed.getDose()));
-            this.medPrescriberFullName.setValue(medPrescibed.getPrescriber().getFullName());
-            this.medRecordCreated.setValue(medPrescibed.getCreated());
-            this.medRecordModified.setValue(medPrescibed.getUpdated());
+    public MedicationPrescriptionView(Medication med) {
+        if (med == null) {
+            med = new Medication();
         }
-        // if a new empty form shall be created
-        else {
-            this.medStartDate.setValue(LocalDateTime.now());
-            this.medEndDate.setValue(LocalDateTime.now());
-            editMode = true;
-        }
-            listUiElements.add(this.medName);
-            listUiElements.add(this.medStartDate);
-            listUiElements.add(this.medEndDate);
-            listUiElements.add(this.medPeriod);
-            listUiElements.add(this.medDose);
-            listUiElements.add(this.medRecordCreated);
-            listUiElements.add(this.medRecordModified);
+        this.medication = med;
+        bindMedication(med);
+        this.setModal(true);
+        Panel panel = new Panel("This is a Panel");
+        CustomLayout panelContent = new CustomLayout("medicationPrescription");
+        panelContent.addComponent(medName, "medName");
+        panelContent.addComponent(medStartDate, "medStartDate");
+        panelContent.addComponent(medStopDate, "medStopDate");
 
-        // does add all elements from List txtToAdd
-        addAllComponents(listUiElements, editMode);
-    }
-
-    protected void addAllComponents(List<UiElementHasValue> list, boolean state) {
-        for (UiElementHasValue el : list) {
-            if (!el.isProtectedField()) {
-                el.getComponent().setEnabled(state);
-            }
-            else {
-                el.getComponent().setEnabled(false);
-            }
-            this.addComponent(el.getComponent(), el.getLocation());
-        }
+        panelContent.addComponent(medPeriod, "medFrequency");
+        panelContent.addComponent(medDose, "medDose");
+        panelContent.addComponent(medPrescriberFullName, "medPrescriber");
+        panelContent.addComponent(btnSave, "medSaveButton");
+        panel.setContent(panelContent);
+        setContent(panel);
+        new MedicationPrescriptionPresenter(this);
     }
     
-    protected void addAllComponents(boolean state) {
-        for (UiElementHasValue el : this.listUiElements) {
-            if (!el.isProtectedField()) {
-                el.getComponent().setEnabled(state);
-            }
-            else {
-                el.getComponent().setEnabled(false);
-            }
-            this.addComponent(el.getComponent(), el.getLocation());
-        }
-    }
-    
-    public Medication getMedPrescibed() {
-        return medPrescibed;
+    private void bindMedication(Medication medication) {
+        binder = new Binder<>();
+        binder.forField(medName).bind(Medication::getName, Medication::setName);
+        binder.forField(medStartDate).bind(Medication::getStartDate, Medication::setStartDate);
+        binder.forField(medStopDate).bind(Medication::getEndDate, Medication::setEndDate);
+        // TODO: support integers: https://vaadin.com/docs/v8/framework/datamodel/datamodel-forms.html#datamodel.forms.conversion
+        //binder.forField(medPeriod).bind(Medication::getPeriode, Medication::setPeriode);
+        //binder.forField(medDose).bind(Medication::getDose, Medication::setDose);
+        //binder.forField(medPrescriberFullName).bind(Medication::getFullName, Medication::setEndDate);
+
+        binder.readBean(medication);
     }
 
-    public UiElementHasValue getMedPeriod() {
+    public Medication getMedication() {
+        // TODO: validate input
+        try {
+            binder.writeBean(this.medication);
+        } catch (ValidationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return medication;
+    }
+    
+    public TextField getMedPeriod() {
         return medPeriod;
     }
 
-    public UiElementHasValue getMedDose() {
+    public TextField getMedDose() {
         return medDose;
     }
 
-    public UiElementHasValue getMedPrescriberFullName() {
+    public TextField getMedPrescriberFullName() {
         return medPrescriberFullName;
     }
 
-    public UiElementHasValue getMedRecordCreated() {
-        return medRecordCreated;
-    }
-
-    public UiElementHasValue getMedRecordModified() {
-        return medRecordModified;
-    }
-
-    public UiElementHasValue getMedStartDate() {
+  
+    public DateTimeField getMedStartDate() {
         return medStartDate;
     }
 
-    public UiElementHasValue getMedEndDate() {
-        return medEndDate;
+    public DateTimeField getMedEndDate() {
+        return medStopDate;
     }
 
-    public UiElementHasValue getMedName() {
+    public TextField getMedName() {
         return medName;
     }
-
-  
-    public CustomLayout getBody() {
-        return body;
+    
+    public Button getSaveButton() {
+        return btnSave;
     }
 }

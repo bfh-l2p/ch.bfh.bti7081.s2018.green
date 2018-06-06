@@ -1,13 +1,13 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import java.util.List;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
-import java.util.List;
+
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 
 
 public class MedicationView extends CustomLayout implements View {
@@ -34,9 +34,7 @@ public class MedicationView extends CustomLayout implements View {
         this.addComponent(this.btnMedicationOverview, "mainTab");
 
         this.btnAddMedication = new NavigationButton("New Medication", this);
-        this.btnAddMedication.addClickListener((clickEvent) ->
-                new MedicationPrescriptionPresenter(null, this)
-        );
+        this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)) );
 
         this.addComponent(this.btnAddMedication, "addMedicationTab");
         medGridBuilder();

@@ -3,9 +3,14 @@ package ch.bfh.bti7081.s2018.green.presenters;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
+
+import com.vaadin.navigator.Navigator;
 import com.vaadin.ui.*;
 import ch.bfh.bti7081.s2018.green.DataContainer;
+import ch.bfh.bti7081.s2018.green.NavigatorUI;
+import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -21,7 +26,6 @@ public class MedicationPresenter {
 		this.view = view;
 		this.data = DataContainer.getInstance();
 
-        //this.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient()));
         view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient()));
 
 
@@ -31,7 +35,8 @@ public class MedicationPresenter {
         view.getMedicamentGrid().addComponentColumn(med -> {
             Button btn = new Button("View/Edit");
             btn.addClickListener(click -> {
-                new MedicationPrescriptionPresenter(med, view);
+                MedicationPrescriptionView medicationPrescriptionView = new MedicationPrescriptionView(med);
+                this.view.getUI().addWindow(medicationPrescriptionView);
             });
             return btn;
         });
@@ -40,14 +45,8 @@ public class MedicationPresenter {
 	}
 
 	private List<Medication> setMedicamentList (Patient pat) {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
-        EntityManager em = emf.createEntityManager();
-
-        MedicationManager mmgr = new MedicationManager();
-
-        List<Medication> medOfPatient = mmgr.findBy(pat);
-        return medOfPatient;
+        MedicationManager manager = new MedicationManager();
+        return manager.findBy(pat);
     }
 
 
