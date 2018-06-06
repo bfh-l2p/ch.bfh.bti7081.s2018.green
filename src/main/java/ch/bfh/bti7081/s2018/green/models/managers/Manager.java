@@ -13,8 +13,6 @@ import javax.persistence.criteria.Root;
 public abstract class Manager<T> {
 	protected static final EntityManager manager = Persistence.createEntityManagerFactory("pmsDB").createEntityManager();
 	protected Class<T> entityclass; 
-	
-	public Manager() {}
 
 	public T get(int id) {
 		EntityTransaction getTransaction = beginTransaction();
