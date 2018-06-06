@@ -1,15 +1,11 @@
 package ch.bfh.bti7081.s2018.green.presenters;
 
+import com.vaadin.ui.Button;
+
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
-import ch.bfh.bti7081.s2018.green.views.enumerations.TxtBtnSaveEdit;
-import com.vaadin.ui.*;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 public class MedicationPrescriptionPresenter {
 
@@ -41,19 +37,11 @@ public class MedicationPrescriptionPresenter {
         medication.setPrescriber(data.getCurrentStaff());
         MedicationManager manager = new MedicationManager();
         if (medication.getId() == 0) {
-        	System.out.println("create");
-        	System.out.println(medication.getUpdated());
-        	manager.add(medication);
+        	manager.add(medication);	
         } else {
-        	System.out.println("update");
-        	System.out.println(medication.getUpdated());
         	manager.update(medication);
         }
   
         view.close();
     }
-    private void saveDataChanges() {
-        Notification.show("Not yet implemented");
-    }
-
 }
