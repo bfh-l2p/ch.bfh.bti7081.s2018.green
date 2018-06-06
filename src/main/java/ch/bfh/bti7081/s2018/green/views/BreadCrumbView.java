@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+//@ToDo: Implement working breadcrumbs
 public class BreadCrumbView {
 
     protected BreadCrumbView () {

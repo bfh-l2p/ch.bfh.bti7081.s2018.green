@@ -15145,6 +15145,10 @@ div.v-layout.v-horizontal.v-widget {
 	color: snow;
 }
 
+.mytheme #navButton {
+	color: #ce3812;
+}
+
 .mytheme #navMenuWrapper .v-button {
 	font-weight: bold;
 	border: none;
@@ -15183,4 +15187,53 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme .appMenuTab div {
 	background-color: #edeff2;
+}
+
+.mytheme #medDetailView {
+	margin: 15px 10px 10px 10px;
+}
+
+.mytheme .medDetailViewData {
+	float: right;
+}
+
+.mytheme .medDetailViewDescription {
+	font-weight: bold;
+}
+
+.mytheme #medViewDetailTable {
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+
+.mytheme #medViewDetailTable .v-textfield {
+	width: 100%;
+}
+
+.mytheme #medDetailViewTitle {
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.mytheme div.btnLeft {
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme div.btnMiddle {
+	float: left;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme div.btnRight {
+	float: right;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.mytheme #medButtonContainer {
+	width: 80%;
 }

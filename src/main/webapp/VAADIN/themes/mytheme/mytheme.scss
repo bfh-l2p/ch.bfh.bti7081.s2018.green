@@ -34,7 +34,6 @@
 @mixin mytheme {
   @include valo;
 
-  // Insert your own theme rules here
   .card {
     background: #fff;
     border-radius: 2px;
@@ -46,6 +45,7 @@
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     padding: 1rem;
   }
+  // Insert your own theme rules here
 
   #mainPageContainer {
     width: 100%;
@@ -122,6 +122,10 @@
     color: snow;
   }
 
+  #navButton {
+    color: #ce3812;
+  }
+
   #navMenuWrapper .v-button {
     font-weight: bold;
     border: none;
@@ -164,4 +168,45 @@
     //width: 100%;
   }
 
+  // Medication detail view
+  #medDetailView {
+    margin: 15px 10px 10px 10px;
+  }
+  .medDetailViewData {
+    float:right;
+  }
+  .medDetailViewDescription {
+    font-weight: bold;
+  }
+  #medViewDetailTable {
+    border: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+  #medViewDetailTable .v-textfield {
+    width: 100%;
+  }
+  #medDetailViewTitle {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  div.btnLeft {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div.btnMiddle {
+    float: left;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  div.btnRight {
+    float: right;
+    padding-left: 15px;
+    padding-right: 15px;;
+  }
+  #medButtonContainer {
+    width: 80%;
+  }
 }
