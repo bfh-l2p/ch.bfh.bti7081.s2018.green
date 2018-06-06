@@ -26,16 +26,11 @@ public class SchedulePresenter {
     private void SaveSchedule() {
     	
     	// Get data that was defined with ScheduleAddView
-<<<<<<< HEAD
-    	LocalDateTime dtfFrom = addview.getDtfFrom().getValue();
-    	LocalDateTime dtfTo = addview.getDtfTo().getValue();
-    	TextArea tfContent = addview.getTfContent();
-    	TextArea tfTitle = addview.getTfTitle();
-=======
+
     	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
     	LocalDateTime dtfTo = view.getDtfTo().getValue();
     	TextArea tfContent = view.getTfContent();
->>>>>>> master
+    	TextArea tfTitle = view.getTfTitle();
     	
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
