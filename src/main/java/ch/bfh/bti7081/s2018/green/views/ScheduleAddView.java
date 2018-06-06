@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2018.green.views;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.DateTimeField;
 import com.vaadin.ui.Notification;
@@ -16,11 +17,13 @@ public class ScheduleAddView extends CustomLayout implements View {
 
     public static final String NAME = "scheduleAdd";
 
+    // Attributes of default ScheduleAddView
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextArea tfTitle = new TextArea();
     private TextArea tfContent = new TextArea();
     private Button btnSave = new Button("Save Schedule");
+    private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
 
     @Override
     public void enter(ViewChangeEvent event) {
@@ -37,6 +40,7 @@ public class ScheduleAddView extends CustomLayout implements View {
         this.addComponent(tfTitle, "titleField");
         this.addComponent(tfContent, "contentField");
         this.addComponent(btnSave, "saveButton");
+        this.addComponent(cbRecurringEvent, "RecurringCheckBox");
 
         new SchedulePresenter(this);
     }

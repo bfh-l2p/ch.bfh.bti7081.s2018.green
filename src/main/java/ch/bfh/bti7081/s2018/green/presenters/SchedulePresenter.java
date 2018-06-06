@@ -20,13 +20,23 @@ public class SchedulePresenter {
         this.view = view;
         this.data = DataContainer.getInstance();
       
+        this.view.getDtfFrom().addValueChangeListener(valueChangeEvent -> SetToDate(view.getDtfFrom().getValue()));
+        this.view.getDtfTo().addValueChangeListener(valueChangeEvent -> SetFromDate(view.getDtfTo().getValue()));
         this.view.getBtnSave().addClickListener(clickEvent -> SaveSchedule());
     }
     
+    // Get data that was defined with ScheduleAddView
+	
+	private void SetToDate(LocalDateTime to) {
+		this.view.getDtfTo().setValue(to);
+	}
+	
+	private void SetFromDate(LocalDateTime from) {
+		this.view.getDtfFrom().setValue(from);
+	}
+    
     private void SaveSchedule() {
-    	
-    	// Get data that was defined with ScheduleAddView
-
+ 
     	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
     	LocalDateTime dtfTo = view.getDtfTo().getValue();
     	TextArea tfContent = view.getTfContent();
@@ -35,9 +45,15 @@ public class SchedulePresenter {
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
     	
-    	// Insertion
-    	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && tfTitle.isEmpty() == false ) {
-    		emSchedule.add(new Event(
+    	/* Insertion
+   	 	Including the following checks:
+   	 		-- To-Date is after From-Date
+   			-- From-Date and To-Date is on the same Day and Month
+   			-- Schedule duration is not longer than +- 8 hours
+    	*/
+    	if(dtfTo.getHour()-dtfFrom.getHour()<=8) {
+    		if (tfTitle.isEmpty() == false ) {
+    			emSchedule.add(new Event(
     								dtfFrom,
     								dtfTo,
     								tfContent.getValue(),
@@ -46,7 +62,8 @@ public class SchedulePresenter {
     								data.getCurrentStaff()
     								)
     						);
-    		NavigatorUI.navigator.navigateTo(EventListView.NAME);
+    			NavigatorUI.navigator.navigateTo(EventListView.NAME);
+    		}
     	}
     }
 }
