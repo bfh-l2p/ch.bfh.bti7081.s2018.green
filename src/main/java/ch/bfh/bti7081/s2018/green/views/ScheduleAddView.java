@@ -34,6 +34,11 @@ public class ScheduleAddView extends CustomLayout implements View {
     public void enter(ViewChangeEvent event) {
         Notification.show("Welcome to the Schedule View");
         
+        // Initially hide recurring event checkboxes
+        cbDailyRecurring.setVisible(false);
+        cbWeeklyRecurring.setVisible(false);
+        cbMonthlyRecurring.setVisible(false);
+        
         // Set initial values to fields
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
