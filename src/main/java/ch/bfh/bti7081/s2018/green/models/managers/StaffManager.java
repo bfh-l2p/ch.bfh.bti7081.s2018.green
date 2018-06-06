@@ -4,6 +4,7 @@ import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.enumerations.StaffType;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -16,16 +17,14 @@ public class StaffManager extends Manager<Staff> {
     	this.entityclass = Staff.class;
 	}
 
-	public Staff update(Staff staff) {
+	public Staff update(Staff staff) throws PersistenceException {
     	EntityTransaction updateTransaction = beginTransaction();
         manager.merge(staff);
         closeTransaction(updateTransaction);
-
         return staff;
     }
     
-    public Staff remove(Staff staff) {
-
+    public Staff remove(Staff staff) throws PersistenceException {
     	EntityTransaction updateTransaction = beginTransaction();
         manager.remove(manager.contains(staff) ? staff : manager.merge(staff));
         closeTransaction(updateTransaction);
@@ -33,7 +32,7 @@ public class StaffManager extends Manager<Staff> {
         return staff;
     }
 	
-    public List<Staff> findBy(StaffType type) {
+    public List<Staff> findBy(StaffType type) throws PersistenceException {
         CriteriaBuilder cb = manager.getCriteriaBuilder();
         CriteriaQuery<Staff> cq = cb.createQuery(Staff.class);
         Root<Staff> rootEntry = cq.from(Staff.class);

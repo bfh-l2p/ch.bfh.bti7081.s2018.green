@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
 import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
@@ -15,13 +16,13 @@ public class JournalEntryManager extends Manager<JournalEntry> {
     	this.entityclass = JournalEntry.class;
 	}
     
-    public List<JournalEntry> findBy(Staff staff) {
+    public List<JournalEntry> findBy(Staff staff) throws PersistenceException {
         TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE authorId = :authorId", entityclass);
 		query.setParameter("authorId", staff.getId());
 		return findByQuery(query);
     }
     
-    public List<JournalEntry> findBy(Patient patient) {
+    public List<JournalEntry> findBy(Patient patient) throws PersistenceException {
     	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
@@ -36,7 +37,7 @@ public class JournalEntryManager extends Manager<JournalEntry> {
         return findByQuery(query);
     }
 
-    private List<JournalEntry> findByQuery(TypedQuery<JournalEntry> query) {
+    private List<JournalEntry> findByQuery(TypedQuery<JournalEntry> query)  throws PersistenceException {
         List<JournalEntry> journalEntries = query.getResultList();
     	return journalEntries;
     }
