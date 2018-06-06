@@ -14,7 +14,6 @@ public class MedicationView extends CustomLayout implements View {
 
     public static final String NAME = "medication";
     
-    private NavigationButton btnMedicationOverview;
     private NavigationButton btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
   
@@ -30,9 +29,6 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        this.btnMedicationOverview = new NavigationButton("Medication Overview", MedicationView.NAME, this);
-        this.addComponent(this.btnMedicationOverview, "mainTab");
-
         this.btnAddMedication = new NavigationButton("New Medication", this);
         this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)) );
 
@@ -47,7 +43,6 @@ public class MedicationView extends CustomLayout implements View {
         // Allow column hiding
         grdMedicamentGridView.getColumns().stream().forEach(column -> column.setHidable(true));
 
-        grdMedicamentGridView.addColumn(Medication::getId).setCaption("ID");
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
         grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
