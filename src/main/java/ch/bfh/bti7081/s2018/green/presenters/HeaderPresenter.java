@@ -39,8 +39,8 @@ public class HeaderPresenter {
 			data.setCurrentPatient(event.getValue());
 
 			// Upon switch to other patient: Go to Patient-File
-			if(NavigatorUI.navigator != null) {
-				NavigatorUI.navigator.navigateTo(PatientFile.NAME);
+			if(data.getCurrentNavigator() != null) {
+				data.getCurrentNavigator().navigateTo(PatientFile.NAME);
 			}
 		});
 		} catch (PersistenceException e) {

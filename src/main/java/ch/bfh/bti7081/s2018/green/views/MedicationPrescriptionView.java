@@ -21,7 +21,6 @@ public class MedicationPrescriptionView extends Window implements View {
     
     public static final String NAME = "medicationPrescription";
 
-    protected Window window;
     Medication medication;
     Binder<Medication> binder;
     TextField medName = new TextField();
@@ -30,8 +29,6 @@ public class MedicationPrescriptionView extends Window implements View {
     TextField medPeriod = new TextField();
     TextField medDose = new TextField();
     TextField medPrescriberFullName = new TextField();
-    DateTimeField medRecordCreated = new DateTimeField();
-    DateTimeField medRecordModified = new DateTimeField();
     Button btnSave = new Button("Save");
     
     public MedicationPrescriptionView(Medication med) {
@@ -95,7 +92,6 @@ public class MedicationPrescriptionView extends Window implements View {
         return medPrescriberFullName;
     }
 
-  
     public DateTimeField getMedStartDate() {
         return medStartDate;
     }

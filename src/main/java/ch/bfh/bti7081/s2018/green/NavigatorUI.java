@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
@@ -13,6 +11,7 @@ import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.CustomLayout;
@@ -45,9 +44,7 @@ import javax.servlet.annotation.WebServlet;
 
 public class NavigatorUI extends UI {
 
-
-    public static Navigator navigator;
-
+    private Navigator navigator;
 
     /**
      * Entry point: Custom part of application starts here!
@@ -77,7 +74,7 @@ public class NavigatorUI extends UI {
         layout.addComponent(canvas, "appSection");
 
         // tell the navigation to use
-        navigator = new Navigator(this,canvas);
+        navigator = new Navigator(this, canvas);
 
         // Assembles all presenters/views and adds them to the navigator
         initializeClasses();
@@ -101,8 +98,6 @@ public class NavigatorUI extends UI {
 
     private CustomLayout getNavigation() {
         NavigationMenuView navMen = new NavigationMenuView();
-        // add the click listeners now
-        new NavigationMenuPresenter(navMen);
         return navMen;
     }
 
@@ -143,6 +138,12 @@ public class NavigatorUI extends UI {
         navigator.addView(EventListView.NAME, EventListView.class);
         navigator.addView(PatientFile.NAME, PatientFile.class);
         navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
+
+        try {
+            data.setCurrentNavigator(navigator);
+        } catch (IllegalAccessException ex) {
+            ErrorView.showError("navigator is already set", Page.getCurrent());
+        }
     }
 
 

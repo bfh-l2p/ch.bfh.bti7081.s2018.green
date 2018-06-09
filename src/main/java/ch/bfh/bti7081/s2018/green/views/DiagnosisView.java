@@ -7,7 +7,7 @@ import com.vaadin.ui.TextField;
 
 public class DiagnosisView extends CustomLayout implements View {
 
-    public static String NAME = "diagnosisApp";
+    public static final String NAME = "diagnosisApp";
 
     public DiagnosisView () {
         this.setTemplateName("diagnosisApp");
