@@ -15057,16 +15057,29 @@ div.v-layout.v-horizontal.v-widget {
 	box-sizing: border-box;
 }
 
+.mytheme .v-button {
+	font-weight: normal;
+	border: solid 1px #DA078B;
+	color: #DA078B;
+	background: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+.mytheme #mainPageContainer {
+	min-width: 768px;
+}
+
 .mytheme #headSection {
 	position: fixed;
 	top: 0;
 	width: 100%;
-	height: 100px;
+	height: 105px;
 }
 
 .mytheme #mainSection {
 	position: absolute;
-	top: 100px;
+	top: 105px;
 	width: 100%;
 }
 
@@ -15092,61 +15105,45 @@ div.v-layout.v-horizontal.v-widget {
 	clear: both;
 }
 
-.mytheme #mainSection {
-	min-height: 20px;
+.mytheme #headerContainer {
+	background-color: #E354AE;
+	background-image: -webkit-linear-gradient(bottom right, #E354AE, #8F5CD6);
+	background-image: linear-gradient(to top left,#E354AE, #8F5CD6);
+	padding: 1rem;
+	color: #ffffff;
+}
+
+.mytheme #siteLogo {
+	font-size: 20px;
+	font-style: 200;
+	margin-bottom: 0.5em;
 }
 
 .mytheme #headerLeft {
-	width: 50%;
 	float: left;
 }
 
 .mytheme #headerRight {
-	width: 50%;
 	float: right;
 	text-align: right;
 }
 
-.mytheme #siteLogo div {
-	font-size: 1.2rem;
-	color: #1e6b15;
-	font-weight: bold;
+.mytheme #navSection {
+	padding: 1em;
 }
 
-.mytheme #headerContainer {
-	background-color: #edeff2;
-	border-bottom: #7d7d7d 2px solid;
-	padding-bottom: 10px;
-	box-shadow: 2px 7px 5px #888888;
-}
-
-.mytheme .menuBarButton {
-	font-weight: bold;
-	border: solid 2px black;
-	padding: 5px 5px 5px 5px;
-	margin-top: 2px;
-	margin-bottom: 2px;
+.mytheme #navSection #navMenuWrapper .v-button {
 	width: 100%;
-	background-color: #edeff2;
+	margin-bottom: 0.5em;
 }
 
-.mytheme .menuBarButton:hover {
-	background-color: olivedrab;
-	color: snow;
-}
-
-.mytheme #navButton {
-	color: #ce3812;
-}
-
-.mytheme #navMenuWrapper .v-button {
-	font-weight: bold;
-	border: none;
-}
-
-.mytheme .NavVisited {
-	background-color: olivedrab;
-	color: snow;
+.mytheme #footerBar {
+	background-color: #8F5CD6;
+	background-image: -webkit-linear-gradient(bottom right, #8F5CD6, #E354AE);
+	background-image: linear-gradient(to top left,#8F5CD6, #E354AE);
+	color: #ffffff;
+	font-size: 14px;
+	padding: 0.25em 1em;
 }
 
 .mytheme #mainTab {
