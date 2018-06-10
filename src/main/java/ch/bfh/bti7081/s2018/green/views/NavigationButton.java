@@ -30,7 +30,6 @@ public class NavigationButton extends Button{
 
     private void changeStyle() {
         this.removeStyleNames("menuBarButton",".v-button", ".v-widget");
-        this.setId("navButton");
     }
     private static void setActive(NavigationButton ly, String targetViewName, AbstractComponentContainer containingView) {
         // remove all CSS styles who mark a div as visited in the whole navMenu view
