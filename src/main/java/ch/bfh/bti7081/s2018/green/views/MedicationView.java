@@ -51,6 +51,7 @@ public class MedicationView extends CustomLayout implements View {
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
         grdMedicamentGridView.setId("medicationAppGrid");
+        grdMedicamentGridView.setWidth(100, Unit.PERCENTAGE);
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
     

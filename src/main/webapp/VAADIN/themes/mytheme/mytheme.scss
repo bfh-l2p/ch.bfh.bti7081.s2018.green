@@ -25,18 +25,19 @@
 @import 'colors-pop';
 @import 'elements.scss';
 
+$width-page-min: 768px; // tablets: yes, mobiles: no
+
 @mixin mytheme {
   @include valo;
   @include elements;
 
   // layout
   #mainPageContainer {
-    min-width: 768px; // tablets: yes, mobiles: no
-
     #headSection {
       position: fixed;
       top: 0;
       width: 100%;
+      min-width: $width-page-min;
       height: 105px;
     }
 
@@ -44,22 +45,25 @@
       position: absolute;
       top: 105px;
       width: 100%;
+      min-width: $width-page-min;
     }
 
     #footerSection {
       position: fixed;
       bottom: 0;
       width: 100%;
+      min-width: $width-page-min;
     }
 
     #navSection {
       float: left;
-      min-width: 150px;
+      width: 150px;
     }
 
     #appSection {
       float: left;
       min-width: 600px;
+      width: calc(100% - 150px);
     }
   }
 
