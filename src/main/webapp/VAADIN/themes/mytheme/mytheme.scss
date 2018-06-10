@@ -34,56 +34,50 @@
 @mixin mytheme {
   @include valo;
 
-  .card {
-    background: #fff;
-    border-radius: 2px;
-    display: inline-block;
-    margin: 0.5rem;
-    position: relative;
-    width: 300px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-    padding: 1rem;
+  * {
+    box-sizing: border-box;
   }
-  // Insert your own theme rules here
 
+  // layout
   #mainPageContainer {
-    width: 100%;
-    height: 100%;
-    padding: 0px;
-    margin: 0px;
-    background: url("img/app_mainBG1.jpg");
+    min-width: 768px; // tablets: yes, mobiles: no
   }
-  //rules for base layout containers
+
   #headSection {
-    padding-bottom: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100px;
+  }
+
+  #mainSection {
+    position: absolute;
+    top: 100px;
+    width: 100%;
   }
 
   #footerSection {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: lightsalmon;
-    color: #1156a8;
-    font-size: 1.2rem;
   }
 
   #navSection {
     float: left;
     min-width: 150px;
   }
+
   #appSection {
     float: left;
     min-width: 600px;
   }
+
   .clearFloat:after {
     content: "";
     display: table;
     clear: both;
   }
-  #mainSection {
-    min-height: 20px;
-  }
+
   //container views based rules
   #headerLeft {
     width:50%;
@@ -209,4 +203,20 @@
   #medButtonContainer {
     width: 80%;
   }
+
+
+
+
+  .card {
+    background: #fff;
+    border-radius: 2px;
+    display: inline-block;
+    margin: 0.5rem;
+    position: relative;
+    width: 300px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    padding: 1rem;
+  }
+  // Insert your own theme rules here
 }

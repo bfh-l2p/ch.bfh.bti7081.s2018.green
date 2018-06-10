@@ -15053,37 +15053,27 @@ div.v-layout.v-horizontal.v-widget {
 	overflow: hidden;
 }
 
-.mytheme .card {
-	background: #fff;
-	border-radius: 2px;
-	display: inline-block;
-	margin: 0.5rem;
-	position: relative;
-	width: 300px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-	padding: 1rem;
-}
-
-.mytheme #mainPageContainer {
-	width: 100%;
-	height: 100%;
-	padding: 0px;
-	margin: 0px;
-	background: url("img/app_mainBG1.jpg");
+.mytheme * {
+	box-sizing: border-box;
 }
 
 .mytheme #headSection {
-	padding-bottom: 20px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100px;
+}
+
+.mytheme #mainSection {
+	position: absolute;
+	top: 100px;
+	width: 100%;
 }
 
 .mytheme #footerSection {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	background-color: lightsalmon;
-	color: #1156a8;
-	font-size: 1.2rem;
 }
 
 .mytheme #navSection {
@@ -15236,4 +15226,16 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme #medButtonContainer {
 	width: 80%;
+}
+
+.mytheme .card {
+	background: #fff;
+	border-radius: 2px;
+	display: inline-block;
+	margin: 0.5rem;
+	position: relative;
+	width: 300px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	padding: 1rem;
 }
