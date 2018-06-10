@@ -89,9 +89,29 @@
   #navSection {
     padding: 1em;
 
+    *:focus,
+    *:focus:after {
+      outline: none;
+      border: none;
+      box-shadow: none;
+    }
+
     #navMenuWrapper .v-button {
-      width: 100%;
-      margin-bottom: 0.5em;
+      background: none;
+      color: $color-link;
+      text-align: left;
+      padding: 0;
+
+      &:hover,
+      .NavVisited,
+      &:after {
+        background: none;
+        text-decoration: underline;
+      }
+
+      &:focus {
+        text-decoration: underline;
+      }
     }
   }
 
