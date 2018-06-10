@@ -122,17 +122,20 @@
     text-align: right;
   }
 
-  #siteLogo div {
-    font-size: 1.2rem;
-    color: #1e6b15;
-    font-weight: bold;
+  // navigation
+  #navSection {
+
   }
 
-  #headerContainer {
-    background-color: #edeff2;
-    border-bottom: #7d7d7d 2px solid;
-    padding-bottom: 10px;
-    box-shadow: 2px 7px 5px #888888;
+  // main canvas
+  #appSection {}
+
+  // footer
+  #footerBar {
+    @include linear-gradient(to top left, $color-secondary-1-2, $color-primary-2);
+    color: $color-font-secondary;
+    font-size: $v-font-size--small;
+    padding: 0.25em 1em;
   }
 
   .menuBarButton {
