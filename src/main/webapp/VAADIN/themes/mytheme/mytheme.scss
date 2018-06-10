@@ -1,34 +1,26 @@
 // If you edit this file you need to compile the theme. See README.md for details.
-
 // Global variable overrides. Must be declared before importing Valo.
-
 // Defines the plaintext font size, weight and family. Font size affects general component sizing.
 //$v-font-size: 16px;
 //$v-font-weight: 300;
 //$v-font-family: "Open Sans", sans-serif;
-
 // Defines the border used by all components.
 //$v-border: 1px solid (v-shade 0.7);
 //$v-border-radius: 4px;
-
 // Affects the color of some component elements, e.g Button, Panel title, etc
 //$v-background-color: hsl(210, 0%, 98%);
 // Affects the color of content areas, e.g  Panel and Window content, TextField input etc
 //$v-app-background-color: $v-background-color;
-
 // Affects the visual appearance of all components
 //$v-gradient: v-linear 8%;
 //$v-bevel-depth: 30%;
 //$v-shadow-opacity: 5%;
-
 // Defines colors for indicating status (focus, success, failure)
 //$v-focus-color: valo-focus-color(); // Calculates a suitable color automatically
 //$v-friendly-color: #2c9720;
 //$v-error-indicator-color: #ed473b;
-
 // For more information, see: https://vaadin.com/book/-/page/themes.valo.html
 // Example variants can be copy/pasted from https://vaadin.com/wiki/-/wiki/Main/Valo+Examples
-
 @import "../valo/valo.scss";
 @import 'colors.scss';
 @import 'elements.scss';
@@ -40,41 +32,35 @@
   // layout
   #mainPageContainer {
     min-width: 768px; // tablets: yes, mobiles: no
-  }
 
-  #headSection {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 105px;
-  }
+    #headSection {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 105px;
+    }
 
-  #mainSection {
-    position: absolute;
-    top: 105px;
-    width: 100%;
-  }
+    #mainSection {
+      position: absolute;
+      top: 105px;
+      width: 100%;
+    }
 
-  #footerSection {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
+    #footerSection {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
 
-  #navSection {
-    float: left;
-    min-width: 150px;
-  }
+    #navSection {
+      float: left;
+      min-width: 150px;
+    }
 
-  #appSection {
-    float: left;
-    min-width: 600px;
-  }
-
-  .clearFloat:after {
-    content: "";
-    display: table;
-    clear: both;
+    #appSection {
+      float: left;
+      min-width: 600px;
+    }
   }
 
   // header
@@ -82,48 +68,57 @@
     @include linear-gradient(to top left, $color-primary-2, $color-secondary-1-2);
     padding: 1rem;
     color: $color-font-secondary;
-  }
 
-  #siteLogo {
-    font-size: $v-font-size--large;
-    font-style: $v-font-weight--header;
-    margin-bottom: 0.5em;
-  }
+    #siteLogo {
+      font-size: $v-font-size--large;
+      font-style: $v-font-weight--header;
+      margin-bottom: 0.5em;
+    }
 
-  #headerLeft {
-    float:left;
-  }
-  #headerRight {
-    float:right;
-    text-align: right;
+    #headerLeft {
+      float: left;
+    }
+
+    #headerRight {
+      float: right;
+      text-align: right;
+    }
   }
 
   // navigation
   #navSection {
+    padding: 1em;
 
+    #navMenuWrapper .v-button {
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
   }
 
   // main canvas
-  #appSection {}
+  #appSection {
+  }
 
   // footer
-  #footerBar {
-    @include linear-gradient(to top left, $color-secondary-1-2, $color-primary-2);
-    color: $color-font-secondary;
-    font-size: $v-font-size--small;
-    padding: 0.25em 1em;
+  #footerSection {
+    #footerBar {
+      @include linear-gradient(to top left, $color-secondary-1-2, $color-primary-2);
+      color: $color-font-secondary;
+      font-size: $v-font-size--small;
+      padding: 0.25em 1em;
+    }
   }
 
   // medicationApp Styles
   #mainTab {
-    width:200px;
-    float:left;
+    width: 200px;
+    float: left;
     border: 1px solid black;
     background-color: #edeff2;
   }
   #addMedicationTab {
-    width:200px;
-    float:left;
+    width: 200px;
+    float: left;
     border: 1px solid black;
     background-color: #edeff2;
   }
@@ -133,7 +128,7 @@
   }
 
   #medicationAppGrid {
-    min-width:900px;
+    min-width: 900px;
     //border: 1px solid red;
   }
 
@@ -151,7 +146,7 @@
     margin: 15px 10px 10px 10px;
   }
   .medDetailViewData {
-    float:right;
+    float: right;
   }
   .medDetailViewDescription {
     font-weight: bold;
@@ -188,9 +183,6 @@
     width: 80%;
   }
 
-
-
-
   .card {
     background: #fff;
     border-radius: 2px;
@@ -198,8 +190,8 @@
     margin: 0.5rem;
     position: relative;
     width: 300px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     padding: 1rem;
   }
   // Insert your own theme rules here

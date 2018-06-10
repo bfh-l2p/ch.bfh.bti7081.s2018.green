@@ -11,4 +11,10 @@
     box-shadow: none;
     text-shadow: none;
   }
+
+  .clearFloat:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }

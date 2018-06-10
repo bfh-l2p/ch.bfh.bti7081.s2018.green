@@ -15066,43 +15066,43 @@ div.v-layout.v-horizontal.v-widget {
 	text-shadow: none;
 }
 
+.mytheme .clearFloat:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
 .mytheme #mainPageContainer {
 	min-width: 768px;
 }
 
-.mytheme #headSection {
+.mytheme #mainPageContainer #headSection {
 	position: fixed;
 	top: 0;
 	width: 100%;
 	height: 105px;
 }
 
-.mytheme #mainSection {
+.mytheme #mainPageContainer #mainSection {
 	position: absolute;
 	top: 105px;
 	width: 100%;
 }
 
-.mytheme #footerSection {
+.mytheme #mainPageContainer #footerSection {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
 }
 
-.mytheme #navSection {
+.mytheme #mainPageContainer #navSection {
 	float: left;
 	min-width: 150px;
 }
 
-.mytheme #appSection {
+.mytheme #mainPageContainer #appSection {
 	float: left;
 	min-width: 600px;
-}
-
-.mytheme .clearFloat:after {
-	content: "";
-	display: table;
-	clear: both;
 }
 
 .mytheme #headerContainer {
@@ -15113,17 +15113,17 @@ div.v-layout.v-horizontal.v-widget {
 	color: #ffffff;
 }
 
-.mytheme #siteLogo {
+.mytheme #headerContainer #siteLogo {
 	font-size: 20px;
 	font-style: 200;
 	margin-bottom: 0.5em;
 }
 
-.mytheme #headerLeft {
+.mytheme #headerContainer #headerLeft {
 	float: left;
 }
 
-.mytheme #headerRight {
+.mytheme #headerContainer #headerRight {
 	float: right;
 	text-align: right;
 }
@@ -15137,7 +15137,7 @@ div.v-layout.v-horizontal.v-widget {
 	margin-bottom: 0.5em;
 }
 
-.mytheme #footerBar {
+.mytheme #footerSection #footerBar {
 	background-color: #8F5CD6;
 	background-image: -webkit-linear-gradient(bottom right, #8F5CD6, #E354AE);
 	background-image: linear-gradient(to top left,#8F5CD6, #E354AE);
