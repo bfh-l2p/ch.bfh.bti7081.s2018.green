@@ -45,8 +45,8 @@ public class MedicationView extends CustomLayout implements View {
 
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
-        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
-        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("End of");
+        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start");
+        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("Stop");
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");

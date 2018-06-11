@@ -11,7 +11,10 @@ import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.List;
+import java.util.Locale;
 
 public class JournalView extends CustomLayout implements View {
 
@@ -44,7 +47,8 @@ public class JournalView extends CustomLayout implements View {
         
         addLabel(journalEntryLayout, "content", journalEntry.getContent());
         addLabel(journalEntryLayout, "author", journalEntry.getStaff().getFullName());
-        addLabel(journalEntryLayout, "created", journalEntry.getCreated().toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy HH:mm").withLocale(Locale.GERMAN);
+        addLabel(journalEntryLayout, "created", journalEntry.getCreated().format(formatter));
 
         journalEntryList.addComponentAsFirst(journalEntryLayout);
     }
