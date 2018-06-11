@@ -63,12 +63,7 @@ public class DataContainer {
 
     public Navigator getCurrentNavigator() { return navigator; }
 
-    public void setCurrentNavigator(Navigator navigator) throws IllegalAccessException {
-        if (this.navigator == null) {
-            this.navigator = navigator;
-        }
-        else {
-            throw new IllegalAccessException("navigator already exists");
-        }
+    public void setCurrentNavigator(Navigator navigator) {
+        this.navigator = navigator;
     }
 }

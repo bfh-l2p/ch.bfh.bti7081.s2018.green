@@ -11,7 +11,6 @@ import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.CustomLayout;
@@ -139,11 +138,7 @@ public class NavigatorUI extends UI {
         navigator.addView(PatientFile.NAME, PatientFile.class);
         navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
 
-        try {
-            data.setCurrentNavigator(navigator);
-        } catch (IllegalAccessException ex) {
-            ErrorView.showError("navigator is already set", Page.getCurrent());
-        }
+        data.setCurrentNavigator(navigator);
     }
 
 
