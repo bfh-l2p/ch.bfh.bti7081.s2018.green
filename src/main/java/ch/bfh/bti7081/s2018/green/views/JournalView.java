@@ -1,26 +1,25 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
-import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Locale;
+
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.VerticalLayout;
 
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.List;
-import java.util.Locale;
+import ch.bfh.bti7081.s2018.green.models.entities.JournalEntry;
+import ch.bfh.bti7081.s2018.green.presenters.JournalPresenter;
 
 public class JournalView extends CustomLayout implements View {
 
     public static final String NAME = "journal";
 
-    private Button btnSave = new Button("Save");
+    private Button btnSave = new Button("Save journal entry");
     private TextArea txtEntry = new TextArea();
     private VerticalLayout journalEntryList;
 

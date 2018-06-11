@@ -29,7 +29,7 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        this.btnAddMedication = new NavigationButton("New Medication", this);
+        this.btnAddMedication = new NavigationButton("New medication", this);
         this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)) );
 
         this.addComponent(this.btnAddMedication, "addMedicationTab");

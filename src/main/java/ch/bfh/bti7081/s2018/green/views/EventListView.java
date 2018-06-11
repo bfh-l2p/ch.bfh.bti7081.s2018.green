@@ -17,7 +17,7 @@ public class EventListView extends CustomLayout implements View {
 
     public static final String NAME = "events";
 
-    private Button btnNew = new Button("Neuer Termin");
+    private Button btnNew = new Button("New appointment");
     private VerticalLayout eventList;
 
     @Override
