@@ -7,22 +7,24 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.DateTimeField;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.Window;
 
-import ch.bfh.bti7081.s2018.green.helper.IntegerTextfield;
 import ch.bfh.bti7081.s2018.green.presenters.SchedulePresenter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class ScheduleAddView extends CustomLayout implements View {
+public class ScheduleAddView extends Window implements View {
 
     public static final String NAME = "scheduleAdd";
 
     // Attributes of default ScheduleAddView
+    protected Window window;
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
@@ -30,11 +32,6 @@ public class ScheduleAddView extends CustomLayout implements View {
     private Button btnSave = new Button("Save Schedule");
     private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
     RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
-    private TextField tfInterval = new TextField();
-    
-    // Helper-Item
-    private IntegerTextfield intTf= new IntegerTextfield();
-    
 
     @Override
     public void enter(ViewChangeEvent event) {
@@ -46,16 +43,21 @@ public class ScheduleAddView extends CustomLayout implements View {
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
         
+        Panel panel = new Panel("This is a Panel");
+        CustomLayout panelContent = new CustomLayout("scheduleAdd");
+        setModal(true);
         
         // Place Java-Components in HTML DIVs 
-        this.setTemplateName("scheduleAdd");
-        this.addComponent(dtfFrom, "fromField");
-        this.addComponent(dtfTo, "toField");
-        this.addComponent(tfTitle, "titleField");
-        this.addComponent(tfContent, "contentField");
-        this.addComponent(btnSave, "saveButton");
-        this.addComponent(cbRecurringEvent, "RecurringCheckBox");
-        this.addComponent(rbgSetRecurringInterval, "IntervalRadioButtonGroup");
+        //this.setTemplateName("scheduleAdd");
+        panelContent.addComponent(dtfFrom, "fromField");
+        panelContent.addComponent(dtfTo, "toField");
+        panelContent.addComponent(tfTitle, "titleField");
+        panelContent.addComponent(tfContent, "contentField");
+        panelContent.addComponent(btnSave, "saveButton");
+        panelContent.addComponent(cbRecurringEvent, "RecurringCheckBox");
+        panelContent.addComponent(rbgSetRecurringInterval, "IntervalRadioButtonGroup");
+        panel.setContent(panelContent);
+        setContent(panel);
 
         new SchedulePresenter(this);
     }
