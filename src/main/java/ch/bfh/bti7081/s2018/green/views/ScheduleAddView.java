@@ -7,8 +7,11 @@ import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.DateTimeField;
 import com.vaadin.ui.Notification;
+import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextArea;
+import com.vaadin.ui.TextField;
 
+import ch.bfh.bti7081.s2018.green.helper.IntegerTextfield;
 import ch.bfh.bti7081.s2018.green.presenters.SchedulePresenter;
 
 import java.time.LocalDateTime;
@@ -22,26 +25,27 @@ public class ScheduleAddView extends CustomLayout implements View {
     // Attributes of default ScheduleAddView
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
-    private TextArea tfTitle = new TextArea();
+    private TextField tfTitle = new TextField();
     private TextArea tfContent = new TextArea();
     private Button btnSave = new Button("Save Schedule");
     private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
-    private CheckBox cbDailyRecurring = new CheckBox("Daily");
-    private CheckBox cbWeeklyRecurring = new CheckBox("Weekly");
-    private CheckBox cbMonthlyRecurring = new CheckBox("Monthly");
+    RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
+    private TextField tfInterval = new TextField();
+    
+    // Helper-Item
+    private IntegerTextfield intTf= new IntegerTextfield();
+    
 
     @Override
     public void enter(ViewChangeEvent event) {
         Notification.show("Welcome to the Schedule View");
         
-        // Initially hide recurring event checkboxes
-        cbDailyRecurring.setVisible(false);
-        cbWeeklyRecurring.setVisible(false);
-        cbMonthlyRecurring.setVisible(false);
-        
         // Set initial values to fields
+        rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
+        rbgSetRecurringInterval.setEnabled(false);
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
+        
         
         // Place Java-Components in HTML DIVs 
         this.setTemplateName("scheduleAdd");
@@ -51,31 +55,21 @@ public class ScheduleAddView extends CustomLayout implements View {
         this.addComponent(tfContent, "contentField");
         this.addComponent(btnSave, "saveButton");
         this.addComponent(cbRecurringEvent, "RecurringCheckBox");
-        this.addComponent(cbDailyRecurring, "DailyCheckBox");
-        this.addComponent(cbWeeklyRecurring, "WeeklyCheckBox");
-        this.addComponent(cbMonthlyRecurring, "MonthlyCheckBox");
+        this.addComponent(rbgSetRecurringInterval, "IntervalRadioButtonGroup");
 
         new SchedulePresenter(this);
     }
     
-    public DateTimeField getDtfFrom() {
+    public RadioButtonGroup<String> getRbgSetRecurringInterval() {
+		return rbgSetRecurringInterval;
+	}
+
+	public DateTimeField getDtfFrom() {
         return dtfFrom;
     }
 
     public CheckBox getCbRecurringEvent() {
 		return cbRecurringEvent;
-	}
-
-	public CheckBox getCbDailyRecurring() {
-		return cbDailyRecurring;
-	}
-
-	public CheckBox getCbWeeklyRecurring() {
-		return cbWeeklyRecurring;
-	}
-
-	public CheckBox getCbMonthlyRecurring() {
-		return cbMonthlyRecurring;
 	}
 
 	public DateTimeField getDtfTo() {
@@ -90,7 +84,7 @@ public class ScheduleAddView extends CustomLayout implements View {
         return tfContent;
     }
     
-    public TextArea getTfTitle() {
+    public TextField getTfTitle() {
         return tfTitle;
     }
     

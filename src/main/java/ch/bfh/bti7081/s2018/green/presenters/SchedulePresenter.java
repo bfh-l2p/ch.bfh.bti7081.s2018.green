@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2018.green.presenters;
 import java.time.LocalDateTime;
 
 import com.vaadin.ui.TextArea;
+import com.vaadin.ui.TextField;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
@@ -37,14 +38,9 @@ public class SchedulePresenter {
 	}
 	
 	private void SetVisibility() {
-		if(this.view.getCbRecurringEvent().getValue()==true) {
-			this.view.getCbDailyRecurring().setVisible(true);
-			this.view.getCbWeeklyRecurring().setVisible(true);
-			this.view.getCbMonthlyRecurring().setVisible(true);
+		if(this.view.getRbgSetRecurringInterval().isEnabled()==false) {
+			this.view.getRbgSetRecurringInterval().setEnabled(true);
 		}
-		this.view.getCbDailyRecurring().setVisible(false);
-		this.view.getCbWeeklyRecurring().setVisible(false);
-		this.view.getCbMonthlyRecurring().setVisible(false);
 	}
     
     private void SaveSchedule() {
@@ -53,7 +49,7 @@ public class SchedulePresenter {
     	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
     	LocalDateTime dtfTo = view.getDtfTo().getValue();
     	TextArea tfContent = view.getTfContent();
-    	TextArea tfTitle = view.getTfTitle();
+    	TextField tfTitle = view.getTfTitle();
     	
     	// Prepare persistance
     	EventManager emSchedule = new EventManager();
