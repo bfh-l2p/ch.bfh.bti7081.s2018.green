@@ -47,6 +47,12 @@ public class AddEventView extends Window implements View {
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
         tfIntervals.setReadOnly(true);
+        rbgSetRecurringInterval.setEnabled(false);
+        lbIntervals.setEnabled(false);
+        btnIncInt.setEnabled(false);
+        btnDecInt.setEnabled(false);
+        tfIntervals.setEnabled(false);
+        
         
         Panel panel = new Panel("Add an Event");
         CustomLayout panelContent = new CustomLayout("eventAdd");
@@ -74,7 +80,11 @@ public class AddEventView extends Window implements View {
         new AddEventPresenter(this);
     }
     
-    public Label getLbIntervals() {
+    public TextField getTfIntervals() {
+		return tfIntervals;
+	}
+
+	public Label getLbIntervals() {
 		return lbIntervals;
 	}
     

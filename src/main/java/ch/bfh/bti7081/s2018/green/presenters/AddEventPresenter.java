@@ -27,9 +27,10 @@ public class AddEventPresenter {
 
 		this.view.getDtfFrom().addValueChangeListener(valueChangeEvent -> SetToDate(view.getDtfFrom().getValue()));
 		this.view.getDtfTo().addValueChangeListener(valueChangeEvent -> SetFromDate(view.getDtfTo().getValue()));
-		this.view.getBtnSave().addClickListener(clickEvent -> SaveSchedule());
+		this.view.getBtnSave().addClickListener(clickEvent -> Save());
 		this.view.getBtnIncInt().addClickListener(clickEvent -> IncreaseIntervals());
 		this.view.getBtnDecInt().addClickListener(clickEvent -> DecreaseIntervals());
+		this.view.getCbRecurringEvent().addValueChangeListener(valueChangeEvent -> SetVisibility(this.view.getCbRecurringEvent().getValue()));
 	}
 
 	// Update DateTimeFields without impacting Time when changing Dates
@@ -53,14 +54,74 @@ public class AddEventPresenter {
 		}
 		this.view.setTfIntervals(this.view.getIntervals());
 	}
+	
+	private void SetVisibility(boolean state) {
+		this.view.getRbgSetRecurringInterval().setEnabled(state);
+	    this.view.getLbIntervals().setEnabled(state);
+	    this.view.getBtnIncInt().setEnabled(state);
+	    this.view.getBtnDecInt().setEnabled(state);
+	    this.view.getTfIntervals().setEnabled(state);
+	}
 
-	private void SaveSchedule() {
- 
-    	// Get data that was defined with ScheduleAddView
-    	LocalDateTime dtfFrom = view.getDtfFrom().getValue();
-    	LocalDateTime dtfTo = view.getDtfTo().getValue();
-    	TextArea tfContent = view.getTfContent();
-    	TextField tfTitle = view.getTfTitle();
+	private void Save() {
+		if(this.view.getCbRecurringEvent().getValue()==true && this.view.getIntervals()==0) {
+			ErrorView.showError("Please set an interval, if you want to add a recurring event", Page.getCurrent());
+		}
+		if(this.view.getCbRecurringEvent().getValue()==false) {
+			SaveSchedule(	
+				view.getDtfFrom().getValue(),
+				view.getDtfTo().getValue(),
+				view.getTfContent(),
+				view.getTfTitle()
+			);
+		}
+		if(this.view.getRbgSetRecurringInterval().isSelected("Daily") && this.view.getIntervals()>0) {
+			int toAdd = this.view.getIntervals();
+			int days = 0;
+			while(toAdd>0) {
+				SaveSchedule(	
+					view.getDtfFrom().getValue().plusDays(days),
+					view.getDtfTo().getValue().plusDays(days),
+					view.getTfContent(),
+					view.getTfTitle()
+				);
+				toAdd--;
+				days++;
+			}
+		}
+		if(this.view.getRbgSetRecurringInterval().isSelected("Weekly") && this.view.getIntervals()>0) {
+			int toAdd = this.view.getIntervals();
+			int weeks = 0;
+			while(toAdd>0) {
+				SaveSchedule(	
+					view.getDtfFrom().getValue().plusWeeks(weeks),
+					view.getDtfTo().getValue().plusWeeks(weeks),
+					view.getTfContent(),
+					view.getTfTitle()
+				);
+				toAdd--;
+				weeks++;
+			}
+		}
+		if(this.view.getRbgSetRecurringInterval().isSelected("Monthly") && this.view.getIntervals()>0) {
+			int toAdd = this.view.getIntervals();
+			int months = 0;
+			while(toAdd>0) {
+				SaveSchedule(	
+					view.getDtfFrom().getValue().plusMonths(months),
+					view.getDtfTo().getValue().plusMonths(months),
+					view.getTfContent(),
+					view.getTfTitle()
+				);
+				toAdd--;
+				months++;
+			}
+		}
+	}
+	private void SaveSchedule(	LocalDateTime dtfFrom,
+								LocalDateTime dtfTo,
+								TextArea tfContent,
+								TextField tfTitle) {
     	
     	// Prepare persistence
     	EventManager emSchedule = new EventManager();
