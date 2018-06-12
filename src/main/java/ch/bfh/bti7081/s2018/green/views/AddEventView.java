@@ -53,12 +53,12 @@ public class AddEventView extends Window implements View {
         btnDecInt.setEnabled(false);
         tfIntervals.setEnabled(false);
         
-        
+        // Prepare panel container to fill in items
         Panel panel = new Panel("Add an Event");
         CustomLayout panelContent = new CustomLayout("eventAdd");
         setModal(true);
         
-        // Place Java-Components in HTML DIVs fromLabel
+        // Place Java-Components in HTML DIVs
         panelContent.addComponent(lbFrom, "fromLabel");
         panelContent.addComponent(lbTo, "toLabel");
         panelContent.addComponent(lbTitle, "titleLabel");
@@ -80,6 +80,7 @@ public class AddEventView extends Window implements View {
         new AddEventPresenter(this);
     }
     
+    // Used Getters and Setters including some basic increase and decrease functions to set interval  
     public TextField getTfIntervals() {
 		return tfIntervals;
 	}

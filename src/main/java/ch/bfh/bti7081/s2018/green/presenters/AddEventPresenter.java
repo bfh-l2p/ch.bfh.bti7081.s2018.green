@@ -43,6 +43,7 @@ public class AddEventPresenter {
 				.withMinute(this.view.getDtfFrom().getValue().getMinute()));
 	}
 	
+	// Change count of interval for recurring events
 	private void IncreaseIntervals() {
 		this.view.incIntervals();
 		this.view.setTfIntervals(this.view.getIntervals());
@@ -55,6 +56,7 @@ public class AddEventPresenter {
 		this.view.setTfIntervals(this.view.getIntervals());
 	}
 	
+	// Make items for recurring events visible or hide them, depended on the checkboxvalue
 	private void SetVisibility(boolean state) {
 		this.view.getRbgSetRecurringInterval().setEnabled(state);
 	    this.view.getLbIntervals().setEnabled(state);
@@ -63,10 +65,16 @@ public class AddEventPresenter {
 	    this.view.getTfIntervals().setEnabled(state);
 	}
 
+	// Save-type decider who's checking if a normal or a recurring event should be saved
+	// if it is a recurring event, there's a if-statement for any kind of recurrence type
 	private void Save() {
+		
+		// Interval miss-match check
 		if(this.view.getCbRecurringEvent().getValue()==true && this.view.getIntervals()==0) {
 			ErrorView.showError("Please set an interval, if you want to add a recurring event", Page.getCurrent());
 		}
+		
+		// Trigger save event for a normal event
 		if(this.view.getCbRecurringEvent().getValue()==false) {
 			SaveSchedule(	
 				view.getDtfFrom().getValue(),
@@ -75,6 +83,9 @@ public class AddEventPresenter {
 				view.getTfTitle()
 			);
 		}
+		
+		// Trigger save event for a daily recurring event
+		// the configured timespan always stays the same
 		if(this.view.getRbgSetRecurringInterval().isSelected("Daily") && this.view.getIntervals()>0) {
 			int toAdd = this.view.getIntervals();
 			int days = 0;
@@ -89,6 +100,9 @@ public class AddEventPresenter {
 				days++;
 			}
 		}
+		
+		// Trigger save event for a weekly recurring event
+		// the configured timespan always stays the same
 		if(this.view.getRbgSetRecurringInterval().isSelected("Weekly") && this.view.getIntervals()>0) {
 			int toAdd = this.view.getIntervals();
 			int weeks = 0;
@@ -103,6 +117,9 @@ public class AddEventPresenter {
 				weeks++;
 			}
 		}
+		
+		// Trigger save event for a monthly recurring event
+		// the configured timespan always stays the same
 		if(this.view.getRbgSetRecurringInterval().isSelected("Monthly") && this.view.getIntervals()>0) {
 			int toAdd = this.view.getIntervals();
 			int months = 0;
@@ -118,12 +135,15 @@ public class AddEventPresenter {
 			}
 		}
 	}
-	private void SaveSchedule(	LocalDateTime dtfFrom,
-								LocalDateTime dtfTo,
-								TextArea tfContent,
-								TextField tfTitle) {
+	
+	// General save-function who's saving the given data in persistance layer
+	private void SaveSchedule(	
+			LocalDateTime dtfFrom,
+			LocalDateTime dtfTo,
+			TextArea tfContent,
+			TextField tfTitle) {
     	
-    	// Prepare persistence
+    	// Prepare persistence by getting the the suitable Manager Object 
     	EventManager emSchedule = new EventManager();
     	
     	/* Insertion
