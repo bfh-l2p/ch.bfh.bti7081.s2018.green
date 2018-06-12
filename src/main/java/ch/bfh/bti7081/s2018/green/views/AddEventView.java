@@ -1,40 +1,45 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import com.vaadin.data.Binder;
 import com.vaadin.navigator.View;
-import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CheckBox;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.DateTimeField;
-import com.vaadin.ui.Notification;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.RadioButtonGroup;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.presenters.AddEventPresenter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class ScheduleAddView extends Window implements View {
+public class AddEventView extends Window implements View {
 
-    public static final String NAME = "scheduleAdd";
+    public static final String NAME = "eventAdd";
 
     // Attributes of default ScheduleAddView
+    private int intervals=0;
+    private Label lbFrom = new Label("Event begins at:");
+    private Label lbTo = new Label("Event ends at:");
+    private Label lbTitle = new Label("Title");
+    private Label lbContent = new Label("Reason of event and notes:");
+    private Label lbIntervals = new Label(""+intervals);
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
     private TextArea tfContent = new TextArea();
-    private Button btnSave = new Button("Save Schedule");
+    private Button btnSave = new Button("Save Event");
+    private Button btnIncInt = new Button("+");
+    private Button btnDecInt = new Button("-");
     private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
     RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
 
-    public ScheduleAddView() {
+    public AddEventView() {
     	
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
@@ -42,11 +47,15 @@ public class ScheduleAddView extends Window implements View {
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
         
-        Panel panel = new Panel("This is a Panel");
-        CustomLayout panelContent = new CustomLayout("scheduleAdd");
+        Panel panel = new Panel("Add an Event");
+        CustomLayout panelContent = new CustomLayout("eventAdd");
         setModal(true);
         
-        // Place Java-Components in HTML DIVs 
+        // Place Java-Components in HTML DIVs fromLabel
+        panelContent.addComponent(lbFrom, "fromLabel");
+        panelContent.addComponent(lbTo, "toLabel");
+        panelContent.addComponent(lbTitle, "titleLabel");
+        panelContent.addComponent(lbContent, "contentLabel");
         panelContent.addComponent(dtfFrom, "fromField");
         panelContent.addComponent(dtfTo, "toField");
         panelContent.addComponent(tfTitle, "titleField");

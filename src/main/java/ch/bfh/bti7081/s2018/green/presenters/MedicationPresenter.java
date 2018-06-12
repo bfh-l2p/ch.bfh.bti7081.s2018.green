@@ -12,7 +12,7 @@ import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

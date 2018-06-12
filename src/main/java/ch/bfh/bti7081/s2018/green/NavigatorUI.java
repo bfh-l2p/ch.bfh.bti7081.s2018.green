@@ -23,7 +23,7 @@ import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
 
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -142,7 +142,7 @@ public class NavigatorUI extends UI {
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
         navigator.addView(PatientFile.NAME, PatientFile.class);
-        navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
+        navigator.addView(AddEventView.NAME, AddEventView.class);
     }
 
 

@@ -14,14 +14,14 @@ import ch.bfh.bti7081.s2018.green.models.entities.Event;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 public class AddEventPresenter {
 
-	private ScheduleAddView view;
+	private AddEventView view;
 	private DataContainer data;
 
-	public AddEventPresenter(ScheduleAddView view) {
+	public AddEventPresenter(AddEventView view) {
 		this.view = view;
 		this.data = DataContainer.getInstance();
 

@@ -12,7 +12,7 @@ import ch.bfh.bti7081.s2018.green.models.entities.Event;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 public class EventListPresenter {
 
@@ -26,7 +26,7 @@ public class EventListPresenter {
 		enteredView();
 
 		this.view.getBtnNew().addClickListener(
-				clickEvent -> {ScheduleAddView scheduleAddView = new ScheduleAddView(); this.view.getUI().addWindow(scheduleAddView);}
+				clickEvent -> {AddEventView scheduleAddView = new AddEventView(); this.view.getUI().addWindow(scheduleAddView);}
 		);
 	}
 
