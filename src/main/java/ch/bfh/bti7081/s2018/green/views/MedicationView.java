@@ -52,8 +52,7 @@ public class MedicationView extends CustomLayout implements View {
         this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null, false)) );
 
         this.addComponent(this.btnAddMedication, "addMedicationTab");
-        // @ToDO: add a toggle switch here to display expired (or "disabled") medications
-        
+
         showExpired.addStyleName("compact");
         this.addComponent(showExpired, "showExpired");
 
