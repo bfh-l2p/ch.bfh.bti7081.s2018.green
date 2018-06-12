@@ -15,7 +15,6 @@ public class PersonTest {
 
     @Test
     public void testPerson() throws ClassNotFoundException, ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         LocalDate dob = LocalDate.of(1989, 1, 20);
         Person person = new Person(
                 "testestCyrill",
