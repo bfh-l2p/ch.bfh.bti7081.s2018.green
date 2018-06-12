@@ -40,17 +40,11 @@ public class NavigationMenuView extends CustomLayout implements View{
 
         this.setTemplateName("navmenu");
 
-        this.btnPatFile = new NavigationButton("Patient File", PatientFile.NAME, this );
-        this.addComponent(this.btnPatFile, "navMenuPatFile");
-
         this.btnJournal = new NavigationButton("Journal", JournalView.NAME, this);
         this.addComponent(this.btnJournal, "navMenuJournal");
 
         this.btnMedication = new NavigationButton("Medication", MedicationView.NAME, this);
         this.addComponent(this.btnMedication, "navMenuMedication");
-
-        this.btnDiagnosis = new NavigationButton("Diagnosis", DiagnosisView.NAME, this);
-        this.addComponent(this.btnDiagnosis, "navMenuDiagnosis");
 
         this.btnSchedules = new NavigationButton("Schedules", EventListView.NAME, this);
         this.addComponent(this.btnSchedules, "navMenuSchedules");
