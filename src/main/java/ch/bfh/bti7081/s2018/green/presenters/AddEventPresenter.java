@@ -16,12 +16,12 @@ import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
 
-public class SchedulePresenter {
+public class AddEventPresenter {
 
 	private ScheduleAddView view;
 	private DataContainer data;
 
-	public SchedulePresenter(ScheduleAddView view) {
+	public AddEventPresenter(ScheduleAddView view) {
 		this.view = view;
 		this.data = DataContainer.getInstance();
 
@@ -66,7 +66,7 @@ public class SchedulePresenter {
     	*/
     	try {
     	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && dtfTo.getHour()-dtfFrom.getHour()<=8) {
-    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),"",data.getCurrentPatient(),data.getCurrentStaff()));
+    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),tfTitle.getValue(),data.getCurrentPatient(),data.getCurrentStaff()));
     		NavigatorUI.navigator.navigateTo(EventListView.NAME);
     		}
     	} catch(PersistenceException e) {

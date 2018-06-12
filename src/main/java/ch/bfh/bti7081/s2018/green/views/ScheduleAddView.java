@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+import com.vaadin.data.Binder;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.ui.Button;
@@ -13,7 +14,8 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 
-import ch.bfh.bti7081.s2018.green.presenters.SchedulePresenter;
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.AddEventPresenter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -24,7 +26,6 @@ public class ScheduleAddView extends Window implements View {
     public static final String NAME = "scheduleAdd";
 
     // Attributes of default ScheduleAddView
-    protected Window window;
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
@@ -33,10 +34,8 @@ public class ScheduleAddView extends Window implements View {
     private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
     RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
 
-    @Override
-    public void enter(ViewChangeEvent event) {
-        Notification.show("Welcome to the Schedule View");
-        
+    public ScheduleAddView() {
+    	
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
         rbgSetRecurringInterval.setEnabled(false);
@@ -48,7 +47,6 @@ public class ScheduleAddView extends Window implements View {
         setModal(true);
         
         // Place Java-Components in HTML DIVs 
-        //this.setTemplateName("scheduleAdd");
         panelContent.addComponent(dtfFrom, "fromField");
         panelContent.addComponent(dtfTo, "toField");
         panelContent.addComponent(tfTitle, "titleField");
@@ -59,7 +57,7 @@ public class ScheduleAddView extends Window implements View {
         panel.setContent(panelContent);
         setContent(panel);
 
-        new SchedulePresenter(this);
+        new AddEventPresenter(this);
     }
     
     public RadioButtonGroup<String> getRbgSetRecurringInterval() {
