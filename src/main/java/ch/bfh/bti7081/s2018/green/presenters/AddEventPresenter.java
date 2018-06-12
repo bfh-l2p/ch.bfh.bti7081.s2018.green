@@ -28,7 +28,8 @@ public class AddEventPresenter {
 		this.view.getDtfFrom().addValueChangeListener(valueChangeEvent -> SetToDate(view.getDtfFrom().getValue()));
 		this.view.getDtfTo().addValueChangeListener(valueChangeEvent -> SetFromDate(view.getDtfTo().getValue()));
 		this.view.getBtnSave().addClickListener(clickEvent -> SaveSchedule());
-		this.view.getCbRecurringEvent().addValueChangeListener(event -> SetVisibility());
+		this.view.getBtnIncInt().addClickListener(clickEvent -> IncreaseIntervals());
+		this.view.getBtnDecInt().addClickListener(clickEvent -> DecreaseIntervals());
 	}
 
 	// Update DateTimeFields without impacting Time when changing Dates
@@ -40,11 +41,17 @@ public class AddEventPresenter {
 		this.view.getDtfFrom().setValue(to.withHour(this.view.getDtfFrom().getValue().getHour())
 				.withMinute(this.view.getDtfFrom().getValue().getMinute()));
 	}
-
-	private void SetVisibility() {
-		if (this.view.getRbgSetRecurringInterval().isEnabled() == false) {
-			this.view.getRbgSetRecurringInterval().setEnabled(true);
+	
+	private void IncreaseIntervals() {
+		this.view.incIntervals();
+		this.view.setTfIntervals(this.view.getIntervals());
+	}
+	
+	private void DecreaseIntervals() {
+		if(this.view.getIntervals()>0) {
+			this.view.decIntervals();
 		}
+		this.view.setTfIntervals(this.view.getIntervals());
 	}
 
 	private void SaveSchedule() {
@@ -72,5 +79,6 @@ public class AddEventPresenter {
     	} catch(PersistenceException e) {
     		ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());    		
     	}
+    	view.close();
     }
 }

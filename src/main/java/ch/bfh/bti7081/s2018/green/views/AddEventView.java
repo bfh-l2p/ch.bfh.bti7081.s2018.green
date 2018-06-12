@@ -28,7 +28,8 @@ public class AddEventView extends Window implements View {
     private Label lbTo = new Label("Event ends at:");
     private Label lbTitle = new Label("Title");
     private Label lbContent = new Label("Reason of event and notes:");
-    private Label lbIntervals = new Label(""+intervals);
+    private Label lbIntervals = new Label("Repetitions:");
+    private TextField tfIntervals = new TextField("");
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
@@ -43,9 +44,9 @@ public class AddEventView extends Window implements View {
     	
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
-        rbgSetRecurringInterval.setEnabled(false);
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now());
+        tfIntervals.setReadOnly(true);
         
         Panel panel = new Panel("Add an Event");
         CustomLayout panelContent = new CustomLayout("eventAdd");
@@ -61,15 +62,46 @@ public class AddEventView extends Window implements View {
         panelContent.addComponent(tfTitle, "titleField");
         panelContent.addComponent(tfContent, "contentField");
         panelContent.addComponent(btnSave, "saveButton");
-        panelContent.addComponent(cbRecurringEvent, "RecurringCheckBox");
-        panelContent.addComponent(rbgSetRecurringInterval, "IntervalRadioButtonGroup");
+        panelContent.addComponent(cbRecurringEvent, "recurringCheckBox");
+        panelContent.addComponent(rbgSetRecurringInterval, "intervalRadioButtonGroup");
+        panelContent.addComponent(lbIntervals, "intervalLabel");
+        panelContent.addComponent(tfIntervals, "intervalTextfield");
+        panelContent.addComponent(btnIncInt, "incButton");
+        panelContent.addComponent(btnDecInt, "decButton");
         panel.setContent(panelContent);
         setContent(panel);
 
         new AddEventPresenter(this);
     }
     
-    public RadioButtonGroup<String> getRbgSetRecurringInterval() {
+    public Label getLbIntervals() {
+		return lbIntervals;
+	}
+    
+    public void setTfIntervals(int i) {
+    	this.tfIntervals.setValue(""+i);
+    }
+
+	public int getIntervals() {
+		return intervals;
+	}
+	
+	public void incIntervals() {
+		this.intervals++;
+	}
+
+	public void decIntervals() {
+		this.intervals--;
+	}
+	public Button getBtnIncInt() {
+		return btnIncInt;
+	}
+
+	public Button getBtnDecInt() {
+		return btnDecInt;
+	}
+
+	public RadioButtonGroup<String> getRbgSetRecurringInterval() {
 		return rbgSetRecurringInterval;
 	}
 
