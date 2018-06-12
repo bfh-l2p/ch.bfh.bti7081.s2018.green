@@ -1,8 +1,6 @@
 package ch.bfh.bti7081.s2018.green.views;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.vaadin.data.Binder;
 import com.vaadin.data.ValidationException;
@@ -24,6 +22,7 @@ public class MedicationPrescriptionView extends Window implements View {
     protected Window window;
     Medication medication;
     Binder<Medication> binder;
+    Panel panel;
     TextField medName = new TextField();
     DateTimeField medStartDate = new DateTimeField();
     DateTimeField medStopDate = new DateTimeField();
@@ -32,16 +31,19 @@ public class MedicationPrescriptionView extends Window implements View {
     TextField medPrescriberFullName = new TextField();
     DateTimeField medRecordCreated = new DateTimeField();
     DateTimeField medRecordModified = new DateTimeField();
-    Button btnSave = new Button("Save");
+    Button btnSave = new Button("Save medication");
     
     public MedicationPrescriptionView(Medication med) {
         if (med == null) {
+        	// The user is adding a new medication
             med = new Medication();
+            panel = new Panel("New Medication");
+        } else {
+        	panel = new Panel("Edit Medication");
         }
         this.medication = med;
         bindMedication(med);
         this.setModal(true);
-        Panel panel = new Panel("This is a Panel");
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");

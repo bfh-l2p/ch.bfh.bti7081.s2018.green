@@ -16,7 +16,7 @@ import ch.bfh.bti7081.s2018.green.models.managers.PatientManager;
 import ch.bfh.bti7081.s2018.green.models.managers.StaffManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
-import ch.bfh.bti7081.s2018.green.views.PatientFile;
+import ch.bfh.bti7081.s2018.green.views.JournalView;
 
 public class HeaderPresenter {
 
@@ -40,9 +40,9 @@ public class HeaderPresenter {
 			view.getCboxPatients().addValueChangeListener(event -> {
 				data.setCurrentPatient(event.getValue());
 
-				// Upon switch to other patient: Go to Patient-File
+				// Upon switch to other patient: Go to Journal-View
 				if (NavigatorUI.navigator != null) {
-					NavigatorUI.navigator.navigateTo(PatientFile.NAME);
+					NavigatorUI.navigator.navigateTo(JournalView.NAME);
 				}
 			});
 		} catch (PersistenceException e) {

@@ -1,6 +1,8 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.CustomLayout;
@@ -29,7 +31,7 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        this.btnAddMedication = new NavigationButton("New Medication", this);
+        this.btnAddMedication = new NavigationButton("New medication", this);
         this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)) );
 
         this.addComponent(this.btnAddMedication, "addMedicationTab");
@@ -37,6 +39,7 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void medGridBuilder() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy HH:mm").withLocale(Locale.GERMAN);
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
@@ -45,8 +48,8 @@ public class MedicationView extends CustomLayout implements View {
 
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
-        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of");
-        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("End of");
+        grdMedicamentGridView.addColumn(m -> m.getStartDate().format(formatter)).setCaption("Start");
+        grdMedicamentGridView.addColumn(m -> m.getEndDate().format(formatter)).setCaption("Stop");
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
