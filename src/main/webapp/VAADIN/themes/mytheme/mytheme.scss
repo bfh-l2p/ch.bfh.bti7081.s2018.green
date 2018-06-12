@@ -39,6 +39,7 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
       width: 100%;
       min-width: $width-page-min;
       height: 105px;
+      z-index: 10;
     }
 
     #mainSection {
