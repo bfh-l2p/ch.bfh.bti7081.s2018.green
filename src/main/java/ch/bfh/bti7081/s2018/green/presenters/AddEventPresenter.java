@@ -34,11 +34,19 @@ public class AddEventPresenter {
 
 	// Update DateTimeFields without impacting Time when changing Dates
 	private void SetToDate(LocalDateTime from, LocalDateTime to) {
-		this.view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
+		try {
+			this.view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
+		} catch (NullPointerException npe) {
+			ErrorView.showError("From-Datefield format is invalid, please re-check", Page.getCurrent());   
+		}
 	}
 
 	private void SetFromDate(LocalDateTime from, LocalDateTime to) {
-		this.view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
+		try {
+			this.view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
+		} catch (NullPointerException npe) {
+			ErrorView.showError("From-Datefield format is invalid, please re-check", Page.getCurrent());  
+		}
 	}
 	
 	// Change count of interval for recurring events
