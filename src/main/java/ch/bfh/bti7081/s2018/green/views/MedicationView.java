@@ -20,6 +20,7 @@ public class MedicationView extends CustomLayout implements View {
 
     public MedicationView() {
         this.setTemplateName("medicationApp");
+        this.setId(NAME);
         buildView();
         new MedicationPresenter(this);
     }
