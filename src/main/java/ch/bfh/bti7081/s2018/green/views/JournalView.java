@@ -30,7 +30,7 @@ public class JournalView extends CustomLayout implements View {
 
     public void setJournalEntries(List<JournalEntry> journalEntries) {
         journalEntryList = new VerticalLayout();
-        journalEntryList.setMargin(false);
+        journalEntryList.setId("journalEntryList");
 
         for (JournalEntry journalEntry : journalEntries) {
             addJournalEntry(journalEntry);
@@ -41,7 +41,6 @@ public class JournalView extends CustomLayout implements View {
 
     public void addJournalEntry(JournalEntry journalEntry) {
         CustomLayout journalEntryLayout = new CustomLayout("journalentry");
-        journalEntryLayout.setId("journalEntryList");
 
         addLabel(journalEntryLayout, "content", journalEntry.getContent());
         addLabel(journalEntryLayout, "author", journalEntry.getStaff().getFullName());
