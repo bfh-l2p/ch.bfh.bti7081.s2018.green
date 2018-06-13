@@ -27,6 +27,7 @@ public class JournalView extends CustomLayout implements View {
     public void enter(ViewChangeEvent event) {
         //Notification.show("Welcome to the Journal View");
         this.setTemplateName("journal");
+        this.setId(NAME);
         this.addComponent(txtEntry, "textentry");
         this.addComponent(btnSave, "savebutton");
 
@@ -55,7 +56,6 @@ public class JournalView extends CustomLayout implements View {
     private void addLabel(CustomLayout layout, String slot, String value) {
         Label label = new Label();
         label.setValue(value);
-        label.setWidth("300px");
         layout.addComponent(label, slot);
     }
 
