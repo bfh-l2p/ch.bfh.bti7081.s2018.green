@@ -84,7 +84,7 @@ public class Medication {
         return dose;
     }
 
-    public void setdose(float dose) {
+    public void setDose(float dose) {
         this.dose = dose;
     }
 
