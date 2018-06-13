@@ -26,6 +26,7 @@
 @import 'elements.scss';
 
 $width-page-min: 768px; // tablets: yes, mobiles: no
+$v-border-radius: 2px;
 
 @mixin mytheme {
   @include valo;
@@ -54,6 +55,7 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
       bottom: 0;
       width: 100%;
       min-width: $width-page-min;
+      z-index: 10;
     }
 
     #navSection {
@@ -122,6 +124,50 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
 
   // main canvas
   #appSection {
+    #journal {
+      textarea {
+        width: 100%;
+        margin-bottom: 1em;
+        border-radius: $v-border-radius;
+      }
+
+      #journalEntryList {
+        margin: 2em 0;
+        padding: 0;
+
+        .card {
+          header {
+            font-size: 0.875em;
+            color: $color-font-grey;
+          }
+        }
+      }
+    }
+
+    #medication {
+      #dataGrid {
+        margin: 1em 0 2em;
+        border-radius: $v-border-radius;
+
+        thead {
+          font-weight: bold;
+          font-size: 0.875em;
+        }
+
+        .medNotActive td {
+          color: $color-font-grey;
+          text-decoration: line-through solid lighten($color-font-grey, 20%);
+        }
+      }
+    }
+  }
+
+  #medDetailView {
+    margin: 1em;
+
+    .medDetailViewData input{
+      width: 100%;
+    }
   }
 
   // footer
