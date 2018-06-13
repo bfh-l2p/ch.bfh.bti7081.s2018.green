@@ -12,7 +12,7 @@ import ch.bfh.bti7081.s2018.green.models.entities.Event;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 public class EventListPresenter {
 
@@ -25,18 +25,20 @@ public class EventListPresenter {
 
 		enteredView();
 
-		this.view.getBtnNew().addClickListener(clickEvent -> data.getCurrentNavigator().navigateTo(ScheduleAddView.NAME));
+		this.view.getBtnNew().addClickListener(
+				clickEvent -> {AddEventView scheduleAddView = new AddEventView(); this.view.getUI().addWindow(scheduleAddView);}
+		);
 	}
 
 	private void enteredView() {
 		EventManager manager = new EventManager();
-		
+
 		try {
-			
+
 			List<Event> e = manager.findBy(data.getCurrentPatient());
 			view.setEvents(e);
-			
-		} catch (PersistenceException e) {			
+
+		} catch (PersistenceException e) {
 			ErrorView.showError("Couldn't read events from database.\nPlease try again!", Page.getCurrent());
 		}
 	}
