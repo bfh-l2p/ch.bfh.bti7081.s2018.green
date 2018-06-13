@@ -24,8 +24,8 @@ public class AddEventPresenter {
 		this.view = view;
 		this.data = DataContainer.getInstance();
 
-		this.view.getDtfFrom().addValueChangeListener(valueChangeEvent -> SetToDate(view.getDtfFrom().getValue()));
-		this.view.getDtfTo().addValueChangeListener(valueChangeEvent -> SetFromDate(view.getDtfTo().getValue()));
+		this.view.getDtfFrom().addValueChangeListener(valueChangeEvent -> SetToDate(view.getDtfFrom().getValue(),view.getDtfTo().getValue()));
+		this.view.getDtfTo().addValueChangeListener(valueChangeEvent -> SetFromDate(view.getDtfFrom().getValue(),view.getDtfTo().getValue()));
 		this.view.getBtnSave().addClickListener(clickEvent -> Save());
 		this.view.getBtnIncInt().addClickListener(clickEvent -> IncreaseIntervals());
 		this.view.getBtnDecInt().addClickListener(clickEvent -> DecreaseIntervals());
@@ -33,13 +33,12 @@ public class AddEventPresenter {
 	}
 
 	// Update DateTimeFields without impacting Time when changing Dates
-	private void SetToDate(LocalDateTime from) {
-		this.view.getDtfTo().setValue(from.withHour(this.view.getDtfTo().getValue().getHour()));
+	private void SetToDate(LocalDateTime from, LocalDateTime to) {
+		this.view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
 	}
 
-	private void SetFromDate(LocalDateTime to) {
-		this.view.getDtfFrom().setValue(to.withHour(this.view.getDtfFrom().getValue().getHour())
-				.withMinute(this.view.getDtfFrom().getValue().getMinute()));
+	private void SetFromDate(LocalDateTime from, LocalDateTime to) {
+		this.view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
 	}
 	
 	// Change count of interval for recurring events

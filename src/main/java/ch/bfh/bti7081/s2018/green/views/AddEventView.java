@@ -45,7 +45,7 @@ public class AddEventView extends Window implements View {
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
         dtfFrom.setValue(LocalDateTime.now());
-        dtfTo.setValue(LocalDateTime.now());
+        dtfTo.setValue(LocalDateTime.now().plusMinutes(15));
         tfIntervals.setReadOnly(true);
         rbgSetRecurringInterval.setEnabled(false);
         lbIntervals.setEnabled(false);
