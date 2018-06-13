@@ -56,7 +56,7 @@ public class MedicationView extends CustomLayout implements View {
 
         grdMedicamentGridView.setId("medicationAppGrid");
         grdMedicamentGridView.setWidth(100, Unit.PERCENTAGE);
-        grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActice");
+        grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActive");
 
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
