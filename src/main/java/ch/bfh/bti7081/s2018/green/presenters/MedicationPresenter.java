@@ -16,6 +16,15 @@ import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MedicationPresenter {
 
@@ -45,17 +54,17 @@ public class MedicationPresenter {
 
 	private List<Medication> setMedicamentList (Patient pat) {
         MedicationManager manager = new MedicationManager();
-        
+
         try {
-        	
+
         List<Medication> medList =  manager.findBy(pat);
         return medList;
-        
+
         } catch (PersistenceException e) {
-        	
-        	ErrorView.showError("Could not get medication-list from database", Page.getCurrent());        
+
+        	ErrorView.showError("Could not get medication-list from database", Page.getCurrent());
         }
-        
+
         // return empty list if error has occurred
 		return new ArrayList<Medication>();
     }

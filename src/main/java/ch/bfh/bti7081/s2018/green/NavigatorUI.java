@@ -22,7 +22,7 @@ import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
 
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -113,7 +113,7 @@ public class NavigatorUI extends UI {
     private CustomLayout getHeader() {
         HeaderView header = new HeaderView();
         HeaderPresenter hp = new HeaderPresenter(header);
-        
+
         hp.addUserName("User: " + System.getProperty("user.name"));
 
         return header;
@@ -136,9 +136,7 @@ public class NavigatorUI extends UI {
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-        navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
-        navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
 
         data.setCurrentNavigator(navigator);
     }
