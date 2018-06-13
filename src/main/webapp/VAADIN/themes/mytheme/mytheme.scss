@@ -123,20 +123,22 @@ $v-border-radius: 2px;
 
   // main canvas
   #appSection {
-    textarea {
-      width: 100%;
-      margin-bottom: 1em;
-      border-radius: $v-border-radius;
-    }
+    #journal {
+      textarea {
+        width: 100%;
+        margin-bottom: 1em;
+        border-radius: $v-border-radius;
+      }
 
-    #journalEntryList {
-      margin: 2em 0;
-      padding: 0;
+      #journalEntryList {
+        margin: 2em 0;
+        padding: 0;
 
-      .card {
-        header {
-          font-size: 0.875em;
-          color: $color-font-grey;
+        .card {
+          header {
+            font-size: 0.875em;
+            color: $color-font-grey;
+          }
         }
       }
     }

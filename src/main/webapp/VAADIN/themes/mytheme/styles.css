@@ -15170,17 +15170,18 @@ div.v-layout.v-horizontal.v-widget {
 	text-decoration: underline;
 }
 
-.mytheme #appSection textarea {
+.mytheme #appSection #journal textarea {
 	width: 100%;
 	margin-bottom: 1em;
+	border-radius: 2px;
 }
 
-.mytheme #appSection #journalEntryList {
+.mytheme #appSection #journal #journalEntryList {
 	margin: 2em 0;
 	padding: 0;
 }
 
-.mytheme #appSection #journalEntryList .card header {
+.mytheme #appSection #journal #journalEntryList .card header {
 	font-size: 0.875em;
 	color: #777777;
 }
