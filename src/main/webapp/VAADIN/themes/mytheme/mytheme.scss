@@ -127,7 +127,7 @@ $v-border-radius: 2px;
       &.active {
         .v-button-wrap {
           padding-left: 10px;
-          border-left: 5px solid #417c01;
+          border-left: 5px solid $color-primary-0;
         }
       }
     }
