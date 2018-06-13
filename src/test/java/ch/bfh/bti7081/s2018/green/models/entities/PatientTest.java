@@ -15,7 +15,6 @@ public class PatientTest {
 
     @Test
     public void testPatient() throws ClassNotFoundException, ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         LocalDate dob1 = LocalDate.of(1989, 1, 20);
         LocalDate dob2 = LocalDate.of(1992, 5, 25);
 

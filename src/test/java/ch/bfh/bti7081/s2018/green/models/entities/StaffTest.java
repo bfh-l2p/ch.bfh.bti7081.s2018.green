@@ -17,7 +17,6 @@ public class StaffTest {
 
     @Test
     public void testStaff() throws ClassNotFoundException, ParseException {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         LocalDate dob = LocalDate.of(1989, 1, 20);
         Staff staff = new Staff(
                 "testestCyrill",

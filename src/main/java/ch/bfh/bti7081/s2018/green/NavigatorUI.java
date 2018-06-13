@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
@@ -13,6 +11,7 @@ import ch.bfh.bti7081.s2018.green.views.*;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.navigator.PushStateNavigation;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.CustomLayout;
@@ -43,11 +42,10 @@ import javax.servlet.annotation.WebServlet;
 
 // The main-class of the application
 
+@PushStateNavigation
 public class NavigatorUI extends UI {
 
-
-    public static Navigator navigator;
-
+    private Navigator navigator;
 
     /**
      * Entry point: Custom part of application starts here!
@@ -77,13 +75,15 @@ public class NavigatorUI extends UI {
         layout.addComponent(canvas, "appSection");
 
         // tell the navigation to use
-        navigator = new Navigator(this,canvas);
+        navigator = new Navigator(this, canvas);
 
         // Assembles all presenters/views and adds them to the navigator
         initializeClasses();
 
         // Navigates to the startpage
-        navigator.navigateTo(JournalView.NAME);
+        if ("".equals(navigator.getState())) {
+        	navigator.navigateTo(JournalView.NAME);
+        }
     }
 
     /**
@@ -101,8 +101,6 @@ public class NavigatorUI extends UI {
 
     private CustomLayout getNavigation() {
         NavigationMenuView navMen = new NavigationMenuView();
-        // add the click listeners now
-        new NavigationMenuPresenter(navMen);
         return navMen;
     }
 
@@ -115,7 +113,7 @@ public class NavigatorUI extends UI {
     private CustomLayout getHeader() {
         HeaderView header = new HeaderView();
         HeaderPresenter hp = new HeaderPresenter(header);
-        
+
         hp.addUserName("User: " + System.getProperty("user.name"));
 
         return header;
@@ -138,11 +136,9 @@ public class NavigatorUI extends UI {
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-        navigator.addView(DiagnosisView.NAME, DiagnosisView.class);
-        navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
-        navigator.addView(PatientFile.NAME, PatientFile.class);
-        navigator.addView(AddEventView.NAME, AddEventView.class);
+
+        data.setCurrentNavigator(navigator);
     }
 
 

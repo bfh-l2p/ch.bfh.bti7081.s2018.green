@@ -32,13 +32,13 @@ public class EventListPresenter {
 
 	private void enteredView() {
 		EventManager manager = new EventManager();
-		
+
 		try {
-			
+
 			List<Event> e = manager.findBy(data.getCurrentPatient());
 			view.setEvents(e);
-			
-		} catch (PersistenceException e) {			
+
+		} catch (PersistenceException e) {
 			ErrorView.showError("Couldn't read events from database.\nPlease try again!", Page.getCurrent());
 		}
 	}
