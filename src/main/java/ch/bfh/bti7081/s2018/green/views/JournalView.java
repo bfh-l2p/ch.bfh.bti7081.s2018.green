@@ -25,8 +25,7 @@ public class JournalView extends CustomLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        //Notification.show("Welcome to the Journal View");
-        this.setTemplateName("journal");
+        this.setTemplateName(NAME);
         this.setId(NAME);
         this.addComponent(txtEntry, "textentry");
         this.addComponent(btnSave, "savebutton");
@@ -39,7 +38,7 @@ public class JournalView extends CustomLayout implements View {
         for (JournalEntry journalEntry : journalEntries) {
             addJournalEntry(journalEntry);
         }
-        this.addComponent(journalEntryList, "journal");
+        this.addComponent(journalEntryList, NAME);
     }
 
     public void addJournalEntry(JournalEntry journalEntry) {
