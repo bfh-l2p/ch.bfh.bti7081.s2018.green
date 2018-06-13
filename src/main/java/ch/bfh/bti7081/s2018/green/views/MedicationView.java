@@ -39,7 +39,7 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void medGridBuilder() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy HH:mm").withLocale(Locale.GERMAN);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withLocale(Locale.GERMAN);
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
