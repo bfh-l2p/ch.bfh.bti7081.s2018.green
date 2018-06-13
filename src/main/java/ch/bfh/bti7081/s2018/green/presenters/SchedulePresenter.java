@@ -41,7 +41,7 @@ public class SchedulePresenter {
     	try {
     	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false ) {
     		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),"",data.getCurrentPatient(),data.getCurrentStaff()));
-    		NavigatorUI.navigator.navigateTo(EventListView.NAME);
+			data.getCurrentNavigator().navigateTo(EventListView.NAME);
     	}
     	} catch(PersistenceException e) {
     		ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());    		

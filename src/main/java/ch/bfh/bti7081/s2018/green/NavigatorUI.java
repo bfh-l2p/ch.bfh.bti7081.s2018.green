@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
@@ -47,9 +45,7 @@ import javax.servlet.annotation.WebServlet;
 @PushStateNavigation
 public class NavigatorUI extends UI {
 
-
-    public static Navigator navigator;
-
+    private Navigator navigator;
 
     /**
      * Entry point: Custom part of application starts here!
@@ -105,8 +101,6 @@ public class NavigatorUI extends UI {
 
     private CustomLayout getNavigation() {
         NavigationMenuView navMen = new NavigationMenuView();
-        // add the click listeners now
-        new NavigationMenuPresenter(navMen);
         return navMen;
     }
 
@@ -145,6 +139,8 @@ public class NavigatorUI extends UI {
         navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
         navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
+
+        data.setCurrentNavigator(navigator);
     }
 
 

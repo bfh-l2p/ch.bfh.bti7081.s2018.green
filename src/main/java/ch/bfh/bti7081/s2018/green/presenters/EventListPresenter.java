@@ -25,7 +25,7 @@ public class EventListPresenter {
 
 		enteredView();
 
-		this.view.getBtnNew().addClickListener(clickEvent -> NavigatorUI.navigator.navigateTo(ScheduleAddView.NAME));
+		this.view.getBtnNew().addClickListener(clickEvent -> data.getCurrentNavigator().navigateTo(ScheduleAddView.NAME));
 	}
 
 	private void enteredView() {

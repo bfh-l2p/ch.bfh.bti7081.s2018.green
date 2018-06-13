@@ -41,8 +41,8 @@ public class HeaderPresenter {
 				data.setCurrentPatient(event.getValue());
 
 				// Upon switch to other patient: Go to Journal-View
-				if (NavigatorUI.navigator != null) {
-					NavigatorUI.navigator.navigateTo(JournalView.NAME);
+				if(data.getCurrentNavigator() != null) {
+					data.getCurrentNavigator().navigateTo(JournalView.NAME);
 				}
 			});
 		} catch (PersistenceException e) {

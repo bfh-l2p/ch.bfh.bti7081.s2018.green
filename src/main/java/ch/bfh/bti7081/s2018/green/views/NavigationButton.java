@@ -1,5 +1,6 @@
 package ch.bfh.bti7081.s2018.green.views;
 
+import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.NavigatorUI;
 
 import com.vaadin.ui.AbstractComponentContainer;
@@ -39,7 +40,7 @@ public class NavigationButton extends Button{
         }
         // dynamically add the CSS style to mark a div as visited
         ly.addStyleName("NavVisited");
-        NavigatorUI.navigator.navigateTo(targetViewName);
+        DataContainer.getInstance().getCurrentNavigator().navigateTo(targetViewName);
     }
 
     private static void setActiveNoListener(NavigationButton ly, AbstractComponentContainer containingView) {
