@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2018.green.views;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
 
@@ -15,7 +16,7 @@ public class MedicationView extends CustomLayout implements View {
 
     public static final String NAME = "medication";
 
-    private NavigationButton btnAddMedication;
+    private Button btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     public MedicationView() {
@@ -31,8 +32,8 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        this.btnAddMedication = new NavigationButton("New medication", this);
-        this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)));
+        this.btnAddMedication = new Button("New Medication", (clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)));
+        this.btnAddMedication.removeStyleNames("menuBarButton",".v-button", ".v-widget");
 
         this.addComponent(this.btnAddMedication, "addMedicationTab");
         medGridBuilder();
@@ -69,7 +70,7 @@ public class MedicationView extends CustomLayout implements View {
         return grdMedicamentGridView;
     }
 
-    public NavigationButton getBtnAddMedication() {
+    public Button getBtnAddMedication() {
         return btnAddMedication;
     }
 }

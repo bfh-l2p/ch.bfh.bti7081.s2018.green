@@ -17,6 +17,7 @@ public class DataContainer {
     private Patient currentPatient;
     private Staff currentStaff;
     private Navigator navigator;
+    private String viewName;
 
     private DataContainer() {
     }
@@ -65,5 +66,13 @@ public class DataContainer {
 
     public void setCurrentNavigator(Navigator navigator) {
         this.navigator = navigator;
+    }
+
+    public String getCurrentViewName() {
+        return viewName;
+    }
+
+    public void setCurrentViewName(String viewName) {
+        this.viewName = viewName;
     }
 }
