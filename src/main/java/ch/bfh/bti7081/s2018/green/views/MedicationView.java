@@ -44,7 +44,7 @@ public class MedicationView extends CustomLayout implements View {
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
         // Allow column hiding
-        grdMedicamentGridView.getColumns().stream().forEach(column -> column.setHidable(true));
+        grdMedicamentGridView.getColumns().forEach(column -> column.setHidable(true));
 
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
