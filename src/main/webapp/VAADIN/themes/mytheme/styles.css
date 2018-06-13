@@ -15108,6 +15108,7 @@ div.v-layout.v-horizontal.v-widget {
 	bottom: 0;
 	width: 100%;
 	min-width: 768px;
+	z-index: 10;
 }
 
 .mytheme #mainPageContainer #navSection {
@@ -15184,6 +15185,29 @@ div.v-layout.v-horizontal.v-widget {
 .mytheme #appSection #journal #journalEntryList .card header {
 	font-size: 0.875em;
 	color: #777777;
+}
+
+.mytheme #appSection #medication #dataGrid {
+	margin: 1em 0 2em;
+	border-radius: 2px;
+}
+
+.mytheme #appSection #medication #dataGrid thead {
+	font-weight: bold;
+	font-size: 0.875em;
+}
+
+.mytheme #appSection #medication #dataGrid .medNotActive td {
+	color: #777777;
+	text-decoration: line-through solid #aaaaaa;
+}
+
+.mytheme #medDetailView {
+	margin: 1em;
+}
+
+.mytheme #medDetailView .medDetailViewData input {
+	width: 100%;
 }
 
 .mytheme #footerSection #footerBar {

@@ -55,6 +55,7 @@ $v-border-radius: 2px;
       bottom: 0;
       width: 100%;
       min-width: $width-page-min;
+      z-index: 10;
     }
 
     #navSection {
@@ -141,6 +142,31 @@ $v-border-radius: 2px;
           }
         }
       }
+    }
+
+    #medication {
+      #dataGrid {
+        margin: 1em 0 2em;
+        border-radius: $v-border-radius;
+
+        thead {
+          font-weight: bold;
+          font-size: 0.875em;
+        }
+
+        .medNotActive td {
+          color: $color-font-grey;
+          text-decoration: line-through solid lighten($color-font-grey, 20%);
+        }
+      }
+    }
+  }
+
+  #medDetailView {
+    margin: 1em;
+
+    .medDetailViewData input{
+      width: 100%;
     }
   }
 
