@@ -154,7 +154,8 @@ public class AddEventPresenter {
     	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && dtfTo.getHour()-dtfFrom.getHour()<=8) {
     		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),tfTitle.getValue(),data.getCurrentPatient(),data.getCurrentStaff()));
     		data.getCurrentNavigator().navigateTo(EventListView.NAME);
-    		}
+            data.setCurrentViewName(EventListView.NAME);
+    	}
     	} catch(PersistenceException e) {
     		ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());    		
     	}
