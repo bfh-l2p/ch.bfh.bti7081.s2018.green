@@ -26,6 +26,7 @@
 @import 'elements.scss';
 
 $width-page-min: 768px; // tablets: yes, mobiles: no
+$v-border-radius: 2px;
 
 @mixin mytheme {
   @include valo;
@@ -122,6 +123,23 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
 
   // main canvas
   #appSection {
+    textarea {
+      width: 100%;
+      margin-bottom: 1em;
+      border-radius: $v-border-radius;
+    }
+
+    #journalEntryList {
+      margin: 2em 0;
+      padding: 0;
+
+      .card {
+        header {
+          font-size: 0.875em;
+          color: $color-font-grey;
+        }
+      }
+    }
   }
 
   // footer
