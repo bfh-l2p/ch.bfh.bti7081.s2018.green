@@ -9,12 +9,11 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
-import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Event;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.EventListView;
-import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 public class AddEventPresenter {
 
@@ -155,7 +154,7 @@ public class AddEventPresenter {
     	try {
     	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && dtfTo.getHour()-dtfFrom.getHour()<=8) {
     		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),tfTitle.getValue(),data.getCurrentPatient(),data.getCurrentStaff()));
-    		NavigatorUI.navigator.navigateTo(EventListView.NAME);
+    		data.getCurrentNavigator().navigateTo(EventListView.NAME);
     		}
     	} catch(PersistenceException e) {
     		ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());    		
