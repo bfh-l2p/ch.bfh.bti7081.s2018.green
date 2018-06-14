@@ -22,7 +22,7 @@ public class MedicationView extends CustomLayout implements View {
     private Button btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
-    private Switch showExpired = new Switch("",false);
+    private Switch showExpired = new Switch("Show inactive medication",false);
     public Switch getShowExpired() {
         return showExpired;
     }
@@ -42,13 +42,12 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
+        showExpired.addStyleName("compact");
+        addComponent(showExpired, "showExpired");
+
         // Adding button to create new medication
         btnAddMedication = new Button("New Medication");
         addComponent(this.btnAddMedication, "addMedicationTab");
-
-        showExpired.addStyleName("compact");
-        addComponent(showExpired, "showExpired");
-        showExpired.setValue(false);
 
         medGridBuilder();
     }

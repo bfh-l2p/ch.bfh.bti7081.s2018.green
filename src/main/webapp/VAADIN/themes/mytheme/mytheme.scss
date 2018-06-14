@@ -156,6 +156,19 @@ $v-border-radius: 2px;
     }
 
     #medication {
+      #addMedicationTab {
+        float: left;
+      }
+
+      #medShowExpired {
+        float: right;
+        margin-top: 0.6em;
+
+        .v-caption {
+          margin-right: 0.5em;
+        }
+      }
+
       #dataGrid {
         margin: 1em 0 2em;
         border-radius: $v-border-radius;
