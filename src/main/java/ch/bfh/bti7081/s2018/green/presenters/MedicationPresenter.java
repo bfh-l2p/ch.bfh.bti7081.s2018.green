@@ -59,7 +59,7 @@ public class MedicationPresenter {
 
         //add "show expired medication" on/off switch
         view.getShowExpired().addValueChangeListener((event) ->
-                showExpiredMedication()
+                refreshMedicationGrid()
         );
 
         // Start with an empty medication because it's a new one to be created when clicking on Button "add new medication"
@@ -102,13 +102,10 @@ public class MedicationPresenter {
         return new ArrayList<Medication>();
     }
 
-    // rebuilds the list if the "show inactive medication" switch has been clicked or it is calles manually
-    protected void showExpiredMedication () {
-
+    protected void refreshMedicationGrid () {
         if (view.getShowExpired().getValue()) {
             view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
-        }
-        else {
+        } else {
             view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
         }
     }

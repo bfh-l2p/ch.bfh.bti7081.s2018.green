@@ -15,17 +15,16 @@ public class MedicationPrescriptionPresenter {
 
     private DataContainer data;
     private MedicationPrescriptionView view;
-    private MedicationPresenter viewBehind;
-    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter viewBehind) {
+    private MedicationPresenter medicationPresenter;
+    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter medicationPresenter) {
         this.view = view;
-        this.viewBehind = viewBehind;
+        this.medicationPresenter = medicationPresenter;
         this.data = DataContainer.getInstance();
 
         view.getSaveButton().addClickListener(click -> {
             this.saveData();
         });
     }
-
 
     private void saveData (){
         try {
@@ -41,13 +40,11 @@ public class MedicationPrescriptionPresenter {
                     manager.update(medication);
                 }
 
-                // Show success-message in case saving was successful
                 Notification.show("Data was saved!");
-                viewBehind.showExpiredMedication();
+                medicationPresenter.refreshMedicationGrid();
                 view.close();
             }
         } catch (PersistenceException e) {
-
             ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
         }
     }
