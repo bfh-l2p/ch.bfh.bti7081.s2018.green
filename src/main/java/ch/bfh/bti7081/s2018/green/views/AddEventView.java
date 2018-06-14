@@ -31,10 +31,10 @@ public class AddEventView extends Window implements View {
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
     private TextArea tfContent = new TextArea();
-    private Button btnSave = new Button("Save Event");
+    private Button btnSave = new Button("Save appointment");
     private Button btnIncInt = new Button("+");
     private Button btnDecInt = new Button("-");
-    private CheckBox cbRecurringEvent = new CheckBox("Repeat this event");
+    private CheckBox cbRecurringEvent = new CheckBox("Repeat this appointment");
     private RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>();
 
     public AddEventView() {
@@ -51,14 +51,14 @@ public class AddEventView extends Window implements View {
         tfIntervals.setEnabled(false);
 
         // Prepare panel container to fill in items
-        Panel panel = new Panel("Add an Event");
+        Panel panel = new Panel("Add an appointment");
         CustomLayout panelContent = new CustomLayout("eventAdd");
         panelContent.setId(NAME);
         setModal(true);
 
         // Place Java-Components in HTML DIVs
-        panelContent.addComponent(new Label("Event begins at"), "fromLabel");
-        panelContent.addComponent(new Label("Event ends at"), "toLabel");
+        panelContent.addComponent(new Label("Start"), "fromLabel");
+        panelContent.addComponent(new Label("End"), "toLabel");
         panelContent.addComponent(new Label("Title"), "titleLabel");
         panelContent.addComponent(new Label("Notes"), "contentLabel");
         panelContent.addComponent(dtfFrom, "fromField");

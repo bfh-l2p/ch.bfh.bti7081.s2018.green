@@ -15074,6 +15074,10 @@ div.v-layout.v-horizontal.v-widget {
 	clear: both;
 }
 
+.mytheme .v-label-undef-w {
+	white-space: normal;
+}
+
 .mytheme .card {
 	background: #fff;
 	border-radius: 2px;
@@ -15256,8 +15260,9 @@ div.v-layout.v-horizontal.v-widget {
 	margin: 1em;
 }
 
-.mytheme #eventAdd > table td {
+.mytheme #eventAdd > table > tbody > tr > td:nth-of-type(2n+1) {
 	vertical-align: top;
+	width: 6em;
 }
 
 .mytheme #eventAdd .v-disabled {
