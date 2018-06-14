@@ -104,19 +104,13 @@ public class MedicationPrescriptionView extends Window implements View {
         binder.forField(medStartDate)
                 .asRequired()
                 .bind(Medication::getStartDate, Medication::setStartDate);
-        /*binder.forField(medStopDate)
-                .asRequired()
-                .bind(Medication::getEndDate, Medication::setEndDate);*/
         binder.forField(medStopDate)
                 .asRequired()
-                .withValidator(new Validator<LocalDateTime>() {
-                    @Override
-                    public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
-                        if(medStartDate.getValue().isBefore(medStopDate.getValue())){
-                            return ValidationResult.ok();
-                        }
-                        return ValidationResult.error("End date must start after start date");
+                .withValidator((Validator<LocalDateTime>) (localDateTime, valueContext) -> {
+                    if(medStartDate.getValue().isBefore(medStopDate.getValue())){
+                        return ValidationResult.ok();
                     }
+                    return ValidationResult.error("End date must start after start date");
                 })
                 .bind(Medication::getEndDate, Medication::setEndDate);
         binder.forField(medPeriod)
