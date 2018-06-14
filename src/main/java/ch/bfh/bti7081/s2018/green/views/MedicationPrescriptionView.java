@@ -42,7 +42,6 @@ public class MedicationPrescriptionView extends Window implements View {
         this.medication = med;
         bindMedication(this.medication);
         this.setModal(true);
-        //Panel panel = new Panel("Medication prescription");
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");
