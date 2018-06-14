@@ -3,6 +3,7 @@ package ch.bfh.bti7081.s2018.green.views;
 import java.util.ArrayList;
 import java.util.List;
 import com.vaadin.navigator.View;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
@@ -16,7 +17,7 @@ public class MedicationView extends CustomLayout implements View {
 
     public static final String NAME = "medication";
 
-    private NavigationButton btnAddMedication;
+    private Button btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     private Switch showExpired = new Switch("",false);
@@ -26,13 +27,9 @@ public class MedicationView extends CustomLayout implements View {
 
     public MedicationView() {
         this.setTemplateName("medication");
+        this.setId(NAME);
         buildView();
-        new MedicationPresenter(this, true);
-    }
-    public MedicationView(boolean filter) {
-        this.setTemplateName("medication");
-        buildView();
-        if (filter)
+        if (this.showExpired.getValue())
         {
             new MedicationPresenter(this, true);
         }
@@ -47,14 +44,12 @@ public class MedicationView extends CustomLayout implements View {
         customButtonStyles.add("appMenuTab");
 
         // Adding button to create new medication
-        this.btnAddMedication = new NavigationButton("New Medication", this);
-        // Start with an empty medication because it's a new one to be created
-        this.btnAddMedication.addClickListener((clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null, false)) );
-
+        this.btnAddMedication = new Button("New Medication");
         this.addComponent(this.btnAddMedication, "addMedicationTab");
 
         showExpired.addStyleName("compact");
         this.addComponent(showExpired, "showExpired");
+        showExpired.setValue(false);
 
         medGridBuilder();
     }
@@ -65,19 +60,22 @@ public class MedicationView extends CustomLayout implements View {
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
 
+        // populate columns
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
         grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
         grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of").setId("medStartDate");
         grdMedicamentGridView.getColumn("medStartDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
-        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("End of").setId("medEndDate");
+        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("Stop").setId("medEndDate");
         grdMedicamentGridView.getColumn("medEndDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
         grdMedicamentGridView.setId("medicationAppGrid");
+        grdMedicamentGridView.setWidth(100, Unit.PERCENTAGE);
+        grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActive");
+
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
-
     public void setGrdMedicamentGridViewItems(List<Medication> items) {
         this.grdMedicamentGridView.setItems(items);
     }
@@ -86,7 +84,7 @@ public class MedicationView extends CustomLayout implements View {
         return grdMedicamentGridView;
     }
 
-    public NavigationButton getBtnAddMedication() {
+    public Button getBtnAddMedication() {
         return btnAddMedication;
     }
 }

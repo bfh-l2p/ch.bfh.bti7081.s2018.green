@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green.presenters;
 
 import javax.persistence.PersistenceException;
 
-import ch.bfh.bti7081.s2018.green.NavigatorUI;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import com.vaadin.server.Page;
 import com.vaadin.ui.Notification;
 
@@ -17,15 +15,17 @@ public class MedicationPrescriptionPresenter {
 
     private DataContainer data;
     private MedicationPrescriptionView view;
-
-    public MedicationPrescriptionPresenter(MedicationPrescriptionView view) {
+    private MedicationPresenter viewBehind;
+    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter viewBehind) {
         this.view = view;
+        this.viewBehind = viewBehind;
         this.data = DataContainer.getInstance();
 
         view.getSaveButton().addClickListener(click -> {
             this.saveData();
         });
     }
+
 
     private void saveData (){
         try {
@@ -43,13 +43,13 @@ public class MedicationPrescriptionPresenter {
 
                 // Show success-message in case saving was successful
                 Notification.show("Data was saved!");
-
+                viewBehind.showExpiredMedication();
                 view.close();
-                NavigatorUI.navigator.navigateTo(MedicationView.NAME);
             }
         } catch (PersistenceException e) {
 
             ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
         }
     }
+
 }

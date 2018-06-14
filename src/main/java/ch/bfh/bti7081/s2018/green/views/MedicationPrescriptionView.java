@@ -1,10 +1,9 @@
 package ch.bfh.bti7081.s2018.green.views;
 
 import java.time.LocalDateTime;
-import com.vaadin.data.Binder;
-import com.vaadin.data.BinderValidationStatus;
-import com.vaadin.data.ValidationException;
-import com.vaadin.data.validator.DateTimeRangeValidator;
+
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import com.vaadin.data.*;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
@@ -14,8 +13,10 @@ import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 public class MedicationPrescriptionView extends Window implements View {
 
     public static final String NAME = "medicationPrescription";
+    private MedicationPresenter medViewBehind;
 
     protected Window window;
+    private  Panel panel;
     private Medication medication;
     private Binder<Medication> binder;
     private TextField medName = new TextField();
@@ -28,26 +29,31 @@ public class MedicationPrescriptionView extends Window implements View {
     private DateTimeField medRecordModified = new DateTimeField();
     private Button btnSave = new Button("Save");
 
-    public MedicationPrescriptionView(Medication med, boolean isEditMode) {
+    public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
+
+        this.medViewBehind = viewBehind;
+
         if (med == null) {
+            // The user is adding a new medication
+            panel = new Panel("New Medication");
             med = new Medication();
+        } else {
+            panel = new Panel("Edit Medication");
         }
         this.medication = med;
         bindMedication(this.medication);
         this.setModal(true);
-        Panel panel = new Panel("This is a Panel");
+        //Panel panel = new Panel("Medication prescription");
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");
         panelContent.addComponent(medStopDate, "medStopDate");
-
         panelContent.addComponent(medPeriod, "medFrequency");
         panelContent.addComponent(medDose, "medDose");
-        //panelContent.addComponent(medPrescriberFullName, "medPrescriber");
-
+        panelContent.addComponent(medPrescriberFullName, "medPrescriber");
         panelContent.addComponent(btnSave, "medSaveButton");
         panel.setContent(panelContent);
-        setContent(panel);
+        this.setContent(panel);
 
         // make sure an element can just be edited 20 minutes long after start time of medication
         if (isEditMode && !this.medication.getStartDate().isAfter(LocalDateTime.now().minusMinutes(20))) {
@@ -56,7 +62,7 @@ public class MedicationPrescriptionView extends Window implements View {
             medPeriod.setEnabled(false);
             medDose.setEnabled(false);
         }
-        new MedicationPrescriptionPresenter(this);
+        new MedicationPrescriptionPresenter(this, viewBehind);
     }
 
     // performs field validation for new records
@@ -65,7 +71,7 @@ public class MedicationPrescriptionView extends Window implements View {
         binder.readBean(medication);
     }
 
-    //perform field validation when saving a recaord - for values that could only be validated when editing an existing record
+    //perform field validation when saving a record - for values that could only be validated when editing an existing record
     public Medication getMedication() {
         try {
             this.validateFields();
@@ -74,7 +80,15 @@ public class MedicationPrescriptionView extends Window implements View {
                 // validate the stop date
                 binder.forField(medStopDate)
                         .asRequired()
-                        .withValidator(new DateTimeRangeValidator("End date must be between 'start date' and < today + 99yrs", medStartDate.getValue(), medStartDate.getValue().plusYears(99)))
+                        .withValidator(new Validator<LocalDateTime>() {
+                            @Override
+                            public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
+                                if(medStartDate.getValue().isBefore(medStopDate.getValue())){
+                                    return ValidationResult.ok();
+                                }
+                                return ValidationResult.error("End date must start after start date");
+                            }
+                        })
                         .bind(Medication::getEndDate, Medication::setEndDate);
             }
             BinderValidationStatus<Medication> medStat = binder.validate();
@@ -90,8 +104,7 @@ public class MedicationPrescriptionView extends Window implements View {
                 System.out.println(LocalDateTime.now());
             }
         } catch (ValidationException e) {
-            // TODO Auto-generated catch block
-            Notification.show("VALIDATION failed");
+            Notification.show("Validation failed");
             e.printStackTrace();
         }
         return medication;

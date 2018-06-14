@@ -3,17 +3,13 @@ package ch.bfh.bti7081.s2018.green.presenters;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
-
-import ch.bfh.bti7081.s2018.green.presenters.filters.MedicationFilter;
 import com.vaadin.server.Page;
 import com.vaadin.ui.*;
 import ch.bfh.bti7081.s2018.green.DataContainer;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
-
 import javax.persistence.PersistenceException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -27,8 +23,15 @@ public class MedicationPresenter {
 
     private MedicationView view;
     private DataContainer data;
+    private boolean filterData;
 
-    private Predicate<Medication> medFilter = new MedicationFilter().getMedFilter();
+    // filter predicate to only display active medication
+    private Predicate<Medication> medFilter = ( Medication medicationToFilter)  -> {
+        if (medicationToFilter.isActive()) {
+            return true;
+        }
+        return false;
+    };
 
     /*
      * Constructor is building the Grid-Content of the view
@@ -38,9 +41,10 @@ public class MedicationPresenter {
     public MedicationPresenter(MedicationView view, boolean filter) {
         this.view = view;
         this.data = DataContainer.getInstance();
+        this.filterData = filter;
 
-        if (filter) {
-            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
+        if (this.filterData) {
+            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
             view.getMedicamentGrid().getDataProvider().refreshAll();
         }
         else {
@@ -52,26 +56,19 @@ public class MedicationPresenter {
     }
 
     private void build () {
-        view.getMedicamentGrid().setSelectionMode(Grid.SelectionMode.SINGLE);
-
-        // add edit button with event listener to each row
-        if (view.getMedicamentGrid().getColumn("EditButtonRow") == null)
-        {
-            view.getMedicamentGrid().addComponentColumn(med -> {
-                Button btn = new Button("Edit");
-                btn.addClickListener(click -> {
-                    MedicationPrescriptionView medicationPrescriptionView = new MedicationPrescriptionView(med, true);
-                    this.view.getUI().addWindow(medicationPrescriptionView);
-                });
-                return btn;
-            }).setId("EditButtonRow");
-        }
 
         //add "show expired medication" on/off switch
         view.getShowExpired().addValueChangeListener((event) ->
-                showExpiredMedication(event.getValue())
+                showExpiredMedication()
         );
 
+        // Start with an empty medication because it's a new one to be created when clicking on Button "add new medication"
+        view.getBtnAddMedication().addClickListener((clickEvent) -> view.getUI().addWindow(new MedicationPrescriptionView(this, null, false)) );
+        view.getMedicamentGrid().setSelectionMode(Grid.SelectionMode.SINGLE);
+
+        // add edit button with event listener to each row
+        addEditButtonToRow();
+        //set the rows high enough for the button.
         view.getMedicamentGrid().setRowHeight(40);
     }
 
@@ -107,17 +104,35 @@ public class MedicationPresenter {
         return new ArrayList<Medication>();
     }
 
-    // rebuilds the list if the "show inactive medication" switch has been clicked
-    private void showExpiredMedication (boolean showExpiredRecords) {
+    // rebuilds the list if the "show inactive medication" switch has been clicked or it is calles manually
+    protected void showExpiredMedication () {
 
-        if (showExpiredRecords) {
+        if (view.getShowExpired().getValue()) {
             view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
-            this.build();
         }
         else {
             view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
-            this.build();
         }
     }
+
+    private void addEditButtonToRow () {
+        if (view.getMedicamentGrid().getColumn("EditButtonRow") == null)
+        {
+            view.getMedicamentGrid().addComponentColumn(med -> {
+                Button btn = new Button("Edit");
+                btn.addClickListener(click -> {
+                    MedicationPrescriptionView medicationPrescriptionView = new MedicationPrescriptionView(this, med, view.getShowExpired().getValue());
+                    view.getUI().addWindow(medicationPrescriptionView);
+                });
+                return btn;
+            }).setId("EditButtonRow");
+        }
+    }
+
+    public boolean isFilterData() {
+        return filterData;
+    }
+
+
 
 }
