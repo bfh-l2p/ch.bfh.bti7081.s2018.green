@@ -10,6 +10,7 @@ import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
+import ch.bfh.bti7081.s2018.green.views.MedicationView;
 
 public class MedicationPrescriptionPresenter {
 
@@ -45,7 +46,7 @@ public class MedicationPrescriptionPresenter {
         Notification.show("Data was saved!");
         
         view.close();
-
+        data.getCurrentNavigator().navigateTo(MedicationView.NAME);
         
     	} catch (PersistenceException e) {
     		
