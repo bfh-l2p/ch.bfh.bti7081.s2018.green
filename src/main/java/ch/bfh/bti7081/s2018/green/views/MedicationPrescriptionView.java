@@ -74,25 +74,7 @@ public class MedicationPrescriptionView extends Window implements View {
     //perform field validation when saving a record - for values that could only be validated when editing an existing record
     public Medication getMedication() {
         try {
-            this.validateFields();
-            if (medStartDate.getValue() != null)
-            {
-                // validate the stop date
-                binder.forField(medStopDate)
-                        .asRequired()
-                        .withValidator(new Validator<LocalDateTime>() {
-                            @Override
-                            public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
-                                if(medStartDate.getValue().isBefore(medStopDate.getValue())){
-                                    return ValidationResult.ok();
-                                }
-                                return ValidationResult.error("End date must start after start date");
-                            }
-                        })
-                        .bind(Medication::getEndDate, Medication::setEndDate);
-            }
             BinderValidationStatus<Medication> medStat = binder.validate();
-
             //check if there are any form validation errors
             if (medStat.hasErrors()) {
                 Notification.show("Some fields contain invalid information (marked in red)");
@@ -122,8 +104,20 @@ public class MedicationPrescriptionView extends Window implements View {
         binder.forField(medStartDate)
                 .asRequired()
                 .bind(Medication::getStartDate, Medication::setStartDate);
+        /*binder.forField(medStopDate)
+                .asRequired()
+                .bind(Medication::getEndDate, Medication::setEndDate);*/
         binder.forField(medStopDate)
                 .asRequired()
+                .withValidator(new Validator<LocalDateTime>() {
+                    @Override
+                    public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
+                        if(medStartDate.getValue().isBefore(medStopDate.getValue())){
+                            return ValidationResult.ok();
+                        }
+                        return ValidationResult.error("End date must start after start date");
+                    }
+                })
                 .bind(Medication::getEndDate, Medication::setEndDate);
         binder.forField(medPeriod)
                 .withConverter(
