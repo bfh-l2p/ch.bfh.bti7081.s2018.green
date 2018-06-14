@@ -160,12 +160,37 @@ $v-border-radius: 2px;
         }
       }
     }
+
+    #events {
+      #eventList {
+        margin: 1em 0 2em;
+        padding: 0;
+
+        .card {
+          header {
+            font-size: 0.875em;
+
+            .datetime {
+              font-weight: bold;
+            }
+
+            .therapist {
+              color: $color-font-grey;
+            }
+          }
+
+          h2 {
+            margin: 0.25em 0;
+          }
+        }
+      }
+    }
   }
 
   #medDetailView {
     margin: 1em;
 
-    .medDetailViewData input{
+    .medDetailViewData input {
       width: 100%;
     }
   }
