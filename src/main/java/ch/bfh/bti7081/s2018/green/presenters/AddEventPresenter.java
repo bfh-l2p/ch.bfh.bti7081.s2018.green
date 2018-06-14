@@ -61,6 +61,7 @@ public class AddEventPresenter {
 	    this.view.getBtnIncInt().setEnabled(state);
 	    this.view.getBtnDecInt().setEnabled(state);
 	    this.view.getTfIntervals().setEnabled(state);
+	    this.view.getLbSetRecurringInterval().setEnabled(state);
 	}
 
 	// Save-type decider who's checking if a normal or a recurring event should be saved

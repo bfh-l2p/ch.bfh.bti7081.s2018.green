@@ -24,12 +24,14 @@ public class AddEventView extends Window implements View {
 
     // Attributes of default ScheduleAddView
     private int intervals=0;
-    private Label lbFrom = new Label("Event begins at:");
-    private Label lbTo = new Label("Event ends at:");
+    private Label lbFrom = new Label("Event begins at");
+    private Label lbTo = new Label("Event ends at");
     private Label lbTitle = new Label("Title");
-    private Label lbContent = new Label("Reason of event and notes:");
-    private Label lbIntervals = new Label("Repetitions:");
-    private TextField tfIntervals = new TextField("");
+    private Label lbContent = new Label("Notes");
+    private Label lbIntervals = new Label("Repetitions");
+    private Label lbRecurringEvent = new Label("Recurring?");
+    private Label lbSetRecurringInterval = new Label("Interval");
+    private TextField tfIntervals = new TextField();
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
@@ -37,8 +39,8 @@ public class AddEventView extends Window implements View {
     private Button btnSave = new Button("Save Event");
     private Button btnIncInt = new Button("+");
     private Button btnDecInt = new Button("-");
-    private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
-    RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
+    private CheckBox cbRecurringEvent = new CheckBox("Repeat this event");
+    RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>();
 
     public AddEventView() {
     	
@@ -48,16 +50,19 @@ public class AddEventView extends Window implements View {
         dtfTo.setValue(LocalDateTime.now().plusMinutes(15));
         tfIntervals.setReadOnly(true);
         rbgSetRecurringInterval.setEnabled(false);
+        lbSetRecurringInterval.setEnabled(false);
         lbIntervals.setEnabled(false);
         btnIncInt.setEnabled(false);
         btnDecInt.setEnabled(false);
         tfIntervals.setEnabled(false);
-        
+
         // Prepare panel container to fill in items
         Panel panel = new Panel("Add an Event");
         CustomLayout panelContent = new CustomLayout("eventAdd");
+        panelContent.setId(NAME);
         setModal(true);
-        
+
+
         // Place Java-Components in HTML DIVs
         panelContent.addComponent(lbFrom, "fromLabel");
         panelContent.addComponent(lbTo, "toLabel");
@@ -68,7 +73,9 @@ public class AddEventView extends Window implements View {
         panelContent.addComponent(tfTitle, "titleField");
         panelContent.addComponent(tfContent, "contentField");
         panelContent.addComponent(btnSave, "saveButton");
+        panelContent.addComponent(lbRecurringEvent, "recurringLabel");
         panelContent.addComponent(cbRecurringEvent, "recurringCheckBox");
+        panelContent.addComponent(lbSetRecurringInterval, "recurringIntervalLabel");
         panelContent.addComponent(rbgSetRecurringInterval, "intervalRadioButtonGroup");
         panelContent.addComponent(lbIntervals, "intervalLabel");
         panelContent.addComponent(tfIntervals, "intervalTextfield");
@@ -88,6 +95,10 @@ public class AddEventView extends Window implements View {
 	public Label getLbIntervals() {
 		return lbIntervals;
 	}
+
+    public Label getLbSetRecurringInterval() {
+        return lbSetRecurringInterval;
+    }
     
     public void setTfIntervals(int i) {
     	this.tfIntervals.setValue(""+i);

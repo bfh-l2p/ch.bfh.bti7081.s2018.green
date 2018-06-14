@@ -171,13 +171,66 @@ $v-border-radius: 2px;
         }
       }
     }
+
+    #events {
+      #eventList {
+        margin: 1em 0 2em;
+        padding: 0;
+
+        .card {
+          header {
+            font-size: 0.875em;
+
+            .datetime {
+              font-weight: bold;
+            }
+
+            .therapist {
+              color: $color-font-grey;
+            }
+          }
+
+          h2 {
+            margin: 0.25em 0;
+          }
+        }
+      }
+    }
   }
 
   #medDetailView {
     margin: 1em;
 
-    .medDetailViewData input{
+    .medDetailViewData input {
       width: 100%;
+    }
+  }
+
+  #eventAdd {
+    & > table {
+      margin: 1em;
+
+      td {
+        vertical-align: top;
+      }
+    }
+
+    .v-disabled {
+      display: none;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    div[data-location="intervalTextfield"] {
+      width: 60px;
+    }
+
+    div[data-location="incButton"],
+    div[data-location="decButton"] {
+      background-color: $color-font-grey;
     }
   }
 
