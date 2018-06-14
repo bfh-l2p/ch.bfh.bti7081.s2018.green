@@ -1,22 +1,21 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import java.time.LocalDateTime;
-
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import com.vaadin.data.*;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
+
+import java.time.LocalDateTime;
 
 public class MedicationPrescriptionView extends Window implements View {
 
     public static final String NAME = "medicationPrescription";
-    
-    private MedicationPresenter medViewBehind;
     protected Window window;
-    private  Panel panel;
+    private MedicationPresenter medViewBehind;
+    private Panel panel;
     private Medication medication;
     private Binder<Medication> binder = new Binder<>();
     private TextField medName = new TextField();
@@ -32,7 +31,7 @@ public class MedicationPrescriptionView extends Window implements View {
     public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
 
         this.medViewBehind = viewBehind;
-        
+
         if (med == null) {
             // The user is adding a new medication
             panel = new Panel("New Medication");
@@ -79,8 +78,7 @@ public class MedicationPrescriptionView extends Window implements View {
             if (medStat.hasErrors()) {
                 Notification.show("Some fields contain invalid information (marked in red)");
                 return null;
-            }
-            else {
+            } else {
                 binder.writeBean(this.medication);
             }
         } catch (ValidationException e) {
@@ -90,10 +88,10 @@ public class MedicationPrescriptionView extends Window implements View {
         return medication;
     }
 
-    private void validateFields () {
+    private void validateFields() {
         binder.forField(medName)
                 .asRequired()
-                .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters",1,120))
+                .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters", 1, 120))
                 .bind(Medication::getName, Medication::setName);
         binder.forField(medStartDate)
                 .asRequired()
@@ -101,7 +99,7 @@ public class MedicationPrescriptionView extends Window implements View {
         binder.forField(medStopDate)
                 .asRequired()
                 .withValidator((Validator<LocalDateTime>) (localDateTime, valueContext) -> {
-                    if(medStartDate.getValue().isBefore(medStopDate.getValue())){
+                    if (medStartDate.getValue().isBefore(medStopDate.getValue())) {
                         return ValidationResult.ok();
                     }
                     return ValidationResult.error("End date must start after start date");
