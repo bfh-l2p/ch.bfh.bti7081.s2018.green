@@ -10,23 +10,21 @@ import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.models.managers.MedicationManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.MedicationPrescriptionView;
-import ch.bfh.bti7081.s2018.green.views.MedicationView;
 
 public class MedicationPrescriptionPresenter {
 
     private DataContainer data;
     private MedicationPrescriptionView view;
-    private MedicationPresenter viewBehind;
-    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter viewBehind) {
+    private MedicationPresenter medicationPresenter;
+    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter medicationPresenter) {
         this.view = view;
-        this.viewBehind = viewBehind;
+        this.medicationPresenter = medicationPresenter;
         this.data = DataContainer.getInstance();
 
         view.getSaveButton().addClickListener(click -> {
             this.saveData();
         });
     }
-
 
     private void saveData (){
         try {
@@ -43,8 +41,7 @@ public class MedicationPrescriptionPresenter {
                 }
 
                 Notification.show("Data was saved!");
-                viewBehind.showExpiredMedication();
-                data.getCurrentNavigator().navigateTo(MedicationView.NAME);
+                medicationPresenter.refreshMedicationGrid();
                 view.close();
             }
         } catch (PersistenceException e) {
