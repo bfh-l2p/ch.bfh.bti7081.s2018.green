@@ -42,9 +42,6 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        List<String> customButtonStyles = new ArrayList<>();
-        customButtonStyles.add("appMenuTab");
-
         // Adding button to create new medication
         this.btnAddMedication = new Button("New Medication");
         this.addComponent(this.btnAddMedication, "addMedicationTab");
