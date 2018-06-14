@@ -13,8 +13,8 @@ import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 public class MedicationPrescriptionView extends Window implements View {
 
     public static final String NAME = "medicationPrescription";
+    
     private MedicationPresenter medViewBehind;
-
     protected Window window;
     private  Panel panel;
     private Medication medication;
@@ -32,7 +32,7 @@ public class MedicationPrescriptionView extends Window implements View {
     public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
 
         this.medViewBehind = viewBehind;
-
+        
         if (med == null) {
             // The user is adding a new medication
             panel = new Panel("New Medication");
@@ -152,7 +152,6 @@ public class MedicationPrescriptionView extends Window implements View {
     public TextField getMedPrescriberFullName() {
         return medPrescriberFullName;
     }
-
 
     public DateTimeField getMedStartDate() {
         return medStartDate;

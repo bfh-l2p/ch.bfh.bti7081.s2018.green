@@ -83,7 +83,6 @@ public class MedicationPresenter {
         MedicationManager manager = new MedicationManager();
 
         try {
-
             List<Medication> medList =  manager.findBy(pat);
             //now filter out all expired medications
             if (filter != null) {
@@ -91,7 +90,6 @@ public class MedicationPresenter {
                         .stream()
                         .filter(filter)
                         .collect(Collectors.toList());
-
             }
             // else return full list
             return medList;
@@ -132,7 +130,4 @@ public class MedicationPresenter {
     public boolean isFilterData() {
         return filterData;
     }
-
-
-
 }

@@ -2,8 +2,6 @@ package ch.bfh.bti7081.s2018.green;
 
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
-import ch.bfh.bti7081.s2018.green.models.entities.Patient;
-import ch.bfh.bti7081.s2018.green.presenters.NavigationMenuPresenter;
 import ch.bfh.bti7081.s2018.green.views.JournalView;
 import ch.bfh.bti7081.s2018.green.views.MedicationView;
 import ch.bfh.bti7081.s2018.green.presenters.FooterPresenter;
@@ -24,7 +22,7 @@ import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
 
-import ch.bfh.bti7081.s2018.green.views.ScheduleAddView;
+import ch.bfh.bti7081.s2018.green.views.AddEventView;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -47,9 +45,7 @@ import javax.servlet.annotation.WebServlet;
 @PushStateNavigation
 public class NavigatorUI extends UI {
 
-
-    public static Navigator navigator;
-
+    private Navigator navigator;
 
     /**
      * Entry point: Custom part of application starts here!
@@ -105,8 +101,6 @@ public class NavigatorUI extends UI {
 
     private CustomLayout getNavigation() {
         NavigationMenuView navMen = new NavigationMenuView();
-        // add the click listeners now
-        new NavigationMenuPresenter(navMen);
         return navMen;
     }
 
@@ -119,7 +113,7 @@ public class NavigatorUI extends UI {
     private CustomLayout getHeader() {
         HeaderView header = new HeaderView();
         HeaderPresenter hp = new HeaderPresenter(header);
-        
+
         hp.addUserName("User: " + System.getProperty("user.name"));
 
         return header;
@@ -142,9 +136,10 @@ public class NavigatorUI extends UI {
         // ViewID, ClassToInitiate
         navigator.addView(JournalView.NAME, JournalView.class);
         navigator.addView(MedicationView.NAME, MedicationView.class);
-        navigator.addView(MedicationView.NAME, MedicationView.class);
         navigator.addView(EventListView.NAME, EventListView.class);
-        navigator.addView(ScheduleAddView.NAME, ScheduleAddView.class);
+
+        data.setCurrentViewName(JournalView.NAME);
+        data.setCurrentNavigator(navigator);
     }
 
 

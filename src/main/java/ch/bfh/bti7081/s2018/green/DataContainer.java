@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2018.green;
 
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinSession;
 
 import java.util.HashMap;
@@ -15,6 +16,8 @@ public class DataContainer {
     private static Map<String, DataContainer> instance = new HashMap<>();
     private Patient currentPatient;
     private Staff currentStaff;
+    private Navigator navigator;
+    private String viewName;
 
     private DataContainer() {
     }
@@ -57,5 +60,19 @@ public class DataContainer {
 
     public void setCurrentStaff(Staff currentStaff) {
         this.currentStaff = currentStaff;
+    }
+
+    public Navigator getCurrentNavigator() { return navigator; }
+
+    public void setCurrentNavigator(Navigator navigator) {
+        this.navigator = navigator;
+    }
+
+    public String getCurrentViewName() {
+        return viewName;
+    }
+
+    public void setCurrentViewName(String viewName) {
+        this.viewName = viewName;
     }
 }

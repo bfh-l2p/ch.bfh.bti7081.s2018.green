@@ -2,6 +2,7 @@ package ch.bfh.bti7081.s2018.green.views;
 
 import com.vaadin.navigator.View;
 import com.vaadin.ui.CustomLayout;
+import com.vaadin.ui.Component;
 
 public class NavigationMenuView extends CustomLayout implements View{
 
@@ -42,6 +43,7 @@ public class NavigationMenuView extends CustomLayout implements View{
 
         this.btnJournal = new NavigationButton("Journal", JournalView.NAME, this);
         this.addComponent(this.btnJournal, "navMenuJournal");
+        this.btnJournal.addStyleName("active");
 
         this.btnMedication = new NavigationButton("Medication", MedicationView.NAME, this);
         this.addComponent(this.btnMedication, "navMenuMedication");
@@ -55,4 +57,10 @@ public class NavigationMenuView extends CustomLayout implements View{
         return this;
     }
 
+    public void resetAllButtonsStyles() {
+        for (Component button : this)
+        {
+            button.removeStyleName("active");
+        }
+    }
 }

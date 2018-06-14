@@ -11,6 +11,8 @@ import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import com.vaadin.ui.renderers.LocalDateTimeRenderer;
 import com.vaadin.ui.renderers.Renderer;
 import org.vaadin.teemu.switchui.Switch;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 
 public class MedicationView extends CustomLayout implements View {
@@ -55,7 +57,6 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void medGridBuilder() {
-
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
@@ -70,12 +71,14 @@ public class MedicationView extends CustomLayout implements View {
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
+
         grdMedicamentGridView.setId("medicationAppGrid");
         grdMedicamentGridView.setWidth(100, Unit.PERCENTAGE);
         grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActive");
 
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
+    
     public void setGrdMedicamentGridViewItems(List<Medication> items) {
         this.grdMedicamentGridView.setItems(items);
     }
