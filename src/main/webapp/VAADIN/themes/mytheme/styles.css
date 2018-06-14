@@ -15203,7 +15203,7 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme #appSection #medication #medShowExpired {
 	float: right;
-	margin-top: 0.5em;
+	margin-top: 0.6em;
 }
 
 .mytheme #appSection #medication #medShowExpired .v-caption {
@@ -15252,6 +15252,10 @@ div.v-layout.v-horizontal.v-widget {
 
 .mytheme #medDetailView .medDetailViewData input {
 	width: 100%;
+}
+
+.mytheme #medDetailView .medDetailViewData input.v-required {
+	width: calc(100% - 1em);
 }
 
 .mytheme #eventAdd > table {

@@ -216,6 +216,10 @@ $v-border-radius: 2px;
 
     .medDetailViewData input {
       width: 100%;
+
+      &.v-required {
+        width: calc(100% - 1em);
+      }
     }
   }
 
