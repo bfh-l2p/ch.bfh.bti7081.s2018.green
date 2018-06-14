@@ -15197,6 +15197,19 @@ div.v-layout.v-horizontal.v-widget {
 	color: #777777;
 }
 
+.mytheme #appSection #medication #addMedicationTab {
+	float: left;
+}
+
+.mytheme #appSection #medication #medShowExpired {
+	float: right;
+	margin-top: 0.6em;
+}
+
+.mytheme #appSection #medication #medShowExpired .v-caption {
+	margin-right: 0.5em;
+}
+
 .mytheme #appSection #medication #dataGrid {
 	margin: 1em 0 2em;
 	border-radius: 2px;
@@ -15212,12 +15225,61 @@ div.v-layout.v-horizontal.v-widget {
 	text-decoration: line-through solid #aaaaaa;
 }
 
+.mytheme #appSection #events #eventList {
+	margin: 1em 0 2em;
+	padding: 0;
+}
+
+.mytheme #appSection #events #eventList .card header {
+	font-size: 0.875em;
+}
+
+.mytheme #appSection #events #eventList .card header .datetime {
+	font-weight: bold;
+}
+
+.mytheme #appSection #events #eventList .card header .therapist {
+	color: #777777;
+}
+
+.mytheme #appSection #events #eventList .card h2 {
+	margin: 0.25em 0;
+}
+
 .mytheme #medDetailView {
 	margin: 1em;
 }
 
 .mytheme #medDetailView .medDetailViewData input {
 	width: 100%;
+}
+
+.mytheme #medDetailView .medDetailViewData input.v-required {
+	width: calc(100% - 1em);
+}
+
+.mytheme #eventAdd > table {
+	margin: 1em;
+}
+
+.mytheme #eventAdd > table td {
+	vertical-align: top;
+}
+
+.mytheme #eventAdd .v-disabled {
+	display: none;
+}
+
+.mytheme #eventAdd input, .mytheme #eventAdd textarea {
+	width: 100%;
+}
+
+.mytheme #eventAdd div[data-location="intervalTextfield"] {
+	width: 60px;
+}
+
+.mytheme #eventAdd div[data-location="incButton"], .mytheme #eventAdd div[data-location="decButton"] {
+	background-color: #777777;
 }
 
 .mytheme #footerSection #footerBar {

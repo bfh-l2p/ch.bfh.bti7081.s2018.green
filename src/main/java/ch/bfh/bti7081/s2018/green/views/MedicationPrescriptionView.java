@@ -1,24 +1,23 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import java.time.LocalDateTime;
-
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import com.vaadin.data.*;
 import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.*;
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
+
+import java.time.LocalDateTime;
 
 public class MedicationPrescriptionView extends Window implements View {
 
     public static final String NAME = "medicationPrescription";
-    
-    private MedicationPresenter medViewBehind;
     protected Window window;
-    private  Panel panel;
+    private MedicationPresenter medViewBehind;
+    private Panel panel;
     private Medication medication;
-    private Binder<Medication> binder;
+    private Binder<Medication> binder = new Binder<>();
     private TextField medName = new TextField();
     private DateTimeField medStartDate = new DateTimeField();
     private DateTimeField medStopDate = new DateTimeField();
@@ -31,8 +30,8 @@ public class MedicationPrescriptionView extends Window implements View {
 
     public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
 
-        this.medViewBehind = viewBehind;
-        
+        medViewBehind = viewBehind;
+
         if (med == null) {
             // The user is adding a new medication
             panel = new Panel("New Medication");
@@ -40,10 +39,11 @@ public class MedicationPrescriptionView extends Window implements View {
         } else {
             panel = new Panel("Edit Medication");
         }
-        this.medication = med;
+
+        medication = med;
         bindMedication(this.medication);
-        this.setModal(true);
-        //Panel panel = new Panel("Medication prescription");
+        setModal(true);
+
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");
@@ -53,7 +53,7 @@ public class MedicationPrescriptionView extends Window implements View {
         panelContent.addComponent(medPrescriberFullName, "medPrescriber");
         panelContent.addComponent(btnSave, "medSaveButton");
         panel.setContent(panelContent);
-        this.setContent(panel);
+        setContent(panel);
 
         // make sure an element can just be edited 20 minutes long after start time of medication
         if (isEditMode && !this.medication.getStartDate().isAfter(LocalDateTime.now().minusMinutes(20))) {
@@ -62,12 +62,13 @@ public class MedicationPrescriptionView extends Window implements View {
             medPeriod.setEnabled(false);
             medDose.setEnabled(false);
         }
+
         new MedicationPrescriptionPresenter(this, viewBehind);
     }
 
     // performs field validation for new records
     private void bindMedication(Medication medication) {
-        this.validateFields();
+        validateFields();
         binder.readBean(medication);
     }
 
@@ -79,11 +80,8 @@ public class MedicationPrescriptionView extends Window implements View {
             if (medStat.hasErrors()) {
                 Notification.show("Some fields contain invalid information (marked in red)");
                 return null;
-            }
-            else {
+            } else {
                 binder.writeBean(this.medication);
-                System.out.println(medication.getStartDate());
-                System.out.println(LocalDateTime.now());
             }
         } catch (ValidationException e) {
             Notification.show("Validation failed");
@@ -92,31 +90,21 @@ public class MedicationPrescriptionView extends Window implements View {
         return medication;
     }
 
-    private void validateFields () {
-        if (binder == null) {
-            binder = new Binder<>();
-        }
-
+    private void validateFields() {
         binder.forField(medName)
                 .asRequired()
-                .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters",1,120))
+                .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters", 1, 120))
                 .bind(Medication::getName, Medication::setName);
         binder.forField(medStartDate)
                 .asRequired()
                 .bind(Medication::getStartDate, Medication::setStartDate);
-        /*binder.forField(medStopDate)
-                .asRequired()
-                .bind(Medication::getEndDate, Medication::setEndDate);*/
         binder.forField(medStopDate)
                 .asRequired()
-                .withValidator(new Validator<LocalDateTime>() {
-                    @Override
-                    public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
-                        if(medStartDate.getValue().isBefore(medStopDate.getValue())){
-                            return ValidationResult.ok();
-                        }
-                        return ValidationResult.error("End date must start after start date");
+                .withValidator((Validator<LocalDateTime>) (localDateTime, valueContext) -> {
+                    if (medStartDate.getValue().isBefore(medStopDate.getValue())) {
+                        return ValidationResult.ok();
                     }
+                    return ValidationResult.error("End date must start after start date");
                 })
                 .bind(Medication::getEndDate, Medication::setEndDate);
         binder.forField(medPeriod)

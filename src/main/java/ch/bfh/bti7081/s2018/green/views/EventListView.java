@@ -22,8 +22,8 @@ public class EventListView extends CustomLayout implements View {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        //Notification.show("Welcome to the Event View");
         this.setTemplateName("eventList");
+        this.setId(NAME);
         this.addComponent(btnNew, "newbutton");
 
         new EventListPresenter(this);
@@ -31,9 +31,12 @@ public class EventListView extends CustomLayout implements View {
 
     public void setEvents(List<ch.bfh.bti7081.s2018.green.models.entities.Event> events) {
         eventList = new VerticalLayout();
+        eventList.setId("eventList");
+
         for (ch.bfh.bti7081.s2018.green.models.entities.Event event : events) {
             addEvent(event);
         }
+
         this.addComponent(eventList, "events");
     }
 
@@ -54,7 +57,6 @@ public class EventListView extends CustomLayout implements View {
     private void addLabel(CustomLayout layout, String slot, String value) {
         Label label = new Label();
         label.setValue(value);
-        label.setWidth("300px");
         layout.addComponent(label, slot);
     }
 
