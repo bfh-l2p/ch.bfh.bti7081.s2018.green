@@ -24,15 +24,7 @@ public class AddEventView extends Window implements View {
 
     // Attributes of default ScheduleAddView
     private int intervals=0;
-    private Label lbFrom = new Label("Event begins at");
-    private Label lbTo = new Label("Event ends at");
-
-
-
-    private Label lbTitle = new Label("Title");
-    private Label lbContent = new Label("Notes");
     private Label lbIntervals = new Label("Repetitions");
-    private Label lbRecurringEvent = new Label("Recurring?");
     private Label lbSetRecurringInterval = new Label("Interval");
     private TextField tfIntervals = new TextField();
     private DateTimeField dtfFrom = new DateTimeField();
@@ -43,10 +35,9 @@ public class AddEventView extends Window implements View {
     private Button btnIncInt = new Button("+");
     private Button btnDecInt = new Button("-");
     private CheckBox cbRecurringEvent = new CheckBox("Repeat this event");
-    RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>();
+    private RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>();
 
     public AddEventView() {
-    	
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
         dtfFrom.setValue(LocalDateTime.now());
@@ -65,18 +56,17 @@ public class AddEventView extends Window implements View {
         panelContent.setId(NAME);
         setModal(true);
 
-
         // Place Java-Components in HTML DIVs
-        panelContent.addComponent(lbFrom, "fromLabel");
-        panelContent.addComponent(lbTo, "toLabel");
-        panelContent.addComponent(lbTitle, "titleLabel");
-        panelContent.addComponent(lbContent, "contentLabel");
+        panelContent.addComponent(new Label("Event begins at"), "fromLabel");
+        panelContent.addComponent(new Label("Event ends at"), "toLabel");
+        panelContent.addComponent(new Label("Title"), "titleLabel");
+        panelContent.addComponent(new Label("Notes"), "contentLabel");
         panelContent.addComponent(dtfFrom, "fromField");
         panelContent.addComponent(dtfTo, "toField");
         panelContent.addComponent(tfTitle, "titleField");
         panelContent.addComponent(tfContent, "contentField");
         panelContent.addComponent(btnSave, "saveButton");
-        panelContent.addComponent(lbRecurringEvent, "recurringLabel");
+        panelContent.addComponent(new Label("Recurring?"), "recurringLabel");
         panelContent.addComponent(cbRecurringEvent, "recurringCheckBox");
         panelContent.addComponent(lbSetRecurringInterval, "recurringIntervalLabel");
         panelContent.addComponent(rbgSetRecurringInterval, "intervalRadioButtonGroup");
@@ -118,6 +108,7 @@ public class AddEventView extends Window implements View {
 	public void decIntervals() {
 		this.intervals--;
 	}
+
 	public Button getBtnIncInt() {
 		return btnIncInt;
 	}
@@ -155,12 +146,10 @@ public class AddEventView extends Window implements View {
     }
     
     public Date getFromDate() {
-    	Date tmp = Date.from(dtfFrom.getValue().atZone(ZoneId.systemDefault()).toInstant());
-    	return tmp;
+    	return Date.from(dtfFrom.getValue().atZone(ZoneId.systemDefault()).toInstant());
     }
     
     public Date getToDate() {
-    	Date tmp = Date.from(dtfTo.getValue().atZone(ZoneId.systemDefault()).toInstant());
-    	return tmp;
+    	return Date.from(dtfTo.getValue().atZone(ZoneId.systemDefault()).toInstant());
     }
 }
