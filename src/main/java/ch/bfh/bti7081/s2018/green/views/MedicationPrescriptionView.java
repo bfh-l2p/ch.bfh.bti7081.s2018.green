@@ -18,7 +18,7 @@ public class MedicationPrescriptionView extends Window implements View {
     protected Window window;
     private  Panel panel;
     private Medication medication;
-    private Binder<Medication> binder;
+    private Binder<Medication> binder = new Binder<>();
     private TextField medName = new TextField();
     private DateTimeField medStartDate = new DateTimeField();
     private DateTimeField medStopDate = new DateTimeField();
@@ -93,10 +93,6 @@ public class MedicationPrescriptionView extends Window implements View {
     }
 
     private void validateFields () {
-        if (binder == null) {
-            binder = new Binder<>();
-        }
-
         binder.forField(medName)
                 .asRequired()
                 .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters",1,120))
