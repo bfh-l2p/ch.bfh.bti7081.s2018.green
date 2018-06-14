@@ -195,6 +195,34 @@ $v-border-radius: 2px;
     }
   }
 
+  #eventAdd {
+    & > table {
+      margin: 1em;
+
+      td {
+        vertical-align: top;
+      }
+    }
+
+    .v-disabled {
+      display: none;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    div[data-location="intervalTextfield"] {
+      width: 60px;
+    }
+
+    div[data-location="incButton"],
+    div[data-location="decButton"] {
+      background-color: $color-font-grey;
+    }
+  }
+
   // footer
   #footerSection {
     #footerBar {
