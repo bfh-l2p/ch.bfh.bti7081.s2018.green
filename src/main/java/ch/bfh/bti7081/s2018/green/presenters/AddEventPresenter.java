@@ -51,7 +51,7 @@ public class AddEventPresenter {
 		try {
 			this.view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
 		} catch (NullPointerException npe) {
-			ErrorView.showError("From-Datefield format is invalid, please re-check", Page.getCurrent());
+		    // Ignore the error. Datefields return null if the date format is incorrect
 		}
 	}
 
@@ -59,7 +59,7 @@ public class AddEventPresenter {
 		try {
 			this.view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
 		} catch (NullPointerException npe) {
-			ErrorView.showError("From-Datefield format is invalid, please re-check", Page.getCurrent());
+            // Ignore the error. Datefields return null if the date format is incorrect
 		}
 	}
 
