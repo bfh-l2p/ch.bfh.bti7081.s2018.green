@@ -7,7 +7,6 @@ import javax.persistence.PersistenceException;
 import com.vaadin.server.Page;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
-import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Event;
 import ch.bfh.bti7081.s2018.green.models.managers.EventManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;

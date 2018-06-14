@@ -8,32 +8,9 @@ public class NavigationMenuView extends CustomLayout implements View{
 
     public static final String NAME = "navmenu";
 
-    public NavigationButton btnPatFile;
-    public NavigationButton btnJournal;
-    public NavigationButton btnMedication;
-    public NavigationButton btnDiagnosis;
-    public NavigationButton btnSchedules;
-
-    public NavigationButton getBtnPatFile() {
-        return btnPatFile;
-    }
-
-    public NavigationButton getBtnJournal() {
-        return btnJournal;
-    }
-
-    public NavigationButton getBtnMedication() {
-        return btnMedication;
-    }
-
-    public NavigationButton getBtnDiagnosis() {
-        return btnDiagnosis;
-    }
-
-    public NavigationButton getBtnSchedules() {
-        return btnSchedules;
-    }
-
+    private NavigationButton btnJournal;
+    private NavigationButton btnMedication;
+    private NavigationButton btnSchedules;
     /*
     * To add a menu entry, simple add a lines here
      */
@@ -57,10 +34,22 @@ public class NavigationMenuView extends CustomLayout implements View{
         return this;
     }
 
-    public void resetAllButtonsStyles() {
+    protected void resetAllButtonsStyles() {
         for (Component button : this)
         {
             button.removeStyleName("active");
         }
+    }
+
+    public NavigationButton getBtnJournal() {
+        return btnJournal;
+    }
+
+    public NavigationButton getBtnMedication() {
+        return btnMedication;
+    }
+
+    public NavigationButton getBtnSchedules() {
+        return btnSchedules;
     }
 }

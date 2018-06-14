@@ -5,6 +5,7 @@ import ch.bfh.bti7081.s2018.green.views.FooterView;
 public class FooterPresenter {
 
     private FooterView view;
+
     public FooterPresenter (FooterView view) {
         this.view = view;
     }

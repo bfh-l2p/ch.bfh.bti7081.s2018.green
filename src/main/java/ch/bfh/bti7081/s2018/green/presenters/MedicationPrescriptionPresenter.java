@@ -16,6 +16,7 @@ public class MedicationPrescriptionPresenter {
     private DataContainer data;
     private MedicationPrescriptionView view;
     private MedicationPresenter viewBehind;
+
     public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter viewBehind) {
         this.view = view;
         this.viewBehind = viewBehind;
@@ -51,5 +52,4 @@ public class MedicationPrescriptionPresenter {
             ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
         }
     }
-
 }

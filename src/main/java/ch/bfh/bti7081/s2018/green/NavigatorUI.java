@@ -22,8 +22,6 @@ import ch.bfh.bti7081.s2018.green.views.EventListView;
 import ch.bfh.bti7081.s2018.green.views.FooterView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
 
-import ch.bfh.bti7081.s2018.green.views.AddEventView;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -46,6 +44,13 @@ import javax.servlet.annotation.WebServlet;
 public class NavigatorUI extends UI {
 
     private Navigator navigator;
+
+
+    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
+    @VaadinServletConfiguration(ui = NavigatorUI.class, productionMode = false)
+    public static class MyUIServlet extends VaadinServlet {
+
+    }
 
     /**
      * Entry point: Custom part of application starts here!
@@ -100,8 +105,7 @@ public class NavigatorUI extends UI {
     }
 
     private CustomLayout getNavigation() {
-        NavigationMenuView navMen = new NavigationMenuView();
-        return navMen;
+        return new NavigationMenuView();
     }
 
     private CustomLayout getFooterBar() {
@@ -140,12 +144,5 @@ public class NavigatorUI extends UI {
 
         data.setCurrentViewName(JournalView.NAME);
         data.setCurrentNavigator(navigator);
-    }
-
-
-    @WebServlet(urlPatterns = "/*", name = "MyUIServlet", asyncSupported = true)
-    @VaadinServletConfiguration(ui = NavigatorUI.class, productionMode = false)
-    public static class MyUIServlet extends VaadinServlet {
-
     }
 }

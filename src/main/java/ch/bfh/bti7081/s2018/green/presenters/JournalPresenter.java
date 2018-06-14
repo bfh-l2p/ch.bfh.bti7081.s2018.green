@@ -55,6 +55,5 @@ public class JournalPresenter {
 		} catch (PersistenceException e) {
 			ErrorView.showError("Couldn't get journal entries from database", Page.getCurrent());
 		}
-
 	}
 }

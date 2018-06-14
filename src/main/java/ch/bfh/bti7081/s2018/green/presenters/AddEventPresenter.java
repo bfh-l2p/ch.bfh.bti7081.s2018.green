@@ -106,6 +106,9 @@ public class AddEventPresenter {
                     case "Monthly":
                         saveInInterval(ChronoUnit.MONTHS);
                         break;
+					default:
+                        ErrorView.showError("Please set an interval, if you want to add a recurring event", Page.getCurrent());
+						break;
                 }
             }
         }

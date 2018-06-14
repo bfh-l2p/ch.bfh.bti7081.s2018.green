@@ -9,14 +9,12 @@ import com.vaadin.server.Sizeable.Unit;
 import com.vaadin.ui.ComboBox;
 
 import ch.bfh.bti7081.s2018.green.DataContainer;
-import ch.bfh.bti7081.s2018.green.NavigatorUI;
 import ch.bfh.bti7081.s2018.green.models.entities.Patient;
 import ch.bfh.bti7081.s2018.green.models.entities.Staff;
 import ch.bfh.bti7081.s2018.green.models.managers.PatientManager;
 import ch.bfh.bti7081.s2018.green.models.managers.StaffManager;
 import ch.bfh.bti7081.s2018.green.views.ErrorView;
 import ch.bfh.bti7081.s2018.green.views.HeaderView;
-import ch.bfh.bti7081.s2018.green.views.JournalView;
 
 public class HeaderPresenter {
 
@@ -28,6 +26,10 @@ public class HeaderPresenter {
 		this.data = DataContainer.getInstance();
 
 		enteredView();
+	}
+
+	public void addUserName(String username) {
+		view.getLblLoggedOnUser().setValue(username);
 	}
 
 	private void enteredView() {
@@ -116,9 +118,5 @@ public class HeaderPresenter {
 			cboxStaff.setValue(sList.get(0));
 			cboxStaff.setEmptySelectionAllowed(false);
 		}
-	}
-
-	public void addUserName(String username) {
-		view.getLblLoggedOnUser().setValue(username);
 	}
 }

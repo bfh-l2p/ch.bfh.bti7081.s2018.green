@@ -1,7 +1,6 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.*;
 
@@ -104,6 +103,7 @@ public class Medication {
     public void setPatient(Patient patient) {
         this.patient = patient;
     }
+
     public void setDose (float dose) {
         this.dose = dose;
     }

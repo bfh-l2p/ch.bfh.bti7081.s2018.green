@@ -25,14 +25,6 @@ public class MedicationPresenter {
     private DataContainer data;
     private boolean filterData;
 
-    // filter predicate to only display active medication
-    private Predicate<Medication> medFilter = ( Medication medicationToFilter)  -> {
-        if (medicationToFilter.isActive()) {
-            return true;
-        }
-        return false;
-    };
-
     /*
      * Constructor is building the Grid-Content of the view
      * @param: the MedicationView
@@ -54,6 +46,24 @@ public class MedicationPresenter {
 
         this.build();
     }
+
+    public boolean isFilterData() {
+        return filterData;
+    }
+
+
+    // rebuilds the list if the "show inactive medication" switch has been clicked or it is calles manually
+    protected void showExpiredMedication () {
+        if (view.getShowExpired().getValue()) {
+            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
+        }
+        else {
+            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
+        }
+    }
+
+    // filter predicate to only display active medication
+    private Predicate<Medication> medFilter = Medication::isActive;
 
     private void build () {
 
@@ -102,17 +112,6 @@ public class MedicationPresenter {
         return new ArrayList<Medication>();
     }
 
-    // rebuilds the list if the "show inactive medication" switch has been clicked or it is calles manually
-    protected void showExpiredMedication () {
-
-        if (view.getShowExpired().getValue()) {
-            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
-        }
-        else {
-            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
-        }
-    }
-
     private void addEditButtonToRow () {
         if (view.getMedicamentGrid().getColumn("EditButtonRow") == null)
         {
@@ -125,9 +124,5 @@ public class MedicationPresenter {
                 return btn;
             }).setId("EditButtonRow");
         }
-    }
-
-    public boolean isFilterData() {
-        return filterData;
     }
 }

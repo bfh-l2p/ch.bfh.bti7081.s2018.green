@@ -1,6 +1,5 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import java.util.ArrayList;
 import java.util.List;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
@@ -11,9 +10,6 @@ import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
 import com.vaadin.ui.renderers.LocalDateTimeRenderer;
 import com.vaadin.ui.renderers.Renderer;
 import org.vaadin.teemu.switchui.Switch;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 
 public class MedicationView extends CustomLayout implements View {
 
@@ -23,9 +19,6 @@ public class MedicationView extends CustomLayout implements View {
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
     private Switch showExpired = new Switch("Show inactive medication",false);
-    public Switch getShowExpired() {
-        return showExpired;
-    }
 
     public MedicationView() {
         setTemplateName("medication");
@@ -39,6 +32,22 @@ public class MedicationView extends CustomLayout implements View {
             new MedicationPresenter(this, false);
         }
 
+    }
+
+    public Switch getShowExpired() {
+        return showExpired;
+    }
+
+    public void setGrdMedicamentGridViewItems(List<Medication> items) {
+        this.grdMedicamentGridView.setItems(items);
+    }
+
+    public Grid<Medication> getMedicamentGrid() {
+        return grdMedicamentGridView;
+    }
+
+    public Button getBtnAddMedication() {
+        return btnAddMedication;
     }
 
     private void buildView() {
@@ -72,17 +81,5 @@ public class MedicationView extends CustomLayout implements View {
         grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActive");
 
         addComponent(grdMedicamentGridView, "dataGrid");
-    }
-    
-    public void setGrdMedicamentGridViewItems(List<Medication> items) {
-        this.grdMedicamentGridView.setItems(items);
-    }
-
-    public Grid<Medication> getMedicamentGrid() {
-        return grdMedicamentGridView;
-    }
-
-    public Button getBtnAddMedication() {
-        return btnAddMedication;
     }
 }
