@@ -48,26 +48,34 @@ public class AddEventPresenter {
 
 	// Update DateTimeFields without impacting Time when changing Dates
 	private void SetToDate(LocalDateTime from, LocalDateTime to) {
-		view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
+		try {
+			this.view.getDtfTo().setValue(to.withDayOfYear(from.getDayOfYear()));
+		} catch (NullPointerException npe) {
+		    // Ignore the error. Datefields return null if the date format is incorrect
+		}
 	}
 
 	private void SetFromDate(LocalDateTime from, LocalDateTime to) {
-		view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
+		try {
+			this.view.getDtfFrom().setValue(from.withDayOfYear(to.getDayOfYear()));
+		} catch (NullPointerException npe) {
+            // Ignore the error. Datefields return null if the date format is incorrect
+		}
 	}
-	
+
 	// Change count of interval for recurring events
 	private void IncreaseIntervals() {
 		view.incIntervals();
 		view.setTfIntervals(view.getIntervals());
 	}
-	
+
 	private void DecreaseIntervals() {
 		if(view.getIntervals()>0) {
 			view.decIntervals();
 		}
 		view.setTfIntervals(view.getIntervals());
 	}
-	
+
 	// Make items for recurring events visible or hide them, depended on the checkboxvalue
 	private void SetVisibility(boolean state) {
 		view.getRbgSetRecurringInterval().setEnabled(state);
@@ -85,10 +93,10 @@ public class AddEventPresenter {
 		if(view.getCbRecurringEvent().getValue() && view.getIntervals()==0) {
 			ErrorView.showError("Please set an interval, if you want to add a recurring event", Page.getCurrent());
 		}
-		
+
 		// Trigger save event for a normal event
 		if(!view.getCbRecurringEvent().getValue()) {
-			SaveSchedule(	
+			SaveSchedule(
 				view.getDtfFrom().getValue(),
 				view.getDtfTo().getValue(),
 				view.getTfContent(),
@@ -132,7 +140,7 @@ public class AddEventPresenter {
     }
 
     // General save-function who's saving the given data in persistance layer
-	private void SaveSchedule(	
+	private void SaveSchedule(
 			LocalDateTime dtfFrom,
 			LocalDateTime dtfTo,
 			TextArea tfContent,

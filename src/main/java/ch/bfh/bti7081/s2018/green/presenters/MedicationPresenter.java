@@ -51,17 +51,6 @@ public class MedicationPresenter {
         return filterData;
     }
 
-
-    // rebuilds the list if the "show inactive medication" switch has been clicked or it is calles manually
-    protected void showExpiredMedication () {
-        if (view.getShowExpired().getValue()) {
-            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
-        }
-        else {
-            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
-        }
-    }
-
     // filter predicate to only display active medication
     private Predicate<Medication> medFilter = Medication::isActive;
 
@@ -69,7 +58,7 @@ public class MedicationPresenter {
 
         //add "show expired medication" on/off switch
         view.getShowExpired().addValueChangeListener((event) ->
-                showExpiredMedication()
+                refreshMedicationGrid()
         );
 
         // Start with an empty medication because it's a new one to be created when clicking on Button "add new medication"
@@ -110,6 +99,14 @@ public class MedicationPresenter {
         }
         // return empty list if an error has occurred
         return new ArrayList<Medication>();
+    }
+
+    protected void refreshMedicationGrid () {
+        if (view.getShowExpired().getValue()) {
+            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), null));
+        } else {
+            view.setGrdMedicamentGridViewItems(setMedicamentList(data.getCurrentPatient(), medFilter));
+        }
     }
 
     private void addEditButtonToRow () {
