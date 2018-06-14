@@ -26,6 +26,8 @@
 @import 'elements.scss';
 
 $width-page-min: 768px; // tablets: yes, mobiles: no
+$v-border-radius: 2px;
+$nav-width: 200px;
 
 @mixin mytheme {
   @include valo;
@@ -38,13 +40,15 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
       top: 0;
       width: 100%;
       min-width: $width-page-min;
-      height: 105px;
+      height: 6em;
+      z-index: 10;
     }
 
     #mainSection {
       position: absolute;
-      top: 105px;
+      top: 6em;
       width: 100%;
+      height: calc(100% - 6em - 28px);
       min-width: $width-page-min;
     }
 
@@ -53,17 +57,18 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
       bottom: 0;
       width: 100%;
       min-width: $width-page-min;
+      z-index: 10;
     }
 
     #navSection {
-      float: left;
-      width: 150px;
+      width: $nav-width;
+      vertical-align: top;
     }
 
     #appSection {
-      float: left;
       min-width: 600px;
-      width: calc(100% - 150px);
+      width: calc(100% - #{$nav-width});
+      vertical-align: top;
     }
   }
 
@@ -91,36 +96,153 @@ $width-page-min: 768px; // tablets: yes, mobiles: no
 
   // navigation
   #navSection {
-    padding: 1em;
+    padding: 1em 0 1em;
+    background-color: #ffffff;
 
-    *:focus,
-    *:focus:after {
-      outline: none;
-      border: none;
-      box-shadow: none;
+    #navTitle {
+      margin-left: 1em;
     }
 
     #navMenuWrapper .v-button {
       background: none;
       color: $color-link;
       text-align: left;
-      padding: 0;
+      padding: 0.375em 0 0 0.75em;
+      margin-left: 1em;
+      width: calc(100% - 1em);
+      border-radius: 0;
 
-      &:hover,
-      .NavVisited,
-      &:after {
-        background: none;
-        text-decoration: underline;
+      &.active,
+      &:hover {
+        background-color: $v-app-background-color;
+        border-left: 5px solid $color-primary-0;
+        padding-left: calc(0.75em - 5px);
       }
 
-      &:focus {
-        text-decoration: underline;
+      &:before,
+      &:after {
+        content: none;
       }
     }
   }
 
   // main canvas
   #appSection {
+    #journal {
+      textarea {
+        width: 100%;
+        margin-bottom: 1em;
+        border-radius: $v-border-radius;
+      }
+
+      #journalEntryList {
+        margin: 2em 0;
+        padding: 0;
+
+        .card {
+          header {
+            font-size: 0.875em;
+            color: $color-font-grey;
+          }
+        }
+      }
+    }
+
+    #medication {
+      #addMedicationTab {
+        float: left;
+      }
+
+      #medShowExpired {
+        float: right;
+        margin-top: 0.6em;
+
+        .v-caption {
+          margin-right: 0.5em;
+        }
+      }
+
+      #dataGrid {
+        margin: 1em 0 2em;
+        border-radius: $v-border-radius;
+
+        thead {
+          font-weight: bold;
+          font-size: 0.875em;
+        }
+
+        .medNotActive td {
+          color: $color-font-grey;
+          text-decoration: line-through solid lighten($color-font-grey, 20%);
+        }
+      }
+    }
+
+    #events {
+      #eventList {
+        margin: 1em 0 2em;
+        padding: 0;
+
+        .card {
+          header {
+            font-size: 0.875em;
+
+            .datetime {
+              font-weight: bold;
+            }
+
+            .therapist {
+              color: $color-font-grey;
+            }
+          }
+
+          h2 {
+            margin: 0.25em 0;
+          }
+        }
+      }
+    }
+  }
+
+  #medDetailView {
+    margin: 1em;
+
+    .medDetailViewData input {
+      width: 100%;
+
+      &.v-required {
+        width: calc(100% - 1em);
+      }
+    }
+  }
+
+  #eventAdd {
+    & > table {
+      margin: 1em;
+
+      & > tbody > tr > td:nth-of-type(2n+1) {
+        vertical-align: top;
+        width: 6em;
+      }
+    }
+
+    .v-disabled {
+      display: none;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+    }
+
+    div[data-location="intervalTextfield"] {
+      width: 60px;
+    }
+
+    div[data-location="incButton"],
+    div[data-location="decButton"] {
+      background-color: $color-font-grey;
+    }
   }
 
   // footer

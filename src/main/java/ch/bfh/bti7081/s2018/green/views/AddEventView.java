@@ -24,51 +24,51 @@ public class AddEventView extends Window implements View {
 
     // Attributes of default ScheduleAddView
     private int intervals=0;
-    private Label lbFrom = new Label("Event begins at:");
-    private Label lbTo = new Label("Event ends at:");
-    private Label lbTitle = new Label("Title");
-    private Label lbContent = new Label("Reason of event and notes:");
-    private Label lbIntervals = new Label("Repetitions:");
-    private TextField tfIntervals = new TextField("");
+    private Label lbIntervals = new Label("Repetitions");
+    private Label lbSetRecurringInterval = new Label("Interval");
+    private TextField tfIntervals = new TextField();
     private DateTimeField dtfFrom = new DateTimeField();
     private DateTimeField dtfTo = new DateTimeField();
     private TextField tfTitle = new TextField();
     private TextArea tfContent = new TextArea();
-    private Button btnSave = new Button("Save Event");
+    private Button btnSave = new Button("Save appointment");
     private Button btnIncInt = new Button("+");
     private Button btnDecInt = new Button("-");
-    private CheckBox cbRecurringEvent = new CheckBox("Is this a recurring Event?");
-    RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>("Select intervals");
+    private CheckBox cbRecurringEvent = new CheckBox("Repeat this appointment");
+    private RadioButtonGroup<String> rbgSetRecurringInterval = new RadioButtonGroup<String>();
 
     public AddEventView() {
-    	
         // Set initial values to fields
         rbgSetRecurringInterval.setItems("Daily", "Weekly", "Monthly");
         dtfFrom.setValue(LocalDateTime.now());
         dtfTo.setValue(LocalDateTime.now().plusMinutes(15));
         tfIntervals.setReadOnly(true);
         rbgSetRecurringInterval.setEnabled(false);
+        lbSetRecurringInterval.setEnabled(false);
         lbIntervals.setEnabled(false);
         btnIncInt.setEnabled(false);
         btnDecInt.setEnabled(false);
         tfIntervals.setEnabled(false);
-        
+
         // Prepare panel container to fill in items
-        Panel panel = new Panel("Add an Event");
+        Panel panel = new Panel("Add an appointment");
         CustomLayout panelContent = new CustomLayout("eventAdd");
+        panelContent.setId(NAME);
         setModal(true);
-        
+
         // Place Java-Components in HTML DIVs
-        panelContent.addComponent(lbFrom, "fromLabel");
-        panelContent.addComponent(lbTo, "toLabel");
-        panelContent.addComponent(lbTitle, "titleLabel");
-        panelContent.addComponent(lbContent, "contentLabel");
+        panelContent.addComponent(new Label("Start"), "fromLabel");
+        panelContent.addComponent(new Label("End"), "toLabel");
+        panelContent.addComponent(new Label("Title"), "titleLabel");
+        panelContent.addComponent(new Label("Notes"), "contentLabel");
         panelContent.addComponent(dtfFrom, "fromField");
         panelContent.addComponent(dtfTo, "toField");
         panelContent.addComponent(tfTitle, "titleField");
         panelContent.addComponent(tfContent, "contentField");
         panelContent.addComponent(btnSave, "saveButton");
+        panelContent.addComponent(new Label("Recurring?"), "recurringLabel");
         panelContent.addComponent(cbRecurringEvent, "recurringCheckBox");
+        panelContent.addComponent(lbSetRecurringInterval, "recurringIntervalLabel");
         panelContent.addComponent(rbgSetRecurringInterval, "intervalRadioButtonGroup");
         panelContent.addComponent(lbIntervals, "intervalLabel");
         panelContent.addComponent(tfIntervals, "intervalTextfield");
@@ -88,6 +88,10 @@ public class AddEventView extends Window implements View {
 	public Label getLbIntervals() {
 		return lbIntervals;
 	}
+
+    public Label getLbSetRecurringInterval() {
+        return lbSetRecurringInterval;
+    }
     
     public void setTfIntervals(int i) {
     	this.tfIntervals.setValue(""+i);
@@ -104,6 +108,7 @@ public class AddEventView extends Window implements View {
 	public void decIntervals() {
 		this.intervals--;
 	}
+
 	public Button getBtnIncInt() {
 		return btnIncInt;
 	}
@@ -141,12 +146,10 @@ public class AddEventView extends Window implements View {
     }
     
     public Date getFromDate() {
-    	Date tmp = Date.from(dtfFrom.getValue().atZone(ZoneId.systemDefault()).toInstant());
-    	return tmp;
+    	return Date.from(dtfFrom.getValue().atZone(ZoneId.systemDefault()).toInstant());
     }
     
     public Date getToDate() {
-    	Date tmp = Date.from(dtfTo.getValue().atZone(ZoneId.systemDefault()).toInstant());
-    	return tmp;
+    	return Date.from(dtfTo.getValue().atZone(ZoneId.systemDefault()).toInstant());
     }
 }

@@ -16,43 +16,40 @@ public class MedicationPrescriptionPresenter {
 
     private DataContainer data;
     private MedicationPrescriptionView view;
-    public MedicationPrescriptionPresenter(MedicationPrescriptionView view) {
+    private MedicationPresenter viewBehind;
+    public MedicationPrescriptionPresenter(MedicationPrescriptionView view, MedicationPresenter viewBehind) {
         this.view = view;
-       
+        this.viewBehind = viewBehind;
         this.data = DataContainer.getInstance();
-        
+
         view.getSaveButton().addClickListener(click -> {
             this.saveData();
         });
-        
     }
-    
+
 
     private void saveData (){
-    	
-    	try {
-        Medication medication = view.getMedication();
-        medication.setPatient(data.getCurrentPatient());
-        medication.setPrescriber(data.getCurrentStaff());
-        MedicationManager manager = new MedicationManager();
-        if (medication.getId() == 0) {
-        	manager.add(medication);	
-        } else {
-        	manager.update(medication);
+        try {
+            Medication medication = view.getMedication();
+            if (medication != null)
+            {
+                medication.setPatient(data.getCurrentPatient());
+                medication.setPrescriber(data.getCurrentStaff());
+                MedicationManager manager = new MedicationManager();
+                if (medication.getId() == 0) {
+                    manager.add(medication);
+                } else {
+                    manager.update(medication);
+                }
+
+                Notification.show("Data was saved!");
+                viewBehind.showExpiredMedication();
+                data.getCurrentNavigator().navigateTo(MedicationView.NAME);
+                view.close();
+            }
+        } catch (PersistenceException e) {
+            ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
         }
-  
-        // Show success-message in case saving was successful
-        
-        Notification.show("Data was saved!");
-        
-        view.close();
-        data.getCurrentNavigator().navigateTo(MedicationView.NAME);
-        
-    	} catch (PersistenceException e) {
-    		
-    		ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
-    		
-    	}
-    	
     }
+
 }

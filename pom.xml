@@ -67,6 +67,13 @@
 			<artifactId>vaadin-themes</artifactId>
 		</dependency>
 
+		<!-- Addins: Toogle Switch !make sure to reinstall maven project if "mojo" exception is given while compilng -->
+		<dependency>
+			<groupId>org.vaadin.teemu</groupId>
+			<artifactId>switch</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<dependency>
 			<groupId>org.hibernate</groupId>

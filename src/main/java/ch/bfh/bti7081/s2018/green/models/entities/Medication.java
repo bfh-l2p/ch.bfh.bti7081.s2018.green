@@ -1,6 +1,7 @@
 package ch.bfh.bti7081.s2018.green.models.entities;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.*;
 
@@ -20,11 +21,11 @@ public class Medication {
     @OneToOne
     @JoinColumn(name = "prescriberId", nullable = false)
     private Staff prescriber;
-    
+
     @OneToOne
     @JoinColumn(name = "patientId", nullable = false)
     private Patient patient;
-    
+
     public Medication () {
         // required by JPA
     }
@@ -57,7 +58,7 @@ public class Medication {
     }
 
     public LocalDateTime getStartDate() {
-        return start;
+        return this.start;
     }
 
     public void setStartDate(LocalDateTime start) {
@@ -97,10 +98,13 @@ public class Medication {
     }
 
     public Patient getPatient() {
-    	return patient; 
+        return patient;
     }
 
     public void setPatient(Patient patient) {
-    	this.patient = patient;
+        this.patient = patient;
+    }
+    public void setDose (float dose) {
+        this.dose = dose;
     }
 }
