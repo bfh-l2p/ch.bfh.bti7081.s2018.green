@@ -26,6 +26,9 @@ public class AddEventView extends Window implements View {
     private int intervals=0;
     private Label lbFrom = new Label("Event begins at");
     private Label lbTo = new Label("Event ends at");
+
+
+
     private Label lbTitle = new Label("Title");
     private Label lbContent = new Label("Notes");
     private Label lbIntervals = new Label("Repetitions");

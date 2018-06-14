@@ -4,7 +4,13 @@ import java.time.LocalDateTime;
 
 import javax.persistence.PersistenceException;
 
+import com.vaadin.data.Binder;
+import com.vaadin.data.BinderValidationStatus;
+import com.vaadin.data.ValidationResult;
+import com.vaadin.data.Validator;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.server.Page;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 
@@ -19,6 +25,7 @@ public class AddEventPresenter {
 
 	private AddEventView view;
 	private DataContainer data;
+	private Binder<Event> binder = new Binder<>();
 
 	public AddEventPresenter(AddEventView view) {
 		this.view = view;
@@ -69,12 +76,12 @@ public class AddEventPresenter {
 	private void Save() {
 		
 		// Interval miss-match check
-		if(this.view.getCbRecurringEvent().getValue()==true && this.view.getIntervals()==0) {
+		if(this.view.getCbRecurringEvent().getValue() && this.view.getIntervals()==0) {
 			ErrorView.showError("Please set an interval, if you want to add a recurring event", Page.getCurrent());
 		}
 		
 		// Trigger save event for a normal event
-		if(this.view.getCbRecurringEvent().getValue()==false) {
+		if(!this.view.getCbRecurringEvent().getValue()) {
 			SaveSchedule(	
 				view.getDtfFrom().getValue(),
 				view.getDtfTo().getValue(),
@@ -141,25 +148,54 @@ public class AddEventPresenter {
 			LocalDateTime dtfTo,
 			TextArea tfContent,
 			TextField tfTitle) {
-    	
-    	// Prepare persistence by getting the the suitable Manager Object 
-    	EventManager emSchedule = new EventManager();
-    	
-    	/* Insertion
-		Including the following checks:
-			-- To-Date is after From-Date
-			-- From-Date and To-Date is on the same Day and Month
-			-- Schedule duration is not longer than +- 8 hours
-    	*/
-    	try {
-    	if (dtfFrom.isBefore(dtfTo) && tfContent.isEmpty() == false && dtfTo.getHour()-dtfFrom.getHour()<=8) {
-    		emSchedule.add(new Event(dtfFrom,dtfTo,tfContent.getValue(),tfTitle.getValue(),data.getCurrentPatient(),data.getCurrentStaff()));
-    		data.getCurrentNavigator().navigateTo(EventListView.NAME);
-            data.setCurrentViewName(EventListView.NAME);
-    	}
-    	} catch(PersistenceException e) {
-    		ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());    		
-    	}
-    	view.close();
-    }
+
+		this.bindEvent();
+
+		try {
+			BinderValidationStatus<Event> eventState = binder.validate();
+			//check if there are any form validation errors
+			if (eventState.hasErrors()) {
+				Notification.show("Some fields contain invalid information (marked in red)");
+			} else {
+				// save data here
+				EventManager emSchedule = new EventManager();
+				Event eventToSave = new Event(dtfFrom, dtfTo, tfContent.getValue(), tfTitle.getValue(), data.getCurrentPatient(), data.getCurrentStaff());
+				emSchedule.add(eventToSave);
+
+				data.getCurrentNavigator().navigateTo(EventListView.NAME);
+				data.setCurrentViewName(EventListView.NAME);
+
+				view.close();
+			}
+
+		} catch (PersistenceException e) {
+			ErrorView.showError("Event couldn't be saved. Please try again!", Page.getCurrent());
+		}
+	}
+
+	// performs field validation for new records
+	private void bindEvent() {
+		validateFields();
+	}
+
+	private void validateFields() {
+		binder.forField(view.getDtfFrom())
+				.asRequired()
+				.bind(Event::getStart, Event::setStart);
+		binder.forField(view.getDtfTo())
+				.asRequired()
+				.withValidator((Validator<LocalDateTime>) (localDateTime, valueContext) -> {
+					if (view.getDtfFrom().getValue().isBefore(view.getDtfTo().getValue())) {
+						return ValidationResult.ok();
+					}
+					return ValidationResult.error("End date must start after start date");
+				})
+				.bind(Event::getStop, Event::setStop);
+		binder.forField(view.getTfTitle())
+				.asRequired()
+				.withValidator(new StringLengthValidator("Event title must have 1-120 characters", 1, 120))
+				.bind(Event::getTitle, Event::setTitle);
+	}
+
+
 }
