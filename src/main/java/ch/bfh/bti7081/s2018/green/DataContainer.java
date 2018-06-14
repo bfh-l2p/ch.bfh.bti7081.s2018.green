@@ -27,13 +27,14 @@ public class DataContainer {
      * This ensures consistency for the current user and
      * isolation against other users.
      *
-     * @return instance
+     * @return DataContainer instance
      */
     public static DataContainer getInstance() {
     	VaadinSession currentSession = VaadinSession.getCurrent();
         String currentSessionId;
     	
         if (currentSession == null) {
+            // used for testing, because we don't have a http session then
         	currentSessionId = "test1234";
         } else {
         	currentSessionId = VaadinSession.getCurrent().getSession().getId();
