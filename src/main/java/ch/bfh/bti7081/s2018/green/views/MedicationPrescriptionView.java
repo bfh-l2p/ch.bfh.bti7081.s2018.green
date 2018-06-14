@@ -30,7 +30,7 @@ public class MedicationPrescriptionView extends Window implements View {
 
     public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
 
-        this.medViewBehind = viewBehind;
+        medViewBehind = viewBehind;
 
         if (med == null) {
             // The user is adding a new medication
@@ -39,9 +39,11 @@ public class MedicationPrescriptionView extends Window implements View {
         } else {
             panel = new Panel("Edit Medication");
         }
-        this.medication = med;
+
+        medication = med;
         bindMedication(this.medication);
-        this.setModal(true);
+        setModal(true);
+
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");
@@ -51,7 +53,7 @@ public class MedicationPrescriptionView extends Window implements View {
         panelContent.addComponent(medPrescriberFullName, "medPrescriber");
         panelContent.addComponent(btnSave, "medSaveButton");
         panel.setContent(panelContent);
-        this.setContent(panel);
+        setContent(panel);
 
         // make sure an element can just be edited 20 minutes long after start time of medication
         if (isEditMode && !this.medication.getStartDate().isAfter(LocalDateTime.now().minusMinutes(20))) {
@@ -60,12 +62,13 @@ public class MedicationPrescriptionView extends Window implements View {
             medPeriod.setEnabled(false);
             medDose.setEnabled(false);
         }
+
         new MedicationPrescriptionPresenter(this, viewBehind);
     }
 
     // performs field validation for new records
     private void bindMedication(Medication medication) {
-        this.validateFields();
+        validateFields();
         binder.readBean(medication);
     }
 
