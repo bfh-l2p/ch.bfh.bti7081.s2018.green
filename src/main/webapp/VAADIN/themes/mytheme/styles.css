@@ -15197,6 +15197,19 @@ div.v-layout.v-horizontal.v-widget {
 	color: #777777;
 }
 
+.mytheme #appSection #medication #addMedicationTab {
+	float: left;
+}
+
+.mytheme #appSection #medication #medShowExpired {
+	float: right;
+	margin-top: 0.5em;
+}
+
+.mytheme #appSection #medication #medShowExpired .v-caption {
+	margin-right: 0.5em;
+}
+
 .mytheme #appSection #medication #dataGrid {
 	margin: 1em 0 2em;
 	border-radius: 2px;

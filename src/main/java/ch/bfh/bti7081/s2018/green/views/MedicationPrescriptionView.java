@@ -82,8 +82,6 @@ public class MedicationPrescriptionView extends Window implements View {
             }
             else {
                 binder.writeBean(this.medication);
-                System.out.println(medication.getStartDate());
-                System.out.println(LocalDateTime.now());
             }
         } catch (ValidationException e) {
             Notification.show("Validation failed");
