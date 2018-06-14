@@ -22,16 +22,16 @@ public class MedicationView extends CustomLayout implements View {
     private Button btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
-    private Switch showExpired = new Switch("",false);
+    private Switch showExpired = new Switch("Show inactive medication",false);
     public Switch getShowExpired() {
         return showExpired;
     }
 
     public MedicationView() {
-        this.setTemplateName("medication");
-        this.setId(NAME);
+        setTemplateName("medication");
+        setId(NAME);
         buildView();
-        if (this.showExpired.getValue())
+        if (showExpired.getValue())
         {
             new MedicationPresenter(this, true);
         }
@@ -42,13 +42,12 @@ public class MedicationView extends CustomLayout implements View {
     }
 
     private void buildView() {
-        // Adding button to create new medication
-        this.btnAddMedication = new Button("New Medication");
-        this.addComponent(this.btnAddMedication, "addMedicationTab");
-
         showExpired.addStyleName("compact");
-        this.addComponent(showExpired, "showExpired");
-        showExpired.setValue(false);
+        addComponent(showExpired, "showExpired");
+
+        // Adding button to create new medication
+        btnAddMedication = new Button("New Medication");
+        addComponent(this.btnAddMedication, "addMedicationTab");
 
         medGridBuilder();
     }
@@ -60,11 +59,10 @@ public class MedicationView extends CustomLayout implements View {
 
         // populate columns
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
-        grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
-        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of").setId("medStartDate");
-        grdMedicamentGridView.getColumn("medStartDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
+        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start").setId("medStartDate");
+        grdMedicamentGridView.getColumn("medStartDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yy HH:mm"));
         grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("Stop").setId("medEndDate");
-        grdMedicamentGridView.getColumn("medEndDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
+        grdMedicamentGridView.getColumn("medEndDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yy HH:mm"));
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
@@ -73,7 +71,7 @@ public class MedicationView extends CustomLayout implements View {
         grdMedicamentGridView.setWidth(100, Unit.PERCENTAGE);
         grdMedicamentGridView.setStyleGenerator(medication -> medication.isActive() ? "medActive" : "medNotActive");
 
-        this.addComponent(grdMedicamentGridView, "dataGrid");
+        addComponent(grdMedicamentGridView, "dataGrid");
     }
     
     public void setGrdMedicamentGridViewItems(List<Medication> items) {
