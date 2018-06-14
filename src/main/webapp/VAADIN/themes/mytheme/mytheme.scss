@@ -72,50 +72,6 @@ $v-border-radius: 2px;
 
   // header
   #headerContainer {
-    background-color: #edeff2;
-    border-bottom: #7d7d7d 2px solid;
-    padding-bottom: 10px;
-    box-shadow: 2px 7px 5px #888888;
-  }
-
-  .menuBarButton {
-    font-weight: bold;
-    border: solid 2px black;
-    padding: 5px 5px 5px 5px;
-    margin-top:2px;
-    margin-bottom: 2px;
-    width: 100%;
-    background-color: #edeff2;
-  }
-  .menuBarButton:hover {
-    background-color: olivedrab;
-    color: snow;
-  }
-
-  .navButton {
-    color: #ce3812;
-  }
-
-  #navMenuWrapper .v-button {
-    font-weight: bold;
-    border: none;
-  }
-
-  .NavVisited {
-    color: #2d55cd;
-  }
-
-  // medicationApp Styles
-  #addMedicationTab {
-    float:right;
-  }
-  #dataGrid {
-    width: auto;
-  }
-
-  #medicationAppGrid {
-    min-width:900px;
-  }
     @include linear-gradient(to top left, $color-primary-2, $color-secondary-1-2);
     padding: 1rem;
     color: $color-font-secondary;
@@ -135,17 +91,7 @@ $v-border-radius: 2px;
       text-align: right;
     }
   }
-  
-  #showExpiredCaption {
-    // style to be added
-  }
 
-  #medicationShowExpired {
-    // style to be added
-  }
-  .appMenuTab div {
-    // style to be added
-    
   // navigation
   #navSection {
     padding: 1em;

@@ -15145,37 +15145,6 @@ div.v-layout.v-horizontal.v-widget {
 	text-align: right;
 }
 
-.mytheme #siteLogo div {
-	font-size: 1.2rem;
-	color: #1e6b15;
-	font-weight: bold;
-}
-
-.mytheme #headerContainer {
-	background-color: #edeff2;
-	border-bottom: #7d7d7d 2px solid;
-	padding-bottom: 10px;
-	box-shadow: 2px 7px 5px #888888;
-}
-
-.mytheme .menuBarButton {
-	font-weight: bold;
-	border: solid 2px black;
-	padding: 5px 5px 5px 5px;
-	margin-top: 2px;
-	margin-bottom: 2px;
-	width: 100%;
-	background-color: #edeff2;
-}
-
-.mytheme .menuBarButton:hover {
-	background-color: olivedrab;
-	color: snow;
-}
-
-.mytheme .navButton {
-	color: #ce3812;
-
 .mytheme #navSection {
 	padding: 1em;
 }
@@ -15186,43 +15155,30 @@ div.v-layout.v-horizontal.v-widget {
 	box-shadow: none;
 }
 
-.mytheme .NavVisited {
-	color: #2d55cd;
-}
-
-.mytheme #addMedicationTab {
-	float: right;
-}
-
-.mytheme #dataGrid {
-	width: auto;
-}
-
-.mytheme #medicationAppGrid {
-	min-width: 900px;
-}
-
-.mytheme .medicationAppTabNav {
-	box-sizing: border-box;
-}
-
-.mytheme #medDetailView {
-	margin: 15px 10px 10px 10px;
-
 .mytheme #navSection #navMenuWrapper .v-button {
 	background: none;
 	color: #417C01;
 	text-align: left;
 	padding: 0;
+	padding-left: 15px;
 }
 
-.mytheme #navSection #navMenuWrapper .v-button:hover, .mytheme #navSection #navMenuWrapper .v-button .NavVisited, .mytheme #navSection #navMenuWrapper .v-button:after {
+.mytheme #navSection #navMenuWrapper .v-button:hover, .mytheme #navSection #navMenuWrapper .v-button:after {
 	background: none;
 	text-decoration: underline;
 }
 
 .mytheme #navSection #navMenuWrapper .v-button:focus {
 	text-decoration: underline;
+}
+
+.mytheme #navSection #navMenuWrapper .v-button .v-button-wrap {
+	padding-left: 15px;
+}
+
+.mytheme #navSection #navMenuWrapper .v-button.active .v-button-wrap {
+	padding-left: 10px;
+	border-left: 5px solid #417C01;
 }
 
 .mytheme #appSection #journal textarea {
