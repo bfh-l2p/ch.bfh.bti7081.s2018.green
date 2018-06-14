@@ -1,14 +1,17 @@
 package ch.bfh.bti7081.s2018.green.views;
 
-import ch.bfh.bti7081.s2018.green.models.entities.Medication;
-import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import java.util.ArrayList;
+import java.util.List;
 import com.vaadin.navigator.View;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomLayout;
 import com.vaadin.ui.Grid;
-
+import ch.bfh.bti7081.s2018.green.models.entities.Medication;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import com.vaadin.ui.renderers.LocalDateTimeRenderer;
+import com.vaadin.ui.renderers.Renderer;
+import org.vaadin.teemu.switchui.Switch;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Locale;
 
 
@@ -19,38 +22,52 @@ public class MedicationView extends CustomLayout implements View {
     private Button btnAddMedication;
     private Grid<Medication> grdMedicamentGridView = new Grid<>();
 
-    public MedicationView() {
-        this.setTemplateName("medicationApp");
-        this.setId(NAME);
-        buildView();
-        new MedicationPresenter(this);
+    private Switch showExpired = new Switch("",false);
+    public Switch getShowExpired() {
+        return showExpired;
     }
 
-    public MedicationView(List<Medication> medDataList) {
-        this.setTemplateName("medicationApp");
+    public MedicationView() {
+        this.setTemplateName("medication");
+        this.setId(NAME);
         buildView();
+        if (this.showExpired.getValue())
+        {
+            new MedicationPresenter(this, true);
+        }
+        else {
+            new MedicationPresenter(this, false);
+        }
+
     }
 
     private void buildView() {
-        this.btnAddMedication = new Button("New Medication", (clickEvent) -> this.getUI().addWindow(new MedicationPrescriptionView(null)));
-        this.btnAddMedication.removeStyleNames("menuBarButton",".v-button", ".v-widget");
+        List<String> customButtonStyles = new ArrayList<>();
+        customButtonStyles.add("appMenuTab");
 
+        // Adding button to create new medication
+        this.btnAddMedication = new Button("New Medication");
         this.addComponent(this.btnAddMedication, "addMedicationTab");
+
+        showExpired.addStyleName("compact");
+        this.addComponent(showExpired, "showExpired");
+        showExpired.setValue(false);
+
         medGridBuilder();
     }
 
     private void medGridBuilder() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yy HH:mm").withLocale(Locale.GERMAN);
         grdMedicamentGridView.setSelectionMode(Grid.SelectionMode.SINGLE);
         // Allow column reordering
         grdMedicamentGridView.setColumnReorderingAllowed(true);
-        // Allow column hiding
-        grdMedicamentGridView.getColumns().forEach(column -> column.setHidable(true));
 
         // populate columns
         grdMedicamentGridView.addColumn(Medication::getName).setCaption("Medicament");
-        grdMedicamentGridView.addColumn(m -> m.getStartDate().format(formatter)).setCaption("Start");
-        grdMedicamentGridView.addColumn(m -> m.getEndDate().format(formatter)).setCaption("Stop");
+        grdMedicamentGridView.addColumn(Medication::isActive).setCaption("Active");
+        grdMedicamentGridView.addColumn(Medication::getStartDate).setCaption("Start of").setId("medStartDate");
+        grdMedicamentGridView.getColumn("medStartDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
+        grdMedicamentGridView.addColumn(Medication::getEndDate).setCaption("Stop").setId("medEndDate");
+        grdMedicamentGridView.getColumn("medEndDate").setRenderer((Renderer) new LocalDateTimeRenderer("dd.MM.yyyy - HH:mm'h'"));
         grdMedicamentGridView.addColumn(Medication::getPeriode).setCaption("Frequency");
         grdMedicamentGridView.addColumn(Medication::getDose).setCaption("Dosis");
         grdMedicamentGridView.addColumn(m -> m.getPrescriber().getFullName()).setCaption("Prescriber");
@@ -61,7 +78,7 @@ public class MedicationView extends CustomLayout implements View {
 
         this.addComponent(grdMedicamentGridView, "dataGrid");
     }
-
+    
     public void setGrdMedicamentGridViewItems(List<Medication> items) {
         this.grdMedicamentGridView.setItems(items);
     }

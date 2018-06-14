@@ -2,86 +2,145 @@ package ch.bfh.bti7081.s2018.green.views;
 
 import java.time.LocalDateTime;
 
-import com.vaadin.data.Binder;
-import com.vaadin.data.ValidationException;
+import ch.bfh.bti7081.s2018.green.presenters.MedicationPresenter;
+import com.vaadin.data.*;
+import com.vaadin.data.validator.StringLengthValidator;
 import com.vaadin.navigator.View;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CustomLayout;
-import com.vaadin.ui.DateTimeField;
-import com.vaadin.ui.Panel;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.Window;
-
+import com.vaadin.ui.*;
 import ch.bfh.bti7081.s2018.green.models.entities.Medication;
 import ch.bfh.bti7081.s2018.green.presenters.MedicationPrescriptionPresenter;
 
 public class MedicationPrescriptionView extends Window implements View {
-    
-    public static final String NAME = "medicationPrescription";
 
-    Medication medication;
-    Binder<Medication> binder;
-    Panel panel;
-    TextField medName = new TextField();
-    DateTimeField medStartDate = new DateTimeField();
-    DateTimeField medStopDate = new DateTimeField();
-    TextField medPeriod = new TextField();
-    TextField medDose = new TextField();
-    TextField medPrescriberFullName = new TextField();
-    Button btnSave = new Button("Save medication");
+    public static final String NAME = "medicationPrescription";
     
-    public MedicationPrescriptionView(Medication med) {
+    private MedicationPresenter medViewBehind;
+    protected Window window;
+    private  Panel panel;
+    private Medication medication;
+    private Binder<Medication> binder;
+    private TextField medName = new TextField();
+    private DateTimeField medStartDate = new DateTimeField();
+    private DateTimeField medStopDate = new DateTimeField();
+    private TextField medPeriod = new TextField();
+    private TextField medDose = new TextField();
+    private TextField medPrescriberFullName = new TextField();
+    private DateTimeField medRecordCreated = new DateTimeField();
+    private DateTimeField medRecordModified = new DateTimeField();
+    private Button btnSave = new Button("Save");
+
+    public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
+
+        this.medViewBehind = viewBehind;
+        
         if (med == null) {
-        	// The user is adding a new medication
-            med = new Medication();
+            // The user is adding a new medication
             panel = new Panel("New Medication");
+            med = new Medication();
         } else {
-        	panel = new Panel("Edit Medication");
+            panel = new Panel("Edit Medication");
         }
         this.medication = med;
-        bindMedication(med);
+        bindMedication(this.medication);
         this.setModal(true);
+        //Panel panel = new Panel("Medication prescription");
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
         panelContent.addComponent(medName, "medName");
         panelContent.addComponent(medStartDate, "medStartDate");
         panelContent.addComponent(medStopDate, "medStopDate");
-
         panelContent.addComponent(medPeriod, "medFrequency");
         panelContent.addComponent(medDose, "medDose");
         panelContent.addComponent(medPrescriberFullName, "medPrescriber");
         panelContent.addComponent(btnSave, "medSaveButton");
         panel.setContent(panelContent);
-        setContent(panel);
-        new MedicationPrescriptionPresenter(this);
-    }
-    
-    private void bindMedication(Medication medication) {
-        binder = new Binder<>();
-        binder.forField(medName).bind(Medication::getName, Medication::setName);
-        binder.forField(medStartDate).bind(Medication::getStartDate, Medication::setStartDate);
-        binder.forField(medStopDate).bind(Medication::getEndDate, Medication::setEndDate);
-        // TODO: support integers: https://vaadin.com/docs/v8/framework/datamodel/datamodel-forms.html#datamodel.forms.conversion
-        //binder.forField(medPeriod).bind(Medication::getPeriode, Medication::setPeriode);
-        //binder.forField(medDose).bind(Medication::getDose, Medication::setDose);
-        //binder.forField(medPrescriberFullName).bind(Medication::getFullName, Medication::setEndDate);
+        this.setContent(panel);
 
+        // make sure an element can just be edited 20 minutes long after start time of medication
+        if (isEditMode && !this.medication.getStartDate().isAfter(LocalDateTime.now().minusMinutes(20))) {
+            medName.setEnabled(false);
+            medStartDate.setEnabled(false);
+            medPeriod.setEnabled(false);
+            medDose.setEnabled(false);
+        }
+        new MedicationPrescriptionPresenter(this, viewBehind);
+    }
+
+    // performs field validation for new records
+    private void bindMedication(Medication medication) {
+        this.validateFields();
         binder.readBean(medication);
     }
 
+    //perform field validation when saving a record - for values that could only be validated when editing an existing record
     public Medication getMedication() {
-        // TODO: validate input
         try {
-            binder.writeBean(this.medication);
-            System.out.println(medication.getStartDate());
-            System.out.println(LocalDateTime.now());
-            
+            this.validateFields();
+            if (medStartDate.getValue() != null)
+            {
+                // validate the stop date
+                binder.forField(medStopDate)
+                        .asRequired()
+                        .withValidator(new Validator<LocalDateTime>() {
+                            @Override
+                            public ValidationResult apply(LocalDateTime localDateTime, ValueContext valueContext) {
+                                if(medStartDate.getValue().isBefore(medStopDate.getValue())){
+                                    return ValidationResult.ok();
+                                }
+                                return ValidationResult.error("End date must start after start date");
+                            }
+                        })
+                        .bind(Medication::getEndDate, Medication::setEndDate);
+            }
+            BinderValidationStatus<Medication> medStat = binder.validate();
+
+            //check if there are any form validation errors
+            if (medStat.hasErrors()) {
+                Notification.show("Some fields contain invalid information (marked in red)");
+                return null;
+            }
+            else {
+                binder.writeBean(this.medication);
+                System.out.println(medication.getStartDate());
+                System.out.println(LocalDateTime.now());
+            }
         } catch (ValidationException e) {
-            // TODO Auto-generated catch block
+            Notification.show("Validation failed");
             e.printStackTrace();
         }
         return medication;
     }
-    
+
+    private void validateFields () {
+        if (binder == null) {
+            binder = new Binder<>();
+        }
+
+        binder.forField(medName)
+                .asRequired()
+                .withValidator(new StringLengthValidator("Medicament name must have 1-120 characters",1,120))
+                .bind(Medication::getName, Medication::setName);
+        binder.forField(medStartDate)
+                .asRequired()
+                .bind(Medication::getStartDate, Medication::setStartDate);
+        binder.forField(medStopDate)
+                .asRequired()
+                .bind(Medication::getEndDate, Medication::setEndDate);
+        binder.forField(medPeriod)
+                .withConverter(
+                        Integer::valueOf,
+                        String::valueOf,
+                        "Medication period is not a valid integer number"
+                )
+                .bind(Medication::getPeriode, Medication::setPeriode);
+        binder.forField(medDose)
+                .withConverter(
+                        Float::valueOf,
+                        String::valueOf,
+                        "Medication dose is not a valid float number"
+                )
+                .bind(Medication::getDose, Medication::setDose);
+    }
+
     public TextField getMedPeriod() {
         return medPeriod;
     }
@@ -105,7 +164,7 @@ public class MedicationPrescriptionView extends Window implements View {
     public TextField getMedName() {
         return medName;
     }
-    
+
     public Button getSaveButton() {
         return btnSave;
     }
