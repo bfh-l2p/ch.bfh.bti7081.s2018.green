@@ -17,13 +17,13 @@ public class JournalEntryManager extends Manager<JournalEntry> {
 	}
     
     public List<JournalEntry> findBy(Staff staff) throws PersistenceException {
-        TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE authorId = :authorId", entityclass);
+        TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE authorId = :authorId ORDER BY created", entityclass);
 		query.setParameter("authorId", staff.getId());
 		return findByQuery(query);
     }
     
     public List<JournalEntry> findBy(Patient patient) throws PersistenceException {
-    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId", entityclass);
+    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE patientId = :patientId ORDER BY created", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
@@ -31,7 +31,7 @@ public class JournalEntryManager extends Manager<JournalEntry> {
     public List<JournalEntry> findBy(LocalDate date) {
         LocalDateTime startLocalDateTime = date.atStartOfDay();
         LocalDateTime endLocalDateTime = date.atStartOfDay().plusDays(1);
-    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created >= :startLocalDateTime and created < :endLocalDateTime", entityclass);
+    	TypedQuery<JournalEntry> query = manager.createQuery("SELECT j FROM JournalEntry j WHERE created >= :startLocalDateTime and created < :endLocalDateTime  ORDER BY created", entityclass);
         query.setParameter("startLocalDateTime", startLocalDateTime);
         query.setParameter("endLocalDateTime", endLocalDateTime);
         return findByQuery(query);
