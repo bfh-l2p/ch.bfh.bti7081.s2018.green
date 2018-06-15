@@ -47,6 +47,15 @@ public class Program {
         return firstEvent;
     }
 
+    public void saveAllEventsOfProgram() {
+        Event currentEvent = firstEvent;
+        EventManager eventManager = new EventManager();
+        while (currentEvent != null) {
+            eventManager.add(currentEvent);
+            currentEvent = currentEvent.getNext();
+        }
+    }
+
     private Event createEvents(Event firstEvent) throws IllegalArgumentException {
         // verify that the date of the first recurring event corresponds to the startDate date of the program
         if (firstEvent.getStart().toLocalDate().compareTo(this.startDate) == 0) {
@@ -69,14 +78,5 @@ public class Program {
         }
 
         return firstEvent;
-    }
-
-    public void saveAllEventsOfProgram() {
-        Event currentEvent = firstEvent;
-        EventManager eventManager = new EventManager();
-        while (currentEvent != null) {
-            eventManager.add(currentEvent);
-            currentEvent = currentEvent.getNext();
-        }
     }
 }

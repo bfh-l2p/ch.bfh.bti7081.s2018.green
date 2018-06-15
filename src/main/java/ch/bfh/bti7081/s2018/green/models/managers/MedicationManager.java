@@ -27,16 +27,16 @@ public class MedicationManager extends Manager<Medication> {
 		return findByQuery(query);
     }
     
-    private List<Medication> findByQuery(TypedQuery<Medication> query) throws PersistenceException {
-        List<Medication> medications = query.getResultList();
-    	return medications;
-    }
-    
     public Medication update(Medication medication) throws PersistenceException {
     	EntityTransaction updateTransaction = beginTransaction();
         manager.merge(medication);
         closeTransaction(updateTransaction);
 
         return medication;
+    }
+
+    private List<Medication> findByQuery(TypedQuery<Medication> query) throws PersistenceException {
+        List<Medication> medications = query.getResultList();
+        return medications;
     }
 }

@@ -6,9 +6,6 @@ import com.vaadin.ui.Notification;
 public class ErrorView {
 
 	public static void showError(String description, Page page) {
-
 		new Notification("Error", description, Notification.Type.ERROR_MESSAGE, true).show(page);
-
 	}
-
 }

@@ -48,5 +48,4 @@ public class MedicationPrescriptionPresenter {
             ErrorView.showError("Medication couldn't be saved. Please try again!", Page.getCurrent());
         }
     }
-
 }

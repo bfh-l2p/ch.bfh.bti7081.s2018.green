@@ -13,9 +13,6 @@ import java.time.LocalDateTime;
 public class MedicationPrescriptionView extends Window implements View {
 
     public static final String NAME = "medicationPrescription";
-    protected Window window;
-    private MedicationPresenter medViewBehind;
-    private Panel panel;
     private Medication medication;
     private Binder<Medication> binder = new Binder<>();
     private TextField medName = new TextField();
@@ -24,24 +21,19 @@ public class MedicationPrescriptionView extends Window implements View {
     private TextField medPeriod = new TextField();
     private TextField medDose = new TextField();
     private TextField medPrescriberFullName = new TextField();
-    private DateTimeField medRecordCreated = new DateTimeField();
-    private DateTimeField medRecordModified = new DateTimeField();
     private Button btnSave = new Button("Save");
 
-    public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication med, boolean isEditMode) {
+    public MedicationPrescriptionView(MedicationPresenter viewBehind, Medication medication, boolean isEditMode) {
+        Panel panel = new Panel("Edit Medication");
+        this.medication = medication;
 
-        medViewBehind = viewBehind;
-
-        if (med == null) {
+        if (medication == null) {
             // The user is adding a new medication
             panel = new Panel("New Medication");
-            med = new Medication();
-        } else {
-            panel = new Panel("Edit Medication");
+            this.medication = new Medication();
         }
 
-        medication = med;
-        bindMedication(this.medication);
+        bindMedication();
         setModal(true);
 
         CustomLayout panelContent = new CustomLayout("medicationPrescription");
@@ -67,9 +59,9 @@ public class MedicationPrescriptionView extends Window implements View {
     }
 
     // performs field validation for new records
-    private void bindMedication(Medication medication) {
+    private void bindMedication() {
         validateFields();
-        binder.readBean(medication);
+        binder.readBean(this.medication);
     }
 
     //perform field validation when saving a record - for values that could only be validated when editing an existing record
@@ -88,6 +80,34 @@ public class MedicationPrescriptionView extends Window implements View {
             e.printStackTrace();
         }
         return medication;
+    }
+
+    public TextField getMedPeriod() {
+        return medPeriod;
+    }
+
+    public TextField getMedDose() {
+        return medDose;
+    }
+
+    public TextField getMedPrescriberFullName() {
+        return medPrescriberFullName;
+    }
+
+    public DateTimeField getMedStartDate() {
+        return medStartDate;
+    }
+
+    public DateTimeField getMedEndDate() {
+        return medStopDate;
+    }
+
+    public TextField getMedName() {
+        return medName;
+    }
+
+    public Button getSaveButton() {
+        return btnSave;
     }
 
     private void validateFields() {
@@ -121,33 +141,5 @@ public class MedicationPrescriptionView extends Window implements View {
                         "Medication dose is not a valid float number"
                 )
                 .bind(Medication::getDose, Medication::setDose);
-    }
-
-    public TextField getMedPeriod() {
-        return medPeriod;
-    }
-
-    public TextField getMedDose() {
-        return medDose;
-    }
-
-    public TextField getMedPrescriberFullName() {
-        return medPrescriberFullName;
-    }
-
-    public DateTimeField getMedStartDate() {
-        return medStartDate;
-    }
-
-    public DateTimeField getMedEndDate() {
-        return medStopDate;
-    }
-
-    public TextField getMedName() {
-        return medName;
-    }
-
-    public Button getSaveButton() {
-        return btnSave;
     }
 }

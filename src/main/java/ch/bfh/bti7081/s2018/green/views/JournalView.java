@@ -50,6 +50,14 @@ public class JournalView extends CustomLayout implements View {
         journalEntryList.addComponentAsFirst(journalEntryLayout);
     }
 
+    public TextArea getTxtEntry() {
+        return txtEntry;
+    }
+
+    public Button getBtnSave() {
+        return btnSave;
+    }
+
     private void addLabel(CustomLayout layout, String slot, String value) {
         Label label = new Label();
         label.setValue(value);
@@ -61,13 +69,5 @@ public class JournalView extends CustomLayout implements View {
         txtEntry.setPlaceholder("Add new journal entry");
         txtEntry.setRows(6);
         this.addComponent(txtEntry, "textentry");
-    }
-
-    public TextArea getTxtEntry() {
-        return txtEntry;
-    }
-
-    public Button getBtnSave() {
-        return btnSave;
     }
 }

@@ -58,13 +58,8 @@ public class EventManager extends Manager<Event> {
         return findByQuery(query);
     }
 
-    private List<Event> findByQuery(TypedQuery<Event> query) throws PersistenceException {
-        List<Event> events = query.getResultList();
-    	return events;
-    }
-
     public Event update(Event item) throws PersistenceException {
-    	EntityTransaction updateTransaction = beginTransaction();
+        EntityTransaction updateTransaction = beginTransaction();
         manager.merge(item);
         closeTransaction(updateTransaction);
 
@@ -73,10 +68,15 @@ public class EventManager extends Manager<Event> {
 
     public Event remove(Event item) throws PersistenceException {
 
-    	EntityTransaction updateTransaction = beginTransaction();
+        EntityTransaction updateTransaction = beginTransaction();
         manager.remove(manager.contains(item) ? item : manager.merge(item));
         closeTransaction(updateTransaction);
 
         return item;
+    }
+
+    private List<Event> findByQuery(TypedQuery<Event> query) throws PersistenceException {
+        List<Event> events = query.getResultList();
+    	return events;
     }
 }

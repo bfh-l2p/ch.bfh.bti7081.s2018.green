@@ -25,14 +25,6 @@ public class MedicationPresenter {
     private DataContainer data;
     private boolean filterData;
 
-    // filter predicate to only display active medication
-    private Predicate<Medication> medFilter = ( Medication medicationToFilter)  -> {
-        if (medicationToFilter.isActive()) {
-            return true;
-        }
-        return false;
-    };
-
     /*
      * Constructor is building the Grid-Content of the view
      * @param: the MedicationView
@@ -54,6 +46,13 @@ public class MedicationPresenter {
 
         this.build();
     }
+
+    public boolean isFilterData() {
+        return filterData;
+    }
+
+    // filter predicate to only display active medication
+    private Predicate<Medication> medFilter = Medication::isActive;
 
     private void build () {
 
@@ -122,9 +121,5 @@ public class MedicationPresenter {
                 return btn;
             }).setId("EditButtonRow");
         }
-    }
-
-    public boolean isFilterData() {
-        return filterData;
     }
 }
