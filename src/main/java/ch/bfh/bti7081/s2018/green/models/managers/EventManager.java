@@ -19,13 +19,13 @@ public class EventManager extends Manager<Event> {
 	}
 
     public List<Event> findBy(Staff staff) throws PersistenceException {
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId", entityclass);
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE therapistId = :therapistId ORDER BY start", entityclass);
 		query.setParameter("therapistId", staff.getId());
 		return findByQuery(query);
     }
 
     public List<Event> findBy(Patient patient) throws PersistenceException {
-        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId", entityclass);
+        TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE patientId = :patientId ORDER BY start", entityclass);
 		query.setParameter("patientId", patient.getId());
 		return findByQuery(query);
     }
@@ -36,7 +36,7 @@ public class EventManager extends Manager<Event> {
         TypedQuery<Event> query = manager.createQuery("SELECT j FROM Event j WHERE start >= :startLocalDateTime and stop < :endLocalDateTime"
                 + " or start < :startLocalDateTime and stop > :endLocalDateTime"
                 + " or stop > :startLocalDateTime and stop <= :endLocalDateTime"
-                + " or start >= :startLocalDateTime and start < :endLocalDateTime", entityclass);
+                + " or start >= :startLocalDateTime and start < :endLocalDateTime ORDER BY start", entityclass);
         query.setParameter("startLocalDateTime", start);
         query.setParameter("endLocalDateTime", end);
         return findByQuery(query);
