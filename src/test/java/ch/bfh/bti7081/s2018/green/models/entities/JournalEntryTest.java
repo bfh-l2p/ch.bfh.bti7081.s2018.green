@@ -17,9 +17,9 @@ public class JournalEntryTest {
     @Test
     public void testJournalEntry() throws ClassNotFoundException, ParseException {
         Person emergencyContact = new Person("Emergency", "Contact", null, null, null, null, null, null);
-        Patient matthias = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
+        Patient patient = new Patient("Patrice", "lastname", null, null, null, null, null, null, emergencyContact);
         Staff exampleDoctor = new Staff("doctor", "staff", null, null, null, null, null, null, StaffType.PSYCHIATRIST);
-        JournalEntry entry = new JournalEntry("Halluzinationen", matthias, exampleDoctor);
+        JournalEntry entry = new JournalEntry("Halluzinationen", patient, exampleDoctor);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pmsDB");
         EntityManager em = emf.createEntityManager();
@@ -28,7 +28,7 @@ public class JournalEntryTest {
         // insert test record
         tx.begin();
         em.persist(emergencyContact);
-        em.persist(matthias);
+        em.persist(patient);
         em.persist(exampleDoctor);
 
         em.persist(entry);
@@ -38,6 +38,15 @@ public class JournalEntryTest {
         tx.begin();
         JournalEntry testJournalEntry = em.find(JournalEntry.class, entry.getId());
         tx.commit();
+
+        tx.begin();
+        em.remove(entry);
+        em.remove(exampleDoctor);
+        em.remove(patient);
+        em.remove(emergencyContact);
+        tx.commit();
+
+
         em.close();
 
         // test if persisted and read person are identical
